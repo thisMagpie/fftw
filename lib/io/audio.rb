@@ -4,8 +4,8 @@
 # for more info on where it is going
 
 require 'rubygems'
-require 'narray-nmatrix'
-require "numru/fftw3"
+require 'nmatrix'
+require "fftw3/fftw3"
 require "ruby-audio"
 include NumRu
 

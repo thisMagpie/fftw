@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ruby ext/extconf.rb --with-narray-include=/home/magpie/.rvm/gems/ruby-2.1.1/gems/narray-nmatrix-0.6.1.0.pre
+ruby ext/fftw3/extconf.rb --with-nmatrix-include='../nmatrix-0.1.0.rc3/ext/nmatrix' --with-fftw3-dir='../fftw3'
 make
 make install
 

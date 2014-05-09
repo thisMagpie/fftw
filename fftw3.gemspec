@@ -3,41 +3,55 @@ $:.unshift lib unless $:.include?(lib)
 
 Gem::Specification.new do |gem|
   gem.name = fftw3
-  gem.version = "0.3"
+  gem.version = File.readlines('VERSION')[0].chomp
 
-  gem.required_rubygems_version = Gem::Requirement.new(">= 1.2") if gem.respond_to? :required_rubygems_version=
-  gem.authors = ["T. Horinouchi, Evan Weaver"]
-  gem.date = %q{2009-10-21}
-  gem.description = %q{Gem version of T. Horinouchi's ruby-fftw3.}
-  gem.email = %q{}
+  gem.required_rubygems_version = Gem::Requirement.new(">= 2.2.2")
+  gem.authors = ['T. Horinouchi',
+                 'Yoshiki Tsunesada',
+                 'David MacMahon',
+                 'John Woods',
+                 'Masaomi Hakateyama',
+                 'Magdalen Berns'
+                 ]
+
+  gem.date = '2014-5-8'
+  gem.description = 'Ruby wrapper for performing FFTW3 with NMatrix'
+  gem.email = 'm.berns@thismagpie.com'
   gem.post_install_message = <<-EOF
 ***********************************************************
 Welcome to SciRuby: Tools for Scientific Computing in Ruby!
 
-Happy coding!
+FFTW3 requires a C compiler, and has been tested only
+with GCC 4.8+. We are happy to accept contributions
+which improve the portability of this project.
+
+Thanks for trying out FFTW3! Happy coding!
 
 ***********************************************************
 EOF
-  gem.extensions = ["ext/extconf.rb"]
-  gem.files = ["ChangeLog", "Manifest", "README", "Rakefile", "ToDo", "ext/extconf.rb", "ext/na_fftw3.c", "lib/fftw3.rb", "test/test_fftw3.rb", "fftw3.gemspec"]
-  gem.homepage = %q{http://blog.evanweaver.com/files/doc/fauna/ruby-fftw3/}
-  gem.rdoc_options = ["--line-numbers", "--inline-source", "--title", "Fftw3", "--main", "README"]
-  gem.require_paths = ["lib"]
-  gem.rubyforge_project = %q{fauna}
-  gem.rubygems_version = %q{1.3.5}
-  gem.summary = %q{Gem version of T. Horinouchi's ruby-fftw3.}
-  gem.test_files = ["test/test_fftw3.rb"]
+  gem.extensions = ['ext/fftw3/extconf.rb']
+  gem.files         = `git ls-files`.split("\n")
+  gem.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
+  gem.homepage = 'http://thismagpie.com/key/fftw3'
+  gem.has_rdoc = true
+  gem.rdoc_options = [
+      '--title',   'Ruby/FFTW3',
+      '--main',    'README',
+      '--exclude', 'ext/fftw3',
+      '--exclude', 'include/',
+      '--exclude', 'lib/',
+      '--line-numbers',
+      '--inline-source'
+    ]
+end
+
+  gem.require_paths = ['lib','include','ext/fftw3']
+  gem.include_path = ['include']
+  gem.rubygems_version = '2.2.2'
+  gem.summary = %q{Ruby FFTW3 wrapper}
 
   if gem.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
-    gem.specification_version = 3
-
-    if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
-      gem.add_runtime_dependency(%q<narray-nmatrix>, [">= 0.6.1"])
-    else
-      gem.add_dependency(%q<narray-nmatrix>, [">= 0.6.1"])
-    end
-  else
-    gem.add_dependency(%q<narray-nmatrix>, [">= 0.6.1"])
-  end
+    gem.specification_version = 4
+    gem.add_runtime_dependency('nmatrix', ['>= 0.1.0'])
 end
