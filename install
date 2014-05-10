@@ -1,0 +1,5 @@
+#!/bin/bash
+
+ruby ext/fftw3/extconf.rb --with-nmatrix-include='../nmatrix/ext/nmatrix'
+make
+make install
