@@ -2,7 +2,7 @@ require "mkmf"
 require "rubygems"
 
 nmatrix_dir = File.dirname(Gem.find_files("nmatrix.h").first) rescue $sitearchdir
-dir_config('nmatrix', nmatrix_dir, nmatrix_dir)
+dir_config('nmatrix/ext/nmatrix', nmatrix_dir, nmatrix_dir)
 dir_config('fftw3','/usr/local')
 
 if ( ! have_header("nmatrix.h") && have_header("nmatrix_config.h") ) then
@@ -36,11 +36,22 @@ EOS
 end
 
 if have_library("fftw3f")
-  $CFLAGS += ' -DFFTW3_HAS_SINGLE_SUPPORT'
+  $CFLAGS += ' -DFFTW3_HAS_SINGLE_SUPPORT -Wall -I../include'
 end
 
 if /cygwin|mingw/ =~ RUBY_PLATFORM
    have_library("nmatrix") || raise("ERROR: nmatrix library is not found")
 end
 
+
+begin
+  _CONFIG = File.open("../include/fftw3_config.h", "w")
+  FFTW3_CONFIG.printf("#ifndef ___FFTW3_CONFIG_H___\n")
+  FFTW3_CONFIG.printf("#define ___FFTW3_CONFIG_H___\n\n")
+  FFTW3_CONFIG.printf("\n#endif\n")
+  FFTW3_CONFIG.close
+  
+rescue
+  raise("fftw3 is installed, and the command \"fftw3-config\" is in search path.")
+end
 create_makefile("fftw3/fftw3")
