@@ -5,7 +5,7 @@ nmatrix_dir = File.dirname(Gem.find_files("nmatrix.h").first) rescue $sitearchdi
 dir_config('nmatrix', nmatrix_dir, nmatrix_dir)
 dir_config('fftw3/include','/usr/include')
 
-if ( ! have_header("nmatrix.h") && have_header("lib/nmatrix_config.h") ) then
+if ( ! have_header("nmatrix.h") && have_header("nmatrix_config.h") ) then
    print <<-EOS
    ** configure error **
 
@@ -43,15 +43,4 @@ if /cygwin|mingw/ =~ RUBY_PLATFORM
    have_library("nmatrix") || raise("ERROR: nmatrix library is not found")
 end
 
-
-begin
-  _CONFIG = File.open("../include/fftw3.h", "w")
-  FFTW3_CONFIG.printf("#ifndef ___FFTW3_H___\n")
-  FFTW3_CONFIG.printf("#define ___FFTW3_H___\n\n")
-  FFTW3_CONFIG.printf("\n#endif\n")
-  FFTW3_CONFIG.close
-  
-rescue
-  raise("fftw3 is installed, and the command \"fftw3\" is in search path.")
-end
 create_makefile("fftw3/fftw3")
