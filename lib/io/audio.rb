@@ -5,8 +5,9 @@
 
 require 'rubygems'
 require 'nmatrix'
-require "fftw3/fftw3"
-require "ruby-audio"
+require "numru/fftw3"
+require 'fftw3/fftw3'
+require 'ruby-audio'
 include NumRu
 
 print "\n** audio IO ** \n\n"
