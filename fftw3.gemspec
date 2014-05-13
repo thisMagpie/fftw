@@ -38,15 +38,15 @@ EOF
       '--title',   'Ruby/FFTW3',
       '--main',    'README',
       '--exclude', 'ext/fftw3',
-      '--exclude', 'include/',
-      '--exclude', 'lib/',
+      '--exclude', 'include',
+      '--exclude', 'lib',
       '--line-numbers',
       '--inline-source'
     ]
 end
 
-  gem.require_paths = ['lib','include','ext/fftw3']
-  gem.include_path = ['include']
+  gem.require_paths = ['lib', 'ext']
+  gem.include_path = ['include','/usr/include']
   gem.rubygems_version = '2.2.2'
   gem.summary = %q{Ruby FFTW3 wrapper}
 
