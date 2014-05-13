@@ -14,16 +14,19 @@ end
 require 'rake'
 require 'rake/extensiontask'
 Rake::ExtensionTask.new do |ext|
-    ext.name = 'fftw3'          
-    ext.ext_dir = 'ext/fftw3' 
-    ext.lib_dir = 'lib'
-    ext.source_pattern = "**/*.{c}" 
+    ext.name            = 'fftw3'
+    ext.ext_dir         = 'ext/fftw3'
+    ext.lib_dir         = 'lib'
+    ext.source_pattern  = "**/*.{c,cpp}"
 end
-
-#gemspec = eval(IO.read("fftw3.gemspec"))
 
 BASEDIR = Pathname( __FILE__ ).dirname.relative_path_from( Pathname.pwd )
 SPECDIR = BASEDIR + 'spec'
+
+desc "install the gem locally"
+task :install => [:package] do
+  sh %{gem install pkg/fftw3-#{FFTW3::VERSION}.gem}
+end
 
 VALGRIND_OPTIONS = [
     "--tool=memcheck",
@@ -97,10 +100,6 @@ namespace :spec do
 
   RSPEC_CMD = [ 'ruby', '-S', 'rspec', '-Ilib:ext', SPECDIR.to_s ]
 
-  #desc "Run the spec for generator.rb"
-  #task :generator do |task|
-  #  run 'rspec spec/generator_spec.rb'
-  #end
   desc "Run specs under GDB."
   task :gdb => [ :compile ] do |task|
           cmd = [ 'gdb' ] + GDB_OPTIONS
@@ -179,7 +178,7 @@ end
 require "rdoc/task"
 RDoc::Task.new do |rdoc|
   rdoc.main = "README.rdoc"
-  rdoc.rdoc_files.include(%w{README.rdoc History.txt LICENSE.txt CONTRIBUTING.md lib/fftw3/**/*.rb ext/fftw3/**/*.cpp ext/fftw3/**/*.c include/*.h})
+  rdoc.rdoc_files.include(%w{README.rdoc History.txt LICENSE.txt CONTRIBUTING.md lib/*.rb ext/fftw3/**/*.cpp ext/fftw3/**/*.c include/*.h})
 end
 
 #vim: syntax=ruby
