@@ -16,7 +16,7 @@ require 'rake/extensiontask'
 Rake::ExtensionTask.new do |ext|
     ext.name = 'fftw3'          
     ext.ext_dir = 'ext/fftw3' 
-    ext.lib_dir = 'lib/'             
+    ext.lib_dir = 'lib'
     ext.source_pattern = "**/*.{c}" 
 end
 
@@ -179,7 +179,7 @@ end
 require "rdoc/task"
 RDoc::Task.new do |rdoc|
   rdoc.main = "README.rdoc"
-  rdoc.rdoc_files.include(%w{README.rdoc History.txt LICENSE.txt CONTRIBUTING.md lib/fftw3/**/*.rb ext/fftw3/**/*.cpp ext/fftw3/**/*.c ext/fftw3/**/*.h})
+  rdoc.rdoc_files.include(%w{README.rdoc History.txt LICENSE.txt CONTRIBUTING.md lib/fftw3/**/*.rb ext/fftw3/**/*.cpp ext/fftw3/**/*.c include/*.h})
 end
 
 #vim: syntax=ruby
