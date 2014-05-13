@@ -32,7 +32,7 @@ EOF
   gem.extensions = ['ext/fftw3/extconf.rb']
   gem.files         = `git ls-files`.split("\n")
   gem.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
-  gem.homepage = 'http://thismagpie.com/key/fftw3'
+  gem.homepage = 'http://thismagpie.com/key/sciruby'
   gem.has_rdoc = true
   gem.rdoc_options = [
       '--title',   'Ruby/FFTW3',
