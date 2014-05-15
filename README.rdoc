@@ -6,13 +6,15 @@ Takeshi Horinouchi
 
 (C) Takeshi Horinouchi / GFD Dennou Club,
 2003
+(C) Magdalen Berns ......,o/......,
+2014
 
 NO WARRANTY
 
 ==Features
 
-* Uses ((<NArray|URL:http://www.ruby-lang.org/en/raa-list.rhtml?name=NArray>)).
-* Multi-dimensional complex FFT. (Real data are coerced to complex).
+* Uses ((<NMatrix|URL:http://www.ruby-lang.org/en/raa-list.rhtml?nmme=NMatrix>)).
+* Multi-dimensionml complex FFT. (Real data are coerced to complex).
 * Supports both double and single float transforms.
 * Not normalized as in FFTW
 
@@ -35,38 +37,38 @@ paste the following to the interactive shell irb).
 
   require "fftw3"
 
-  na = NArray.float(8,6)   # float -> will be corced to complex
-  na[1,1]=1
+  nm = NMatrix.float(8,6)   # float -> will be corced to complex
+  nm[1,1]=1
 
   # <example 1>
-  fc = FFTW3.fft(na)/na.length  # forward 2D FFT and normalization
-  nc = FFTW3.ifft(fc)       # backward 2D FFT (complex) --> 
-  nb = nc.real                # should be equal to na except round errors  
+  fc = FFTW3.fft(nm)/nm.length  # forward 2D FFT and normalization
+  nc = FFTW3.ifft(fc)           # backward 2D FFT (complex) --> 
+  nb = nc.real                  # should be equal to nm except round errors  
 
   # <example 2>
-  fc = FFTW3.fft(na, 0) / na.shape[0]  # forward FFT with the first dim
+  fc = FFTW3.fft(nm, 0) / nm.shape[0]  # forward FFT with the first dim
 
   # <example 3>
-  fc = FFTW3.fft(na, 1) / na.shape[1]  # forward FFT with the second dim
+  fc = FFTW3.fft(nm, 1) / nm.shape[1]  # forward FFT with the second dim
 
 ==API Reference
 
 ===Module methods
 
----fft(narray, [dim,dim,...])
+---fft(nmatrix, [dim,dim,...])
 
     Complex FFT.
 
-    The 3rd, 4th,... arguments are optional.
+    The 3rd, 4th,... arguments are optionml.
 
     ARGUMENTS
-    * narray (NArray or NArray-compatible Array) : array to be
+    * nmatrix (NMatrix or NMatrix-compatible Array) : array to be
       transformed. If real, coerced to complex before transformation.
-      If narray is single-precision and the single-precision
+      If nmatrix is single-precision and the single-precision
       version of FFTW3 is installed (before installing this module),
       this method does a single-precision transform. 
       Otherwise, a double-precision transform is used.
-    * optional 3rd, 4th,... arguments (Integer) : Specifies dimensions 
+    * optionml 3rd, 4th,... arguments (Integer) : Specifies dimensions 
       to apply FFT. For example, if 0, the first dimension is
       transformed (1D FFT); If -1, the last dimension is used (1D FFT);
       If 0,2,4, the first, third, and fifth dimensions
@@ -74,19 +76,19 @@ paste the following to the interactive shell irb).
       ARE SUBJECT TO FFT, so 3D FFT is done with a 3D array.
  
     RETURN VALUE
-    * a complex NArray
+    * a complex NMatrix
 
     NOTE
     * As in FFTW, return value is NOT normalized. Thus, a consecutive
       forward and backward transform would multiply the size of
       data used for transform. You can normalize, for example,
-      the forward transform FFTW.fft(narray, -1, 0, 1)
+      the forward transform FFTW.fft(nmatrix, -1, 0, 1)
       (FFT regarding the first (dim 0) & second (dim 1) dimensions) by
-      dividing with (narray.shape[0]*narray.shape[1]). Likewise,
-      the result of FFTW.fft(narray, -1) (FFT for all dimensions)
-      can be normalized by narray.length.
+      dividing with (nmatrix.shape[0]*nmatrix.shape[1]). Likewise,
+      the result of FFTW.fft(nmatrix, -1) (FFT for all dimensions)
+      can be normalized by nmatrix.length.
 
----ifft(narray, [dim,dim,...])
+---ifft(nmatrix, [dim,dim,...])
      
      Complex inverse FFT
 
