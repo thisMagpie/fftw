@@ -40,8 +40,5 @@ EOF
   gem.summary = %q{Ruby FFTW3 wrapper}
   gem.add_dependency(['rice','~>1.6.2'])
 
-  if gem.respond_to? :specification_version then
-    current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
-    gem.add_runtime_dependency('nmatrix', ['>= 0.1.0'])
-  end
+  gem.add_runtime_dependency('nmatrix', ['>= 0.1.0'])
 end
