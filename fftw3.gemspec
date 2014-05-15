@@ -33,17 +33,6 @@ EOF
   gem.files         = `git ls-files`.split("\n")
   gem.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   gem.homepage = 'http://thismagpie.com/key/sciruby'
-  gem.has_rdoc = true
-  gem.rdoc_options = [
-      '--title',   'Ruby/FFTW3',
-      '--main',    'README',
-      '--exclude', 'ext/fftw3',
-      '--exclude', 'include',
-      '--exclude', 'lib',
-      '--line-numbers',
-      '--inline-source'
-    ]
-end
 
   gem.require_paths = ['lib', 'ext']
   gem.include_path = ['include','/usr/include']
@@ -54,4 +43,5 @@ end
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     gem.specification_version = 4
     gem.add_runtime_dependency('nmatrix', ['>= 0.1.0'])
+  end
 end
