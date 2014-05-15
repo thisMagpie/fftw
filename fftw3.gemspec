@@ -38,10 +38,10 @@ EOF
   gem.include_path = ['include','/usr/include']
   gem.rubygems_version = '2.2.2'
   gem.summary = %q{Ruby FFTW3 wrapper}
+  gem.add_dependency(['rice','~>1.6.2'])
 
   if gem.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
-    gem.specification_version = 4
     gem.add_runtime_dependency('nmatrix', ['>= 0.1.0'])
   end
 end
