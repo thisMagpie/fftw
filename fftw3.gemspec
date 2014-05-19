@@ -31,6 +31,7 @@ Thanks for trying out FFTW3! Happy coding!
 EOF
   gem.extensions = ['ext/fftw3/extconf.rb']
   gem.files         = `git ls-files`.split("\n")
+  gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   gem.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   gem.homepage = 'http://thismagpie.com/key/sciruby'
 
