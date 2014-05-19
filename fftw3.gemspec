@@ -2,7 +2,7 @@ lib = File.expand_path('../lib/', __FILE__)
 $:.unshift lib unless $:.include?(lib)
 
 Gem::Specification.new do |gem|
-  gem.name = fftw3
+  gem.name = nmatrix-fftw3
   gem.version = File.readlines('VERSION')[0].chomp
 
   gem.required_rubygems_version = Gem::Requirement.new(">= 2.2.2")
@@ -36,7 +36,7 @@ EOF
   gem.homepage = 'http://thismagpie.com/key/sciruby'
 
   gem.require_paths = ['lib', 'ext']
-  gem.include_path = ['include','/usr/include']
+  gem.include_path = ['include','/usr/include','/usr/include/atlas']
   gem.rubygems_version = '2.2.2'
   gem.summary = %q{Ruby FFTW3 wrapper}
 
