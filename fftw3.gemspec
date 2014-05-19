@@ -38,7 +38,16 @@ EOF
   gem.include_path = ['include','/usr/include']
   gem.rubygems_version = '2.2.2'
   gem.summary = %q{Ruby FFTW3 wrapper}
-  gem.add_dependency(['rice','~>1.6.2'])
 
+  gem.required_ruby_version = '>= 1.9'
+
+  gem.add_dependency('nmatrix', ['>= 0.1.0'])
+  gem.add_dependency 'rdoc', '>=4.0.1'
+  gem.add_development_dependency 'rake'
+  gem.add_development_dependency 'bundler'
+  gem.add_development_dependency 'rspec'
+  gem.add_development_dependency 'rspec-longrun'
+  gem.add_development_dependency 'pry'
+  gem.add_development_dependency 'rake-compiler', '~>0.8.1'
   gem.add_runtime_dependency('nmatrix', ['>= 0.1.0'])
 end
