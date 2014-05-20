@@ -38,7 +38,7 @@ EOF
   gem.require_paths = ['lib', 'ext']
   gem.include_path = ['include','/usr/include','/usr/include/atlas']
   gem.rubygems_version = '2.2.2'
-  gem.summary = %q{Ruby FFTW3 wrapper}
+  gem.summary = 'Ruby FFTW3 wrapper for performing FFT operations on NMatrix objects.'
 
   gem.required_ruby_version = '>= 1.9'
 
