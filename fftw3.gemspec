@@ -36,8 +36,8 @@ EOF
   gem.test_files    = `git ls-files -- {test,spec}/*`.split("\n")
   gem.homepage = 'http://thismagpie.com/key/sciruby'
 
-  gem.require_paths = ['lib', 'ext']
-  gem.include_path = ['include','/usr/include','/usr/include/atlas']
+  gem.require_paths = ['lib', 'ext', '../nmatrix/lib']
+  gem.include_path = ['include','/usr/include','/usr/include/atlas','../nmatrix/ext']
   gem.rubygems_version = '2.2.2'
   gem.summary = 'Ruby FFTW3 wrapper for performing FFT operations on NMatrix objects.'
 
