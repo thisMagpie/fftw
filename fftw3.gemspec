@@ -3,6 +3,7 @@ $:.unshift lib unless $:.include?(lib)
 
 Gem::Specification.new do |gem|
   gem.name = nmatrix-fftw3
+  gem.version = FFTW3::VERSION::STRING
   gem.version = File.readlines('VERSION')[0].chomp
 
   gem.required_rubygems_version = Gem::Requirement.new(">= 2.2.2")
@@ -32,7 +33,7 @@ EOF
   gem.extensions = ['ext/fftw3/extconf.rb']
   gem.files         = `git ls-files`.split("\n")
   gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
-  gem.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
+  gem.test_files    = `git ls-files -- {test,spec}/*`.split("\n")
   gem.homepage = 'http://thismagpie.com/key/sciruby'
 
   gem.require_paths = ['lib', 'ext']
