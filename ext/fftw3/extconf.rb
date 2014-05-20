@@ -1,5 +1,37 @@
-require "mkmf"
-require "rubygems"
+require 'mkmf'
+require 'rubygems'
+
+# Function derived from NArray's extconf.rb.
+def have_type(type, header=nil) #:nodoc:
+  printf "checking for %s... ", type
+  STDOUT.flush
+
+  src = <<"SRC"
+#include <ruby.h>
+SRC
+
+
+  src << <<"SRC" unless header.nil?
+#include <#{header}>
+SRC
+
+  r = try_link(src + <<"SRC")
+  int main() { return 0; }
+  int t() { #{type} a; return 0; }
+SRC
+
+  unless r
+    print "no\n"
+    return false
+  end
+
+  $defs.push(format("-DHAVE_%s", type.upcase))
+
+  print "yes\n"
+
+  return true
+end
+
 
 module FFTW
   class Version
@@ -27,6 +59,50 @@ module FFTW
       if @ary[0] >= ary2[0]; return false; end
       return true
     end
+  end
+end
+
+def fftw3_config()
+  print("checking fftw cflags... ")
+  IO.popen('#{FFTW3_CONFIG} --cflags') do |f|
+    cflags = f.gets.chomp
+    puts(cflags)
+    $CFLAGS += ' ' + cflags
+  end
+
+  IO.popen('#{FFTW3_CONFIG} --libs') do |f|
+    libs = f.gets.chomp
+    dir_config("cblas")
+    dir_config("atlas")
+    if have_library('cblas') and have_library('atlas')
+      libs.gsub!('-lfftw3cblas', '-lcblas -latlas')
+      $LOCAL_LIBS += ' ' + libs.gsub(' -lfftw3cblas', '')
+      print("checking fftw3 libs... ")
+      puts(libs)
+    else
+      print("checking fftw3 libs... ")
+      puts(libs)
+      $LOCAL_LIBS += " " + libs
+    end
+  end
+end
+# Function derived from NArray's extconf.rb.
+def create_conf_h(file) #:nodoc:
+  print "creating #{file}\n"
+  File.open(file, 'w') do |hfile|
+    header_guard = file.upcase.sub(/\s|\./, '_')
+
+    hfile.puts "#ifndef #{header_guard}"
+    hfile.puts "#define #{header_guard}"
+    hfile.puts
+
+    for line in $defs
+      line =~ /^-D(.*)/
+      hfile.printf "#define %s 1\n", $1
+    end
+
+    hfile.puts
+    hfile.puts "#endif"
   end
 end
 
