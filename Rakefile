@@ -180,5 +180,3 @@ RDoc::Task.new do |rdoc|
   rdoc.main = "README.rdoc"
   rdoc.rdoc_files.include(%w{README.rdoc History.txt LICENSE.txt CONTRIBUTING.md lib/*.rb ext/fftw3/**/*.cpp ext/fftw3/**/*.c include/*.h})
 end
-
-#vim: syntax=ruby
