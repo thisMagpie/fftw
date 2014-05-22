@@ -2,7 +2,8 @@ lib = File.expand_path('../lib/', __FILE__)
 $:.unshift lib unless $:.include?(lib)
 
 Gem::Specification.new do |gem|
-  gem.name = fftw3
+  gem.name = nmatrix-fftw3
+  gem.version = FFTW3::VERSION::STRING
   gem.version = File.readlines('VERSION')[0].chomp
 
   gem.required_rubygems_version = Gem::Requirement.new(">= 2.2.2")
@@ -31,14 +32,24 @@ Thanks for trying out FFTW3! Happy coding!
 EOF
   gem.extensions = ['ext/fftw3/extconf.rb']
   gem.files         = `git ls-files`.split("\n")
-  gem.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
+  gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  gem.test_files    = `git ls-files -- {test,spec}/*`.split("\n")
   gem.homepage = 'http://thismagpie.com/key/sciruby'
 
-  gem.require_paths = ['lib', 'ext']
-  gem.include_path = ['include','/usr/include']
+  gem.require_paths = ['lib', 'ext', '../nmatrix/lib']
+  gem.include_path = ['include','/usr/include','/usr/include/atlas','../nmatrix/ext']
   gem.rubygems_version = '2.2.2'
-  gem.summary = %q{Ruby FFTW3 wrapper}
-  gem.add_dependency(['rice','~>1.6.2'])
+  gem.summary = 'Ruby FFTW3 wrapper for performing FFT operations on NMatrix objects.'
 
+  gem.required_ruby_version = '>= 1.9'
+
+  gem.add_dependency('nmatrix', ['>= 0.1.0'])
+  gem.add_dependency 'rdoc', '>=4.0.1'
+  gem.add_development_dependency 'rake'
+  gem.add_development_dependency 'bundler'
+  gem.add_development_dependency 'rspec'
+  gem.add_development_dependency 'rspec-longrun'
+  gem.add_development_dependency 'pry'
+  gem.add_development_dependency 'rake-compiler', '~>0.8.1'
   gem.add_runtime_dependency('nmatrix', ['>= 0.1.0'])
 end

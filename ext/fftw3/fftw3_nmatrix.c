@@ -1,7 +1,5 @@
 #include "fftw3.h"
 #ifdef __HAVE_NMATRIX_H__
-#include "fftw3_array.h"
-#include "fftw3_with_nmatrix.h"
 
 // re-define so it doesn't use reinterpret_cast<>
 #define NM_STRUCT(val)          ((NMATRIX*)(DATA_PTR(val)))
@@ -18,9 +16,6 @@
 #define NM_SHAPE(val,i)         (NM_STORAGE(val)->shape[(i)])
 #define NM_SHAPE0(val)          (NM_STORAGE(val)->shape[0])
 #define NM_SHAPE1(val)          (NM_STORAGE(val)->shape[1])
-
-// External API
-extern VALUE rb_nmatrix_dense_create(nm_dtype_t dtype, size_t* shape, size_t rank, void* elements, size_t length);
 
 extern VALUE rb_nm_eDataTypeError, rb_nm_eStorageTypeError;
 
@@ -81,9 +76,7 @@ VALUE rb_fftw3_nm_to_fftw3_matrix_int(VALUE obj, VALUE n) {
   return Data_Wrap_Struct(cfftw3_matrix_int, 0, fftw3_matrix_int_free, nm_to_gm_int(n));
 }
 
-
 void Init_fftw3_nmatrix(VALUE module) {
-
   define_method(cfftw3_matrix, "to_nm", rb_fftw3_matrix_to_nmatrix, 0);
   define_singleton_method(cfftw3_matrix, "nm_to_fftw3m",  rb_fftw3_nm_to_fftw3_matrix, 1);
 
