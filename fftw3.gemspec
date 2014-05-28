@@ -2,7 +2,7 @@ lib = File.expand_path('../lib/', __FILE__)
 $:.unshift lib unless $:.include?(lib)
 
 Gem::Specification.new do |gem|
-  gem.name = nmatrix-fftw3
+  gem.name = nmatrix-fftw
   gem.version = FFTW3::VERSION::STRING
   gem.version = File.readlines('VERSION')[0].chomp
 
@@ -45,6 +45,7 @@ EOF
 
   gem.add_dependency('nmatrix', ['>= 0.1.0'])
   gem.add_dependency 'rdoc', '>=4.0.1'
+  gem.add_dependency 'rake-compiler', '~>0.8.1'
   gem.add_development_dependency 'rake'
   gem.add_development_dependency 'bundler'
   gem.add_development_dependency 'rspec' # https://github.com/rspec/rspec-core#install
