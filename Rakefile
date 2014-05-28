@@ -1,8 +1,11 @@
 # -*- ruby -*-
-
+require 'rspec/core/rake_task'
 require 'rubygems'
 require 'rubygems/package_task'
 require 'bundler'
+RSpec::Core::RakeTask.new('spec')
+
+task :default => :spec
 begin
   Bundler.setup(:default, :development)
 rescue Bundler::BundlerError => e
