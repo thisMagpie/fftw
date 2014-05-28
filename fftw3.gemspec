@@ -30,17 +30,6 @@ Thanks for trying out FFTW3! Happy coding!
 
 ***********************************************************
 EOF
-  gem.extensions = ['ext/fftw3/extconf.rb']
-  gem.files         = `git ls-files`.split("\n")
-  gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
-  gem.test_files    = `git ls-files -- {test,spec}/*`.split("\n")
-  gem.homepage = 'http://thismagpie.com/key/sciruby'
-
-  gem.require_paths = ['lib', 'ext', '../nmatrix/lib']
-  gem.include_path = ['include','/usr/include','/usr/include/atlas','../nmatrix/ext']
-  gem.rubygems_version = '2.2.2'
-  gem.summary = 'Ruby FFTW3 wrapper for performing FFT operations on NMatrix objects.'
-
   gem.required_ruby_version = '>= 1.9'
 
   gem.add_dependency('nmatrix', ['>= 0.1.0'])
@@ -53,4 +42,15 @@ EOF
   gem.add_development_dependency 'pry'
   gem.add_development_dependency 'rake-compiler', '~>0.8.1'
   gem.add_runtime_dependency('nmatrix', ['>= 0.1.0'])
+
+  gem.extensions = ['ext/fftw3/extconf.rb']
+  gem.files         = `git ls-files`.split("\n")
+  gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  gem.test_files    = `git ls-files -- {test,spec}/*`.split("\n")
+  gem.homepage = 'http://thismagpie.com/key/sciruby'
+
+  gem.require_paths = ['lib', 'ext', '../nmatrix/lib']
+  gem.include_path = ['include','/usr/include','/usr/include/atlas','../nmatrix/ext']
+  gem.rubygems_version = '2.2.2'
+  gem.summary = 'Ruby FFTW3 wrapper for performing FFT operations on NMatrix objects.'
 end
