@@ -18,7 +18,7 @@ Gem::Specification.new do |gem|
   gem.extensions = ['ext/fftw3/extconf.rb']
   gem.files         = `git ls-files`.split("\n")
   gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
-  gem.test_files    = `git ls-files -- {test,spec}/*`.split("\n")
+  gem.test_files    = `git ls-files -- {spec}/*`.split("\n")
   gem.homepage = 'http://thismagpie.com/key/sciruby'
   gem.require_paths = ['lib', 'ext', '../nmatrix/lib']
   gem.rubygems_version = '2.2.2'
