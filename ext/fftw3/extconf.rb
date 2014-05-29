@@ -12,7 +12,7 @@ SRC
 
 
   src << <<"SRC" unless header.nil?
-#include <#{header}>
+#include "#{header}"
 SRC
 
   r = try_link(src + <<"SRC")
