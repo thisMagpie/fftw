@@ -9,7 +9,6 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "rspec"
   gem.add_development_dependency 'rake'
   gem.add_development_dependency 'bundler'
-  gem.add_development_dependency 'rspec' # https://github.com/rspec/rspec-core#install
   gem.add_development_dependency 'rspec-longrun'
   gem.add_development_dependency 'pry'
   gem.add_development_dependency 'rake-compiler', '~>0.8.1'
