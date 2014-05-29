@@ -2,7 +2,7 @@ require 'mkmf'
 require 'rubygems'
 
 # Function derived from NArray's extconf.rb.
-def have_type(type, header=nil) #:nodoc:
+def have_type(type, header=nil)
   printf "checking for %s... ", type
   STDOUT.flush
 
