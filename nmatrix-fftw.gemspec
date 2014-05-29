@@ -1,7 +1,7 @@
 lib = File.expand_path('../lib/', __FILE__)
 $:.unshift lib unless $:.include?(lib)
 
-require 'nmatrix-fftw'
+require 'nmatrix-fftw/version'
 
 Gem::Specification.new do |gem|
   gem.name = 'nmatrix-fftw'
