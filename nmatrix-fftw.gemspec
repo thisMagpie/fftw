@@ -6,6 +6,7 @@ Gem::Specification.new do |gem|
   gem.name = 'nmatrix-fftw'
   gem.version = NMatrix::FFTW::VERSION
   gem.platform    = Gem::Platform::RUBY
+  gem.require_paths = ["."]
   gem.add_dependency 'nmatrix', '~> 0.1.0'
   gem.add_dependency 'rdoc', '>=4.0.1'
   gem.add_dependency 'rake-compiler', '~>0.8.1'
