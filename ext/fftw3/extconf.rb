@@ -33,7 +33,7 @@ SRC
 end
 
 
-module FFTW
+module NMatrix_FFTW
   class Version
     def initialize(str)
       @str = str
@@ -64,13 +64,13 @@ end
 
 def fftw3_config()
   print("checking fftw cflags... ")
-  IO.popen('#{FFTW3_CONFIG} --cflags') do |f|
+  IO.popen('#{NMatrix_FFTW_CONFIG} --cflags') do |f|
     cflags = f.gets.chomp
     puts(cflags)
     $CFLAGS += ' ' + cflags
   end
 
-  IO.popen('#{FFTW3_CONFIG} --libs') do |f|
+  IO.popen('#{NMatrix_FFTW_CONFIG} --libs') do |f|
     libs = f.gets.chomp
     dir_config("cblas")
     dir_config("atlas")
