@@ -17,7 +17,7 @@ SPECDIR = BASEDIR + 'spec'
 
 desc "install the gem locally"
 task :install => [:package] do
-  sh %{gem install pkg/fftw3-#{NMATRIX::FFTW::VERSION}.gem}
+  sh %{gem install pkg/nmatrix-fftw-#{NMatrix::FFTW::VERSION}.gem}
 end
 
 VALGRIND_OPTIONS = [
@@ -44,25 +44,25 @@ GDB_OPTIONS = []
 
 
 task :console do |task|
-  cmd = [ 'irb', "-r './lib/fftw3.rb'" ]
+  cmd = [ 'irb', "-r './lib/nmatrix_fftw.rb'" ]
   run *cmd
 end
 
 task :pry do |task|
-  cmd = [ 'pry', "-r './lib/fftw3.rb'" ]
+  cmd = [ 'pry', "-r './lib/nmatrix_fftw.rb'" ]
   run *cmd
 end
 
 namespace :pry do
   task :valgrind => [ :compile ] do |task|
     cmd  = [ 'valgrind' ] + VALGRIND_OPTIONS
-    cmd += ['ruby', '-Ilib:ext', "-r './lib/fftw3.rb'", "-r 'pry'", "-e 'binding.pry'"]
+    cmd += ['ruby', '-Ilib:ext', "-r './lib/nmatrix_fftw.rb'", "-r 'pry'", "-e 'binding.pry'"]
     run *cmd
   end
 end
 
 namespace :console do
-  CONSOLE_CMD = ['irb', "-r './lib/fftw3.rb'"]
+  CONSOLE_CMD = ['irb', "-r './lib/nmatrix_fftw.rb'"]
   desc "Run console under GDB."
   task :gdb => [ :compile ] do |task|
           cmd = [ 'gdb' ] + GDB_OPTIONS
