@@ -1,7 +1,5 @@
-# -*- ruby -*-
 require 'rspec/core/rake_task'
 require 'rubygems'
-require 'rubygems/package_task'
 require 'bundler'
 RSpec::Core::RakeTask.new('spec')
 
