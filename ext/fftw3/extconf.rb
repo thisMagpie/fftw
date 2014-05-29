@@ -33,7 +33,7 @@ SRC
 end
 
 
-module NMatrix_FFTW
+module NMatrix::FFTW
   class Version
     def initialize(str)
       @str = str
