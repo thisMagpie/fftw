@@ -1,12 +1,4 @@
-require 'fftw'
-
-<<<<<<< HEAD
-RSpec.configure do |config|
-  config.expect_with :rspec, :stdlib,:fftw
-end
-
-=======
->>>>>>> devel
-describe FFTW do
+require 'spec_helper'
+describe NMatrix_FFTW do
   push "check"
 end
