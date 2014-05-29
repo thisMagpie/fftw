@@ -22,6 +22,10 @@ end
 BASEDIR = Pathname( __FILE__ ).dirname.relative_path_from( Pathname.pwd )
 SPECDIR = BASEDIR + 'spec'
 
+gemspec = eval(IO.read("nmatrix-fftw.gemspec"))
+
+Gem::PackageTask.new(gemspec).define
+
 desc "install the gem locally"
 task :install => [:package] do
   sh %{gem install pkg/nmatrix-fftw-#{NMatrix::FFTW::VERSION}.gem}
