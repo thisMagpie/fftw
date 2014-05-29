@@ -12,21 +12,12 @@ rescue Bundler::BundlerError => e
   exit e.status_code
 end
 
-require 'rake'
-require 'rake/extensiontask'
-Rake::ExtensionTask.new do |ext|
-    ext.name            = 'fftw3'
-    ext.ext_dir         = 'ext/fftw3'
-    ext.lib_dir         = 'lib'
-    ext.source_pattern  = "**/*.{c,cpp}"
-end
-
 BASEDIR = Pathname( __FILE__ ).dirname.relative_path_from( Pathname.pwd )
 SPECDIR = BASEDIR + 'spec'
 
 desc "install the gem locally"
 task :install => [:package] do
-  sh %{gem install pkg/fftw3-#{FFTW3::VERSION}.gem}
+  sh %{gem install pkg/fftw3-#{NMATRIX::FFTW::VERSION}.gem}
 end
 
 VALGRIND_OPTIONS = [

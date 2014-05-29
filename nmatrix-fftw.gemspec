@@ -1,8 +1,11 @@
 lib = File.expand_path('../lib/', __FILE__)
 $:.unshift lib unless $:.include?(lib)
 
+require 'nmatrix-fftw'
+
 Gem::Specification.new do |gem|
   gem.name = 'nmatrix-fftw'
+  gem.version = NMATRIX::FFTW::VERSION
   gem.add_dependency 'nmatrix', '~> 0.1.0'
   gem.add_dependency 'rdoc', '>=4.0.1'
   gem.add_dependency 'rake-compiler', '~>0.8.1'

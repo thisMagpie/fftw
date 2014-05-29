@@ -12,7 +12,7 @@ SRC
 
 
   src << <<"SRC" unless header.nil?
-#include "#{header}"
+#include <#{header}>
 SRC
 
   r = try_link(src + <<"SRC")
@@ -106,7 +106,7 @@ def create_conf_h(file) #:nodoc:
   end
 end
 
-nmatrix_config = dir_config('../nmatrix',$sitearchdir,$sitearchdir)
+#nmatrix_config = dir_config('../nmatrix',$sitearchdir,$sitearchdir)
 begin
   require 'rubygems'
   nm_gemspec=Gem::Specification.find_by_path('nmatrix.h')
