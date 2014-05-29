@@ -2,15 +2,8 @@ require 'rspec/core/rake_task'
 require 'rubygems'
 require 'bundler'
 RSpec::Core::RakeTask.new('spec')
-begin
-  Bundler.setup(:default, :development)
-rescue Bundler::BundlerError => e
-  $stderr.puts e.message
-  $stderr.puts "Run `bundle install` to install missing gems"
-  exit e.status_code
-end
-
 task :default => :spec
+
 begin
   Bundler.setup(:default, :development)
 rescue Bundler::BundlerError => e
@@ -31,108 +24,8 @@ task :install => [:package] do
   sh %{gem install pkg/nmatrix-fftw-#{NMatrix::FFTW::VERSION}.gem}
 end
 
-VALGRIND_OPTIONS = [
-    "--tool=memcheck",
-    "--num-callers=15",
-    "--partial-loads-ok=yes",
-    "--undef-value-errors=no"
-]
-
-CALLGRIND_OPTIONS = [
-    "--tool=callgrind",
-    "--dump-instr=yes",
-    "--simulate-cache=yes",
-    "--collect-jumps=yes"
-]
-
-VALGRIND_MEMORYFILL_OPTIONS = [
-    "--freelist-vol=100000000",
-    "--malloc-fill=6D",
-    "--free-fill=66 ",
-]
-
-GDB_OPTIONS = []
-
-
-task :console do |task|
-  cmd = [ 'irb', "-r './lib/nmatrix_fftw.rb'" ]
-  run *cmd
-end
-
-task :pry do |task|
-  cmd = [ 'pry', "-r './lib/nmatrix_fftw.rb'" ]
-  run *cmd
-end
-
-namespace :pry do
-  task :valgrind => [ :compile ] do |task|
-    cmd  = [ 'valgrind' ] + VALGRIND_OPTIONS
-    cmd += ['ruby', '-Ilib:ext', "-r './lib/nmatrix_fftw.rb'", "-r 'pry'", "-e 'binding.pry'"]
-    run *cmd
-  end
-end
-
-namespace :console do
-  CONSOLE_CMD = ['irb', "-r './lib/nmatrix_fftw.rb'"]
-  desc "Run console under GDB."
-  task :gdb => [ :compile ] do |task|
-          cmd = [ 'gdb' ] + GDB_OPTIONS
-          cmd += [ '--args' ]
-          cmd += CONSOLE_CMD
-          run( *cmd )
-  end
-
-  desc "Run console under Valgrind."
-  task :valgrind => [ :compile ] do |task|
-          cmd = [ 'valgrind' ] + VALGRIND_OPTIONS
-          cmd += CONSOLE_CMD
-          run( *cmd )
-  end
-end
-
-task :default => :spec
-
 def run *cmd
   sh(cmd.join(" "))
-end
-
-namespace :spec do
-  # partial-loads-ok and undef-value-errors necessary to ignore
-  # spurious (and eminently ignorable) warnings from the ruby
-  # interpreter
-
-  RSPEC_CMD = [ 'ruby', '-S', 'rspec', '-Ilib:ext', SPECDIR.to_s ]
-
-  desc "Run specs under GDB."
-  task :gdb => [ :compile ] do |task|
-          cmd = [ 'gdb' ] + GDB_OPTIONS
-    cmd += [ '--args' ]
-    cmd += RSPEC_CMD
-    run( *cmd )
-  end
-
-  desc "Run specs under cgdb."
-  task :cgdb => [ :compile ] do |task|
-    cmd = [ 'cgdb' ] + GDB_OPTIONS
-    cmd += [ '--args' ]
-    cmd += RSPEC_CMD
-    run( *cmd )
-  end
-
-  desc "Run specs under Valgrind."
-  task :valgrind => [ :compile ] do |task|
-    cmd = [ 'valgrind' ] + VALGRIND_OPTIONS
-    cmd += RSPEC_CMD
-    run( *cmd )
-  end
-
-  desc "Run specs under Callgrind."
-  task :callgrind => [ :compile ] do |task|
-    cmd = [ 'valgrind' ] + CALLGRIND_OPTIONS
-    cmd += RSPEC_CMD
-    run( *cmd )
-  end
-
 end
 
 namespace :clean do
