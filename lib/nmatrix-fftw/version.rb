@@ -22,7 +22,7 @@
 # * https://github.com/SciRuby/sciruby/wiki/Contributor-Agreement
 #++
 
-class FFTW
+class NMatrixFFTW
 
   module VERSION
     MAJOR = 0

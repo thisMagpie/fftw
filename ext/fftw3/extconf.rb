@@ -33,7 +33,7 @@ SRC
 end
 
 
-module NMatrix::FFTW
+module NMatrixFFTW
   class Version
     def initialize(str)
       @str = str
@@ -62,8 +62,8 @@ module NMatrix::FFTW
   end
 end
 
-def fftw3_config()
-  print("checking fftw cflags... ")
+def nmatrix_fftw_config()
+  print("checking nmatrix_fftw cflags... ")
   IO.popen('#{NMatrix_FFTW_CONFIG} --cflags') do |f|
     cflags = f.gets.chomp
     puts(cflags)
@@ -106,7 +106,7 @@ def create_conf_h(file) #:nodoc:
   end
 end
 
-#nmatrix_config = dir_config('../nmatrix',$sitearchdir,$sitearchdir)
+nmatrix_config = dir_config('../nmatrix',$sitearchdir,$sitearchdir)
 begin
   require 'rubygems'
   nm_gemspec=Gem::Specification.find_by_path('nmatrix.h')
@@ -123,7 +123,7 @@ if nmatrix_config
   end
 end
 
-dir_config('fftw3/include','/usr/include',$sitearchdir)
+dir_config('include','/usr/include',$sitearchdir)
 
 if ( ! have_header("fftw3.h") && have_library("fftw3") ) then
    print <<EOS
@@ -150,4 +150,4 @@ if /cygwin|mingw/ =~ RUBY_PLATFORM
    have_library("nmatrix") || raise("ERROR: nmatrix library is not found")
 end
 
-create_makefile("fftw3/fftw3")
+create_makefile("nmatrix_fftw")
