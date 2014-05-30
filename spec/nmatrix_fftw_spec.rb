@@ -1,4 +1,5 @@
 require 'spec_helper'
-describe NMATRIX::FFTW do
+
+describe NMatrixFFTW do
   push "check"
 end
