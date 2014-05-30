@@ -1,6 +1,7 @@
 require 'rspec/core/rake_task'
 require 'rubygems'
 require 'bundler'
+require 'rubygems/package_task'
 RSpec::Core::RakeTask.new('spec')
 task :default => :spec
 
@@ -21,7 +22,7 @@ Gem::PackageTask.new(gemspec).define
 
 desc "install the gem locally"
 task :install => [:package] do
-  sh %{gem install pkg/nmatrix-fftw-#{NMatrix::FFTW::VERSION}.gem}
+  sh %{gem install pkg/nmatrix-fftw-#{NMatrixFFTW::VERSION::STRING}.gem}
 end
 
 def run *cmd
