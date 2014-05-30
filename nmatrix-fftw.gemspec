@@ -4,7 +4,7 @@ require 'nmatrix-fftw/version'
 
 Gem::Specification.new do |gem|
   gem.name = 'nmatrix-fftw'
-  gem.version = NMatrix::FFTW::VERSION
+  gem.version = FFTW::VERSION::STRING
   gem.platform    = Gem::Platform::RUBY
   gem.require_paths = ["."]
   gem.add_dependency 'nmatrix', '~> 0.1.0'
