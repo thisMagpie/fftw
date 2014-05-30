@@ -1,5 +1,5 @@
 require 'spec_helper'
 
 describe NMatrixFFTW do
-  push "check"
+  puts "check"
 end
