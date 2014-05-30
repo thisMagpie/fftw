@@ -7,7 +7,7 @@ Gem::Specification.new do |gem|
   gem.version = FFTW::VERSION::STRING
   gem.platform    = Gem::Platform::RUBY
   gem.require_paths = ["."]
-  gem.add_dependency 'nmatrix', '~> 0.1.0'
+  gem.add_dependency 'nmatrix', '~> 0.1.0.rc3'
   gem.add_dependency 'rdoc', '>=4.0.1'
   gem.add_dependency 'rake-compiler', '~>0.8.1'
   gem.add_development_dependency 'rspec', '~> 2.14.1'
@@ -16,7 +16,6 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rspec-longrun'
   gem.add_development_dependency 'pry'
   gem.add_development_dependency 'rake-compiler', '~>0.8.1'
-  gem.add_runtime_dependency 'nmatrix', '~> 0.1.0'
 
   gem.extensions = ['ext/fftw3/extconf.rb']
   gem.files         = `git ls-files`.split("\n")
