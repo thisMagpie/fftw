@@ -35,7 +35,7 @@ end
 
 namespace :clean do
   task :so do |task|
-    tmp_path = "tmp/#{RUBY_PLATFORM}/fftw3/#{RUBY_VERSION}"
+    tmp_path = "tmp/#{RUBY_PLATFORM}/nmatrix-fftw/#{RUBY_VERSION}"
     chdir tmp_path do
       if RUBY_PLATFORM =~ /mswin/
         `nmake soclean`
