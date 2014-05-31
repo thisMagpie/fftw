@@ -16,7 +16,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rspec-longrun'
   gem.add_development_dependency 'pry'
 
-  gem.extensions = ['ext/fftw3/extconf.rb']
+  gem.extensions = ['ext/nmatrix-fftw/extconf.rb']
   gem.files         = `git ls-files`.split("\n")
   gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   gem.test_files    = `git ls-files -- {spec}/*`.split("\n")
