@@ -32,36 +32,6 @@ SRC
   return true
 end
 
-
-module NMatrixFFTW
-  class Version
-    def initialize(str)
-      @str = str
-      @ary = str.split(".").collect { |elm| elm.to_i }
-    end
-    def to_s; @str; end
-    def inspect; @str; end
-    def >=(ver)
-      ary2 = ver.split(".").collect { |elm| elm.to_i }
-      if @ary[0] > ary2[0]; return true; end
-      if @ary[0] < ary2[0]; return false; end
-      if @ary[1] > ary2[1]; return true; end
-      if @ary[1] < ary2[1]; return false; end
-      if @ary.size < ary2.size; return false; end
-      if @ary.size == 3 and ary2.size == 3
-        if @ary[2] < ary2[2]; return false; end
-      end
-      return true
-    end
-    def <(ver)
-      ary2 = ver.split(".").collect { |elm| elm.to_i }
-      if @ary[0] >= ary2[0]; return false; end
-      if @ary[0] >= ary2[0]; return false; end
-      return true
-    end
-  end
-end
-
 def nmatrix_fftw_config()
   print("checking nmatrix_fftw cflags... ")
   IO.popen('#{NMatrix_FFTW_CONFIG} --cflags') do |f|
