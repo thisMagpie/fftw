@@ -2,7 +2,11 @@ require 'rspec/core/rake_task'
 require 'rubygems'
 require 'bundler'
 require 'rubygems/package_task'
-RSpec::Core::RakeTask.new('spec')
+
+RSpec::Core::RakeTask.new(:spec) do |t|
+  t.fail_on_error = false
+end
+
 task :default => :spec
 
 begin
