@@ -9,6 +9,8 @@ end
 
 task :default => :spec
 
+require 'rspec/autorun'
+
 begin
   Bundler.setup(:default, :development)
 rescue Bundler::BundlerError => e
