@@ -2,6 +2,7 @@ require 'rspec/core/rake_task'
 require 'rubygems'
 require 'bundler'
 require 'rubygems/package_task'
+require 'rake_tasks'
 
 RSpec::Core::RakeTask.new(:spec) do |t|
   t.fail_on_error = false
@@ -34,7 +35,8 @@ def run *cmd
 end
 
 namespace :clean do
-  task :so do |task|
+  task :clean do |task|
+    Dir['*~'].each {|fn| rm fn rescue nil}
     tmp_path = "tmp/#{RUBY_PLATFORM}/nmatrix-fftw/#{RUBY_VERSION}"
     chdir tmp_path do
       if RUBY_PLATFORM =~ /mswin/
