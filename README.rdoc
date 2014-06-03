@@ -1,4 +1,4 @@
-{<img src=https://travis-ci.org/thisMagpie/fftw3.png>}[https://travis-ci.org/ThisMagpie/fftw3]
+{<img src=https://travis-ci.org/thisMagpie/fftw.png>}[https://travis-ci.org/ThisMagpie/fftw]
 
 
 In order to give SciRuby the capability to handle signal analysis, processing and synthesis via the NMatrix gem or otherwise.
