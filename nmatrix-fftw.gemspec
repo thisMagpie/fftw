@@ -11,6 +11,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'rdoc', '>=4.0.1'
   gem.add_dependency 'rake-compiler', '~>0.8.1'
   gem.add_dependency 'rake_tasks', '~> 2.0.6'
+  gem.add_dependency 'ffi'
   gem.add_development_dependency 'rspec', '~> 2.14.1'
   gem.add_development_dependency 'rake'
   gem.add_development_dependency 'bundler'
