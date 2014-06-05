@@ -4,7 +4,6 @@ require 'nmatrix'
 
 nmatrix_config = dir_config('../nmatrix',$sitearchdir,$sitearchdir)
 begin
-  require 'rubygems'
   nm_gemspec=Gem::Specification.find_by_path('nmatrix.h')
   if nm_gemspec
     nmatrix_config = File.join(nm_gemspec.full_gem_path, nm_gemspec.require_path)
