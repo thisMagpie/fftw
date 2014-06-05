@@ -1,3 +1,4 @@
+require 'rake_tasks'
 lib = File.expand_path('../lib/', __FILE__)
 $:.unshift lib unless $:.include?(lib)
 require 'nmatrix-fftw/version'
@@ -7,15 +8,15 @@ Gem::Specification.new do |gem|
   gem.version = NMatrixFFTW::VERSION::STRING
   gem.platform    = Gem::Platform::RUBY
   gem.require_paths = ["."]
-  gem.add_dependency 'nmatrix', '~> 0.1.0.rc3'
-  gem.add_dependency 'rdoc', '>=4.0.1'
-  gem.add_dependency 'rake-compiler', '~>0.8.1'
-  gem.add_dependency 'rake_tasks', '~> 2.0.6'
-  gem.add_dependency 'ffi'
-  gem.add_development_dependency 'rspec', '~> 2.14.1'
-  gem.add_development_dependency 'rake'
-  gem.add_development_dependency 'bundler'
-  gem.add_development_dependency 'rspec-longrun'
+  gem.add_dependency 'nmatrix', '>=0.1.0.rc3'
+  gem.add_development_dependency 'rake_tasks', '>= 2.0.6'
+  gem.add_development_dependency 'rdoc', '>=4.0.1'
+  gem.add_development_dependency 'rake-compiler', '>=0.8.1'
+  gem.add_development_dependency 'ffi', '>=1.9.3'
+  gem.add_development_dependency 'rspec', '>=2.14.1'
+  gem.add_development_dependency 'rake', '>=10.3.2'
+  gem.add_development_dependency 'bundler', '>=1.6.2'
+  gem.add_development_dependency 'rspec-longrun', '>=1.0.1'
   gem.add_development_dependency 'pry'
 
   gem.extensions = ['ext/nmatrix-fftw/extconf.rb']
