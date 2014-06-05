@@ -48,7 +48,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rake-compiler', '>=0.8.1'
   gem.add_development_dependency 'ffi', '>=1.9.3'
   gem.add_development_dependency 'rspec', '>=2.14.1'
-  gem.add_development_dependency 'bundler', '>=1.6.2'
+  gem.add_development_dependency 'bundler', '>=1.6.1'
   gem.add_development_dependency 'rspec-longrun', '~> 1.0.1'
   gem.add_development_dependency 'pry'
 end
