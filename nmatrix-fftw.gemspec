@@ -11,7 +11,7 @@ Gem::Specification.new do |gem|
                                        We are happy to accept contributions which improve the portability
                                        of this project.'
   gem.platform                      = Gem::Platform::RUBY
-  gem.require_paths                 = '.'
+  gem.require_paths                 = ['lib', 'ext', '../nmatrix/lib']
   gem.extensions                    = 'ext/nmatrix-fftw/extconf.rb'
   gem.files                         = `git ls-files`.split("\n")
   gem.executables                   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
