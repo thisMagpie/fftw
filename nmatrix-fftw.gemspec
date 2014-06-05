@@ -1,4 +1,3 @@
-require 'rake_tasks'
 lib = File.expand_path('../lib/', __FILE__)
 $:.unshift lib unless $:.include?(lib)
 require 'nmatrix-fftw/version'
@@ -8,7 +7,7 @@ Gem::Specification.new do |gem|
   gem.version = NMatrixFFTW::VERSION::STRING
   gem.platform    = Gem::Platform::RUBY
   gem.require_paths = ["."]
-  gem.add_dependency 'nmatrix', '>=0.1.0.rc3'
+  gem.add_dependency 'nmatrix', '0.1.0.rc3'
   gem.add_development_dependency 'rake_tasks', '>= 2.0.6'
   gem.add_development_dependency 'rdoc', '>=4.0.1'
   gem.add_development_dependency 'rake-compiler', '>=0.8.1'
