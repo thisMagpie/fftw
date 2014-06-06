@@ -370,13 +370,7 @@ describe 'NMatrix' do
       n = NMatrix.seq([2,3])
       expect(n.rank(0, 0)).to eq(N[[0,1,2]])
     end
-
-    it "should raise an error when the rank is out of bounds" do
-      n = NMatrix.seq([2,3])
-      expect { n.rank(2, 0) }.to raise_error(RangeError)
-    end
   end
-
   context "#reshape" do
     it "should change the shape of a matrix without the contents changing" do
       n = NMatrix.seq(4)+1
