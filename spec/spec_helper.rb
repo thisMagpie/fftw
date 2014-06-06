@@ -1,5 +1,7 @@
 require 'bundler/setup'
 Bundler.setup
+require './lib/nmatrix_fftw'
 
-require 'fftw3'
-require 'nmatrix'
+RSpec.configure do |config|
+    config.expect_with :rspec, :test_unit
+end

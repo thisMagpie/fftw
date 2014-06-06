@@ -1,11 +1,15 @@
-# -*- ruby -*-
 require 'rspec/core/rake_task'
 require 'rubygems'
-require 'rubygems/package_task'
 require 'bundler'
-RSpec::Core::RakeTask.new('spec')
+require 'rubygems/package_task'
+require 'rake_tasks'
+
+RSpec::Core::RakeTask.new(:spec) do |t|
+  t.fail_on_error = false
+end
 
 task :default => :spec
+
 begin
   Bundler.setup(:default, :development)
 rescue Bundler::BundlerError => e
@@ -14,130 +18,26 @@ rescue Bundler::BundlerError => e
   exit e.status_code
 end
 
-require 'rake'
-require 'rake/extensiontask'
-Rake::ExtensionTask.new do |ext|
-    ext.name            = 'fftw3'
-    ext.ext_dir         = 'ext/fftw3'
-    ext.lib_dir         = 'lib'
-    ext.source_pattern  = "**/*.{c,cpp}"
-end
-
 BASEDIR = Pathname( __FILE__ ).dirname.relative_path_from( Pathname.pwd )
 SPECDIR = BASEDIR + 'spec'
 
+gemspec = eval(IO.read("nmatrix-fftw.gemspec"))
+
+Gem::PackageTask.new(gemspec).define
+
 desc "install the gem locally"
 task :install => [:package] do
-  sh %{gem install pkg/fftw3-#{FFTW3::VERSION}.gem}
+  sh %{gem install pkg/nmatrix-fftw-#{NMatrixFFTW::VERSION::STRING}.gem}
 end
-
-VALGRIND_OPTIONS = [
-    "--tool=memcheck",
-    "--num-callers=15",
-    "--partial-loads-ok=yes",
-    "--undef-value-errors=no"
-]
-
-CALLGRIND_OPTIONS = [
-    "--tool=callgrind",
-    "--dump-instr=yes",
-    "--simulate-cache=yes",
-    "--collect-jumps=yes"
-]
-
-VALGRIND_MEMORYFILL_OPTIONS = [
-    "--freelist-vol=100000000",
-    "--malloc-fill=6D",
-    "--free-fill=66 ",
-]
-
-GDB_OPTIONS = []
-
-
-task :console do |task|
-  cmd = [ 'irb', "-r './lib/fftw3.rb'" ]
-  run *cmd
-end
-
-task :pry do |task|
-  cmd = [ 'pry', "-r './lib/fftw3.rb'" ]
-  run *cmd
-end
-
-namespace :pry do
-  task :valgrind => [ :compile ] do |task|
-    cmd  = [ 'valgrind' ] + VALGRIND_OPTIONS
-    cmd += ['ruby', '-Ilib:ext', "-r './lib/fftw3.rb'", "-r 'pry'", "-e 'binding.pry'"]
-    run *cmd
-  end
-end
-
-namespace :console do
-  CONSOLE_CMD = ['irb', "-r './lib/fftw3.rb'"]
-  desc "Run console under GDB."
-  task :gdb => [ :compile ] do |task|
-          cmd = [ 'gdb' ] + GDB_OPTIONS
-          cmd += [ '--args' ]
-          cmd += CONSOLE_CMD
-          run( *cmd )
-  end
-
-  desc "Run console under Valgrind."
-  task :valgrind => [ :compile ] do |task|
-          cmd = [ 'valgrind' ] + VALGRIND_OPTIONS
-          cmd += CONSOLE_CMD
-          run( *cmd )
-  end
-end
-
-task :default => :spec
 
 def run *cmd
   sh(cmd.join(" "))
 end
 
-namespace :spec do
-  # partial-loads-ok and undef-value-errors necessary to ignore
-  # spurious (and eminently ignorable) warnings from the ruby
-  # interpreter
-
-  RSPEC_CMD = [ 'ruby', '-S', 'rspec', '-Ilib:ext', SPECDIR.to_s ]
-
-  desc "Run specs under GDB."
-  task :gdb => [ :compile ] do |task|
-          cmd = [ 'gdb' ] + GDB_OPTIONS
-    cmd += [ '--args' ]
-    cmd += RSPEC_CMD
-    run( *cmd )
-  end
-
-  desc "Run specs under cgdb."
-  task :cgdb => [ :compile ] do |task|
-    cmd = [ 'cgdb' ] + GDB_OPTIONS
-    cmd += [ '--args' ]
-    cmd += RSPEC_CMD
-    run( *cmd )
-  end
-
-  desc "Run specs under Valgrind."
-  task :valgrind => [ :compile ] do |task|
-    cmd = [ 'valgrind' ] + VALGRIND_OPTIONS
-    cmd += RSPEC_CMD
-    run( *cmd )
-  end
-
-  desc "Run specs under Callgrind."
-  task :callgrind => [ :compile ] do |task|
-    cmd = [ 'valgrind' ] + CALLGRIND_OPTIONS
-    cmd += RSPEC_CMD
-    run( *cmd )
-  end
-
-end
-
 namespace :clean do
-  task :so do |task|
-    tmp_path = "tmp/#{RUBY_PLATFORM}/fftw3/#{RUBY_VERSION}"
+  task :clean do |task|
+    Dir['*~'].each {|fn| rm fn rescue nil}
+    tmp_path = "tmp/#{RUBY_PLATFORM}/nmatrix-fftw/#{RUBY_VERSION}"
     chdir tmp_path do
       if RUBY_PLATFORM =~ /mswin/
         `nmake soclean`

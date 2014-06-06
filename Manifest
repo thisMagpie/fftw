@@ -2,8 +2,5 @@ ChangeLog
 Manifest
 README
 Rakefile
-ToDo
-ext/extconf.rb
-ext/na_fftw3.c
-lib/fftw3.rb
-test/test_fftw3.rb
+ext/nmatrix-fftw/extconf.rb
+lib/nmatrix_fftw.rb
