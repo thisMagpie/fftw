@@ -21,12 +21,6 @@ rescue Bundler::BundlerError => e
   exit e.status_code
 end
 
-RSpec::Core::RakeTask.new(:compile) do |t|
-  t.fail_on_error = true
-end
-
-task :default => :compile
-
 BASEDIR = Pathname( __FILE__ ).dirname.relative_path_from( Pathname.pwd )
 SPECDIR = BASEDIR + 'spec'
 
@@ -86,6 +80,12 @@ task :check_manifest do |task|
   end
 
 end
+
+RSpec::Core::RakeTask.new(:compile) do |t|
+  t.fail_on_error = true
+end
+
+task :compile
 
 require 'rdoc/task'
 RDoc::Task.new do |rdoc|
