@@ -3,6 +3,9 @@ require 'rubygems'
 require 'bundler'
 require 'rubygems/package_task'
 require 'rake_tasks'
+require 'bundler/gem_tasks'
+require 'rake'
+require 'rake/extensiontask'
 
 RSpec::Core::RakeTask.new(:spec) do |t|
   t.fail_on_error = false
@@ -17,6 +20,12 @@ rescue Bundler::BundlerError => e
   $stderr.puts "Run `bundle install` to install missing gems"
   exit e.status_code
 end
+
+RSpec::Core::RakeTask.new(:compile) do |t|
+  t.fail_on_error = true
+end
+
+task :default => :compile
 
 BASEDIR = Pathname( __FILE__ ).dirname.relative_path_from( Pathname.pwd )
 SPECDIR = BASEDIR + 'spec'
