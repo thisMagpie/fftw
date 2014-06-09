@@ -3,6 +3,9 @@ require 'rubygems'
 require 'bundler'
 require 'rubygems/package_task'
 require 'rake_tasks'
+require 'bundler/gem_tasks'
+require 'rake'
+require 'rake/extensiontask'
 
 RSpec::Core::RakeTask.new(:spec) do |t|
   t.fail_on_error = false
@@ -77,6 +80,12 @@ task :check_manifest do |task|
   end
 
 end
+
+RSpec::Core::RakeTask.new(:compile) do |t|
+  t.fail_on_error = true
+end
+
+task :compile
 
 require 'rdoc/task'
 RDoc::Task.new do |rdoc|
