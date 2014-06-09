@@ -81,11 +81,12 @@ task :check_manifest do |task|
 
 end
 
-RSpec::Core::RakeTask.new(:compile) do |t|
-  t.fail_on_error = true
+Rake::ExtensionTask.new do |ext|
+    ext.name = 'nmatrix-fftw'          
+    ext.ext_dir = 'ext/nmatrix-fftw' 
+    ext.lib_dir = 'lib/'             
+    ext.source_pattern = "**/*.{c,cpp, h}" 
 end
-
-task :compile
 
 require 'rdoc/task'
 RDoc::Task.new do |rdoc|
