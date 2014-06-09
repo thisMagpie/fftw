@@ -1,9 +1,9 @@
 #include <fftw3.h>
 #include <ruby.h>
 
-static VALUE rb_cFFTW3;
+VALUE mFFTW;
 
 void Init_fftw()
 {
-  rb_cFFTW = rb_define_class("FFTW", rb_cObject);
+  rb_define_module("FFTW");
 }
