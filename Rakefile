@@ -6,12 +6,14 @@ require 'rake_tasks'
 require 'bundler/gem_tasks'
 require 'rake'
 require 'rake/extensiontask'
+$src_dir = File.dirname(__FILE__)
+require $src_dir + '/lib/nmatrix-fftw/version.rb'
 
 RSpec::Core::RakeTask.new(:spec) do |t|
   t.fail_on_error = false
 end
 
-task :default => :spec
+task :spec
 
 begin
   Bundler.setup(:default, :development)
@@ -24,7 +26,14 @@ end
 BASEDIR = Pathname( __FILE__ ).dirname.relative_path_from( Pathname.pwd )
 SPECDIR = BASEDIR + 'spec'
 
-gemspec = eval(IO.read("nmatrix-fftw.gemspec"))
+gemspec = Gem::Specification.load('nmatrix-fftw.gemspec')
+gemspec.executables.each do |f|
+  Rake::ExtensionTask.new('nmatrix-fftw', gemspec) do |ext|
+    ext.name = f.gsub(/\.so$/,'')
+    ext.tmp_dir = 'tmp'
+    ext.lib_dir = 'bin'
+  end
+end
 
 Gem::PackageTask.new(gemspec).define
 
@@ -43,7 +52,7 @@ namespace :clean do
     tmp_path = "tmp/#{RUBY_PLATFORM}/nmatrix-fftw/#{RUBY_VERSION}"
     chdir tmp_path do
       if RUBY_PLATFORM =~ /mswin/
-        `nmake soclean`
+        `make soclean`
       else
         mkcmd = ENV['MAKE'] || %w[gmake make].find { |c| system("#{c} -v >> /dev/null 2>&1") }
         `#{mkcmd} soclean`
@@ -52,16 +61,12 @@ namespace :clean do
   end
 end
 
-
 desc "Check the manifest for correctness"
 task :check_manifest do |task|
   manifest_files  = File.read("Manifest.txt").split
-
   git_files       = `git ls-files |grep -v 'spec/'`.split
   ignore_files    = %w{.gitignore .rspec}
-
   possible_files  = git_files - ignore_files
-
   missing_files   = possible_files - manifest_files
   extra_files     = manifest_files - possible_files
 
@@ -78,15 +83,15 @@ task :check_manifest do |task|
   if extra_files.empty? && missing_files.empty?
     STDERR.puts "Manifest looks good!"
   end
-
 end
 
-Rake::ExtensionTask.new do |ext|
-    ext.name = 'nmatrix-fftw'          
-    ext.ext_dir = 'ext/nmatrix-fftw' 
-    ext.lib_dir = 'lib/'             
-    ext.source_pattern = "**/*.{c,cpp, h}" 
+# initialize directory structure
+task :init do
+  FileCheckCreateDirectory($src_dir + '/bin')
+  FileCheckCreateDirectory($src_dir + '/tmp')
 end
+# build module and install
+task :build => [:init, :clean, :compile]
 
 require 'rdoc/task'
 RDoc::Task.new do |rdoc|

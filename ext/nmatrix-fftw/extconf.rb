@@ -1,7 +1,7 @@
 require 'mkmf'
 require 'rubygems'
 
-dir_config('include','/usr/include',$sitearchdir)
+dir_config('../../../../fftw3/api','/usr/include',$sitearchdir)
 if ( ! have_header("fftw3.h") && have_library("fftw3") ) then
    print <<EOS
    ** configure error **

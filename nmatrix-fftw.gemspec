@@ -14,8 +14,9 @@ Gem::Specification.new do |gem|
   gem.require_paths                 = ['lib', 'ext', '../nmatrix/lib']
   gem.extensions                    = 'ext/nmatrix-fftw/extconf.rb'
   gem.files                         = `git ls-files`.split("\n")
-  gem.executables                   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  gem.executables                   = gem.files.grep(%r{^ext/.*c$}).map{ |f| File.basename(f, '.c') + '.so'}
   gem.test_files                    = `git ls-files -- {spec}/*`.split("\n")
+  gem.bindir                        = 'bin'
   gem.homepage                      = 'http://thismagpie.com/keyword/sciruby'
   gem.rubygems_version              = '2.2.2'
   gem.required_rubygems_version     = Gem::Requirement.new(">= 2.2.2")
