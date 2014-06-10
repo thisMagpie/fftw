@@ -1,6 +1,6 @@
 
-#ifndef ___RB_FFTW_H___
-#define ___RB_FFTW_H___
+#ifndef ___FFTW_H___
+#define ___FFTW_H___
 
 #include <stdio.h>
 #include <string.h>

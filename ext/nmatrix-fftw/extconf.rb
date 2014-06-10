@@ -44,4 +44,4 @@ if /cygwin|mingw/ =~RUBY_PLATFORM
    have_library("nmatrix") || raise("ERROR: nmatrix library is not found")
 end
 
-create_makefile("fftw")
+create_makefile("nmatrix-fftw")
