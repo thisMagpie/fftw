@@ -82,10 +82,10 @@ task :check_manifest do |task|
 end
 
 Rake::ExtensionTask.new do |ext|
-    ext.name = 'nmatrix-fftw'          
-    ext.ext_dir = 'ext/nmatrix-fftw' 
-    ext.lib_dir = 'lib/'             
-    ext.source_pattern = "**/*.{c,cpp, h}" 
+    ext.name = 'nmatrix-fftw'
+    ext.ext_dir = 'ext/nmatrix-fftw'
+    ext.lib_dir = 'lib/nmatrix-fftw'
+    ext.source_pattern = "**/*.{c,cpp}"
 end
 
 require 'rdoc/task'
