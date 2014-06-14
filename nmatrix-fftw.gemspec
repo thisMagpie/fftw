@@ -1,17 +1,22 @@
 lib = File.expand_path('../lib/', __FILE__)
 $:.unshift lib unless $:.include?(lib)
 require 'nmatrix-fftw/version'
+require 'rubygems'
 
 Gem::Specification.new do |gem|
   gem.name                          = 'nmatrix-fftw'
   gem.version                       =  NMatrixFFTW::VERSION::STRING
-  gem.summary                       = 'Ruby FFTW3 wrapper for performing FFT operations on NMatrix objects.'
-  gem.description                   = 'Ruby FFTW3 wrapper for performing FFT operations on NMatrix objects..
-                                       FFTW3 requires a C compiler, and has been tested only with GCC 4.8+.
-                                       We are happy to accept contributions which improve the portability
-                                       of this project.'
+  gem.license                       = 'BSD 2-clause'
+  gem.summary                       = "Ruby FFTW3 wrapper for performing FFT operations on NMatrix objects."
+  gem.description                   = <<-EOF
+                                        Ruby FFTW3 wrapper for performing FFT operations on NMatrix objects.
+                                        FFTW3 requires a C compiler, and has been tested only with GCC 4.8+.
+                                        We are happy to accept contributions which improve the portability
+                                        of this project.
+                                    EOF
   gem.platform                      = Gem::Platform::RUBY
   gem.require_paths                 = ['lib', 'ext', '../nmatrix/lib']
+  gem.autorequire                   = 'nmatrix-fftw'
   gem.extensions                    = 'ext/nmatrix-fftw/extconf.rb'
   gem.files                         = `git ls-files`.split("\n")
   gem.executables                   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
@@ -45,7 +50,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rake_tasks', '~> 2.0', '>= 2.0.6'
   gem.add_development_dependency 'rdoc', '~> 4.0', '>= 4.0.1'
   gem.add_development_dependency 'rake-compiler', '~> 0.8', '>= 0.8.1'
-  gem. add_development_dependency 'ffi', '~> 1.9', '>= 1.9.3'
+  gem.add_development_dependency 'ffi', '~> 1.9', '>= 1.9.3'
   gem.add_development_dependency 'rspec', '~> 2.14', '>= 2.14.1'
   gem.add_development_dependency 'bundler', '~> 1.6', '>= 1.6.1'
   gem.add_development_dependency 'rspec-longrun', '~> 1.0', '>= 1.0.1'
