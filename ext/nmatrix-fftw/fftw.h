@@ -4,8 +4,6 @@
 #include <ruby.h>
 #include <fftw3.h>
 
-extern VALUE mFFTW;
+extern VALUE cNMatrixFFTW;
 
-#define FFTW_FORWARD (-1)
-#define FFTW_BACKWARD (+1)
 #endif

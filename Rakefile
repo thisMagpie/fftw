@@ -85,10 +85,18 @@ task :check_manifest do |task|
   end
 end
 
+<<<<<<< HEAD
 # initialize directory structure
 task :init do
   FileCheckCreateDirectory($src_dir + '/bin')
   FileCheckCreateDirectory($src_dir + '/tmp')
+=======
+Rake::ExtensionTask.new do |ext|
+    ext.name = 'nmatrix-fftw'
+    ext.ext_dir = 'ext/nmatrix-fftw'
+    ext.lib_dir = 'lib/nmatrix-fftw'
+    ext.source_pattern = "**/*.{c,cpp}"
+>>>>>>> 6ad096235c5f672e7914912f518c5ae1ca3cd9f1
 end
 # build module and install
 task :build => [:init, :clean, :compile]
@@ -96,5 +104,5 @@ task :build => [:init, :clean, :compile]
 require 'rdoc/task'
 RDoc::Task.new do |rdoc|
   rdoc.main = "README.rdoc"
-  rdoc.rdoc_files.include(%w{README.rdoc History.txt LICENSE.txt CONTRIBUTING.md lib/*.rb ext/fftw3/**/*.cpp ext/fftw3/**/*.c include/*.h})
+  rdoc.rdoc_files.include(%w{README.rdoc History.txt LICENSE.txt CONTRIBUTING.md lib/*.rb ext/nmatrix-fftw/**/*.cpp ext/nmatrix-fftw/**/*.c include/*.h})
 end
