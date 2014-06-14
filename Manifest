@@ -3,4 +3,6 @@ Manifest
 README
 Rakefile
 ext/nmatrix-fftw/extconf.rb
-lib/nmatrix_fftw.rb
+ext/nmatrix-fftw/fftw.c
+ext/nmatrix-fftw/fftw.h
+lib/nmatrix-fftw.rb
