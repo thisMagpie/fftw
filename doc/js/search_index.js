@@ -1,1 +1,0 @@
-var search_data = {"index":{"searchIndex":["readme"],"longSearchIndex":[""],"info":[["README","","README_rdoc.html","","<p>module FFTW3\n<p>Fast Fourier Transforms by using ((&lt;FFTW|URL:www.fftw.org&gt;)) Ver.3.\n<p>Takeshi Horinouchi …\n"]]}}
