@@ -91,5 +91,5 @@ end
 require 'rdoc/task'
 RDoc::Task.new do |rdoc|
   rdoc.main = "README.rdoc"
-  rdoc.rdoc_files.include(%w{README.rdoc History.txt LICENSE.txt CONTRIBUTING.md lib/*.rb ext/fftw3/**/*.cpp ext/fftw3/**/*.c include/*.h})
+  rdoc.rdoc_files.include(%w{README.rdoc History.txt LICENSE.txt CONTRIBUTING.md lib/*.rb ext/nmatrix-fftw/**/*.cpp ext/nmatrix-fftw/**/*.c include/*.h})
 end
