@@ -7,7 +7,7 @@ It has been determined that implementing the FFTW3 API in ruby makes it possible
 
 Since existing gem called ruby-ffw3 already exists but only works with narray object a fork of this repository needs to be made compatible with NMatrix instead which is what this repository is all about.
 
-## FFTW3 Conventions
+== FFTW3 Conventions
 
 Be aware of FFTW3 conventions which are used internally by fftw3 (not in API)
 
@@ -18,7 +18,7 @@ Be aware of FFTW3 conventions which are used internally by fftw3 (not in API)
 
  * NAMES: keep them short.  Shorter than you think.  The Bible was written
    without vowels.  Don't outsmart the Bible.
-
+```
    Common names:
 
    R       : real type, aka fftw_real
@@ -37,14 +37,13 @@ Be aware of FFTW3 conventions which are used internally by fftw3 (not in API)
    k       : codelet
    X(...)  : used for mangling of external names (see below)
    K(...)  : floating-point constant, in E precision
+```
+If a name is used often and must have the form fftw_foo to avoid
+namespace pollution, #define FOO fftw_foo and use the short name.
 
-   If a name is used often and must have the form fftw_foo to avoid
-   namespace pollution, #define FOO fftw_foo and use the short name.
-
-   Leave that hungarian crap to MS.  foo_t counts as hungarian: use
-   foo instead.  foo is lowercase so that it does not look like a DOS
-   program. Exception: typedef struct foo_s {...} foo;  instead of
-   typedef struct foo {...} foo;  for C++ compatibility.
+Leave that hungarian crap to MS.  foo_t counts as hungarian: use foo instead.
+foo is lowercase so that it does not look like a DOS program.
+Exception: typedef struct foo_s {...} foo;  instead of typedef struct foo {...} foo;  for C++ compatibility.
 
 NAME MANGLING: use X(foo) for external names instead of fftw_foo.
     X(foo) expands to fftwf_foo or fftw_foo, depending on the
@@ -68,12 +67,10 @@ REPEATED CODE: favor a table.  E.g., do not write
       };
 ```
 
-    and loop over footab.  Rationale: it saves code space.
-    Similarly, replace a switch statement with a table whenever
-    possible.
+and loop over footab.
+Rationale: it saves code space. Similarly, replace a switch statement with a table whenever possible.
 
 C++: The code should compile as a C++ program. Run the code through
     gcc -xc++ .  The extra C++ restrictions are unnecessary, of
     course, but this will save us from a flood of complaints when
     we release the code.
-
