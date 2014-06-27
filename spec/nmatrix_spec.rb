@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'nmatrix'
 
-describe NMatrixFFTW do
+describe FFTW do
   it "creates a matrix with the new constructor" do
     n = NMatrix.new([2,2], [0,1,2,3], dtype: :int64)
     expect(n.shape).to eq([2,2])

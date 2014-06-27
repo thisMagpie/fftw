@@ -1,8 +1,7 @@
 require 'rubygems'
-require 'fftw'
 require 'nmatrix'
-require 'fftw/version.rb'
+require 'fftw/fftw.rb'
 
 if File.exist?("lib/fftw.so")
-  require 'fftw.so'1
+  require 'fftw.so'
 end

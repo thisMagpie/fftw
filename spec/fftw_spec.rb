@@ -1,8 +1,8 @@
 require 'spec_helper'
-require 'nmatrix-fftw'
+require 'fftw'
 
-describe NMatrixFFTW do
-  context "#fftw_1d" do
+describe FFTW do
+  context "#fftw" do
     it "should perform fftw on nmatrix array" do
       pending.to_s
     end
