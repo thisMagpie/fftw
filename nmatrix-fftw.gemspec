@@ -13,7 +13,7 @@ Gem::Specification.new do |gem|
                                         FFTW3 requires a C compiler, and has been tested only with GCC 4.8+.
                                         We are happy to accept contributions which improve the portability
                                         of this project.
-                                    EOF
+                                      EOF
   gem.platform                      = Gem::Platform::RUBY
   gem.require_paths                 = ['lib', 'ext', '../nmatrix/lib']
   gem.autorequire                   = 'nmatrix-fftw'
