@@ -1,4 +1,9 @@
 require 'mkmf'
+require 'colorize'
+
+puts "I am now red.".red
+puts "I am now blue.".green
+puts "I am a super coder".yellow
 
 # FFTW for i866 or x86-64 Computers
 #def install
@@ -11,7 +16,7 @@ HEADER_DIRS = ['/opt/local/include',
                '/usr/local/include',
                 INCLUDEDIR,
                '/usr/include',
-               '/usr/include/atlasl']
+               '/usr/include/atlas']
 
 dir_config('../../include','/usr/include','/usr/include/atlas')
 if ( ! have_header("fftw3.h") && have_library("fftw3") ) then
@@ -31,7 +36,7 @@ if ( ! have_header("fftw3.h") && have_library("fftw3") ) then
 end
 
 if have_library("fftw3f")
- $CFLAGS += ' -DFFTW3_HAS_SINGLE_SUPPORT -Wall -I/usr/include'
+ $CFLAGS += ' -DFFTW3_HAS_SINGLE_SUPPORT -Wall -I /usr/include'
 end
 
 def find_newer_gplusplus #:nodoc:

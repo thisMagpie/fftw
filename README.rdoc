@@ -1,4 +1,5 @@
 {<img src=https://travis-ci.org/thisMagpie/fftw.png>}[https://travis-ci.org/ThisMagpie/fftw]
+{<img src=https://travis-ci.org/thisMagpie/fftw.png>}[https://travis-ci.org/ThisMagpie/fftw]
 
 
 In order to give SciRuby the capability to handle signal analysis, processing and synthesis via the NMatrix gem or otherwise.
@@ -45,26 +46,19 @@ Leave that hungarian crap to MS.  foo_t counts as hungarian: use foo instead.
 foo is lowercase so that it does not look like a DOS program.
 Exception: typedef struct foo_s {...} foo;  instead of typedef struct foo {...} foo;  for C++ compatibility.
 
-NAME MANGLING: use X(foo) for external names instead of fftw_foo.
-    X(foo) expands to fftwf_foo or fftw_foo, depending on the
-    precision.  (Unfortunately, this is a ugly form of hungarian
-    notation.  Grrr...)  Names that are not exported do not need to be
-    mangled.
+== Name Mangling:
 
-REPEATED CODE: favor a table.  E.g., do not write
-
+Use X(foo) for external names instead of fftw_foo.
+X(foo) expands to fftwf_foo or fftw_foo, depending on the
+precision (Unfortunately, this is a ugly form of hungarian notation.  Grrr...).
+Names that are not exported do not need to be mangled.
+Write:
 ```
-    foo("xxx", 1);
-    foo("yyy", 2);
-    foo("zzz", -1);
-```
-    Instead write
-```
-      struct { const char *nam, int arg } footab[] = {
-	{ "xxx", 1 },
-	{ "yyy", 2 },
-	{ "zzz", -1 }
-      };
+  struct { const char *nam, int arg } footab[] = {
+                                                 { "xxx", 1 },
+	                                         { "yyy", 2 },
+	                                         { "zzz", -1 }
+  };
 ```
 
 and loop over footab.
