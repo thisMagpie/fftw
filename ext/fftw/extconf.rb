@@ -4,6 +4,14 @@ require 'mkmf'
 #def install
 #  system 'cd ../../fft3; ./configure  --enable-float  --enable-threads  --enable-sse'
 #end
+LIBDIR = RbConfig::CONFIG['libdir']
+INCLUDEDIR = RbConfig::CONFIG['includedir']
+
+HEADER_DIRS = ['/opt/local/include',
+               '/usr/local/include',
+                INCLUDEDIR,
+               '/usr/include',
+               '/usr/include/atlasl']
 
 dir_config('../../include','/usr/include','/usr/include/atlas')
 if ( ! have_header("fftw3.h") && have_library("fftw3") ) then
