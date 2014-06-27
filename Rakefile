@@ -10,7 +10,6 @@ require 'rake/extensiontask'
 RSpec::Core::RakeTask.new(:spec) do |t|
   t.fail_on_error = false
 end
-
 task :default => :spec
 
 begin
@@ -24,38 +23,36 @@ end
 BASEDIR = Pathname( __FILE__ ).dirname.relative_path_from( Pathname.pwd )
 SPECDIR = BASEDIR + 'spec'
 
-gemspec = eval(IO.read("nmatrix-fftw.gemspec"))
+gemspec = eval(IO.read("fftw.gemspec"))
 
 Gem::PackageTask.new(gemspec).define
-
-desc "install the gem locally"
-task :install => [:package] do
-  sh %{gem install pkg/nmatrix-fftw-#{NMatrixFFTW::VERSION::STRING}.gem}
+  desc "install the gem locally"
+	task :install => [:package] do
+  sh %{gem install pkg/fftw-#{FFTW::VERSION::STRING}.gem}
 end
 
-def run *cmd
-  sh(cmd.join(" "))
-end
+  def run *cmd
+    sh(cmd.join(" "))
+  end
 
-namespace :clean do
-  task :clean do |task|
-    Dir['*~'].each {|fn| rm fn rescue nil}
-    tmp_path = "tmp/#{RUBY_PLATFORM}/nmatrix-fftw/#{RUBY_VERSION}"
-    chdir tmp_path do
-      if RUBY_PLATFORM =~ /mswin/
-        `nmake soclean`
-      else
-        mkcmd = ENV['MAKE'] || %w[gmake make].find { |c| system("#{c} -v >> /dev/null 2>&1") }
-        `#{mkcmd} soclean`
+  namespace :clean do
+    task :clean do |task|
+      Dir['*~'].each {|fn| rm fn rescue nil}
+        tmp_path = "tmp/#{RUBY_PLATFORM}/fftw/#{RUBY_VERSION}"
+        chdir tmp_path do
+        if RUBY_PLATFORM =~ /mswin/
+          `nmake soclean`
+        else
+          mkcmd = ENV['MAKE'] || %w[gmake make].find { |c| system("#{c} -v >> /dev/null 2>&1") }
+          `#{mkcmd} soclean`
+        end
       end
     end
   end
-end
-
 
 desc "Check the manifest for correctness"
 task :check_manifest do |task|
-  manifest_files  = File.read("Manifest.txt").split
+  manifest_files  = File.read("Manifest").split
 
   git_files       = `git ls-files |grep -v 'spec/'`.split
   ignore_files    = %w{.gitignore .rspec}
@@ -78,18 +75,17 @@ task :check_manifest do |task|
   if extra_files.empty? && missing_files.empty?
     STDERR.puts "Manifest looks good!"
   end
-
 end
 
 Rake::ExtensionTask.new do |ext|
-    ext.name = 'nmatrix-fftw'
-    ext.ext_dir = 'ext/nmatrix-fftw'
-    ext.lib_dir = 'lib/nmatrix-fftw'
+    ext.name = 'fftw'
+    ext.ext_dir = 'ext/fftw'
+    ext.lib_dir = 'lib/fftw'
     ext.source_pattern = "**/*.{c,cpp}"
 end
 
 require 'rdoc/task'
 RDoc::Task.new do |rdoc|
   rdoc.main = "README.rdoc"
-  rdoc.rdoc_files.include(%w{README.rdoc History.txt LICENSE.txt CONTRIBUTING.md lib/*.rb ext/nmatrix-fftw/**/*.cpp ext/nmatrix-fftw/**/*.c include/*.h})
+  rdoc.rdoc_files.include(%w{README.rdoc History.txt LICENSE.txt CONTRIBUTING.md lib/*.rb ext/fftw/**/*.cpp ext/fftw/**/*.c include/*.h})
 end

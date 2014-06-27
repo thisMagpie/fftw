@@ -11,5 +11,5 @@
 #include "ruby/io.h"
 
 #ifdef HAVE_NMATRIX_H
-void Init_fftw(VALUE module);
+void Init_fftw(VALUE self);
 #endif

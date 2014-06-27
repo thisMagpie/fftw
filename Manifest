@@ -1,8 +1,9 @@
 ChangeLog
 Manifest
-README
 Rakefile
-ext/nmatrix-fftw/extconf.rb
-ext/nmatrix-fftw/fftw.c
-ext/nmatrix-fftw/fftw.h
-lib/nmatrix-fftw.rb
+.gitmodules
+.travis.yml
+Gemfile
+README.rdoc
+fftw3
+lib/fftw.rb
