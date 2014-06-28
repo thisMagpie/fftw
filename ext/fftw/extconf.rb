@@ -1,24 +1,19 @@
 require 'mkmf'
 require 'colorize'
 
-puts "I am now red.".red
-puts "I am now blue.".green
-puts "I am a super coder".yellow
-
-# FFTW for i866 or x86-64 Computers
-#def install
-#  system 'cd ../../fft3; ./configure  --enable-float  --enable-threads  --enable-sse'
-#end
 LIBDIR = RbConfig::CONFIG['libdir']
 INCLUDEDIR = RbConfig::CONFIG['includedir']
-
 HEADER_DIRS = ['/opt/local/include',
                '/usr/local/include',
                 INCLUDEDIR,
                '/usr/include',
                '/usr/include/atlas']
 
-dir_config('../../include','/usr/include','/usr/include/atlas')
+puts "Library directory:" + LIBDIR.yellow
+puts "Include directory:" + INCLUDEDIR.yellow
+puts "Headers directory:" + "#{HEADER_DIRS}".yellow.to_s
+
+dir_config(INCLUDEDIR,HEADER_DIRS)
 if ( ! have_header("fftw3.h") && have_library("fftw3") ) then
    print <<-EOS
    ** configure error **
@@ -35,10 +30,6 @@ if ( ! have_header("fftw3.h") && have_library("fftw3") ) then
   exit(-1)
 end
 
-if have_library("fftw3f")
- $CFLAGS += ' -DFFTW3_HAS_SINGLE_SUPPORT -Wall -I /usr/include'
-end
-
 def find_newer_gplusplus #:nodoc:
   print "checking for apparent GNU g++ binary with C++0x/C++11 support... "
   [9,8,7,6,5,4,3].each do |minor|
@@ -52,4 +43,12 @@ def find_newer_gplusplus #:nodoc:
   end
   false
 end
+
+if have_library("fftw3f")
+ $CFLAGS += ' -DFFTW3_HAS_SINGLE_SUPPORT -Wall -I #{INCLUDEDIR}'
+end
+
+# TODO FFTW for i866 or x86-64 Computers
+#'--enable-float  --enable-threads  --enable-sse'
+
 create_makefile("fftw")
