@@ -2,6 +2,7 @@ lib = File.expand_path('../lib/', __FILE__)
 $:.unshift lib unless $:.include?(lib)
 require 'fftw/version'
 require 'rubygems'
+require 'bundler/setup' 
 
 Gem::Specification.new do |gem|
   gem.platform                      = Gem::Platform::RUBY
@@ -41,8 +42,8 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'ffi', '~> 1.9', '>= 1.9.3'
   gem.add_development_dependency 'rspec-core', '~> 3.0', '>= 3.0.2'
   gem.add_development_dependency 'bundler', '~> 1.6', '>= 1.6.1'
-  gem.add_development_dependency 'rspec-longrun', '~> 1.0', '>= 1.0.1'
   gem.add_development_dependency 'pry', '~> 0'
+  gem.add_development_dependency 'rspec-longrun', '~> 1.0', '>= 1.0.1'
   gem.add_runtime_dependency 'rspec', '~> 3.0.0'
   gem.add_runtime_dependency 'rake', '~> 10.3', '>= 10.3.2'
   gem.add_runtime_dependency 'nmatrix', '0.1.0.rc3'
