@@ -13,7 +13,7 @@ puts "Library directory:" + LIBDIR.yellow
 puts "Include directory:" + INCLUDEDIR.yellow
 puts "Headers directory:" + "#{HEADER_DIRS}".yellow.to_s
 
-dir_config(INCLUDEDIR,HEADER_DIRS)
+dir_config('fftw',HEADER_DIRS,LIBDIR)
 if ( ! have_header("fftw3.h") && have_library("fftw3") ) then
    print <<-EOS
    ** configure error **
