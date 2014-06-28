@@ -4,3 +4,4 @@ pkg
 Makefile
 mkmf.log
 *.*~
+.bundle\n
