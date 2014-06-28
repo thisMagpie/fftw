@@ -6,6 +6,8 @@ require 'rake_tasks'
 require 'bundler/gem_tasks'
 require 'rake'
 require 'rake/extensiontask'
+require 'rake/packagetask'
+require 'colorize'
 
 RSpec::Core::RakeTask.new(:spec) do |t|
   t.fail_on_error = false
@@ -50,17 +52,17 @@ end
     end
   end
 
-desc "Check the manifest for correctness"
-task :check_manifest do |task|
-  manifest_files  = File.read("Manifest").split
+desc "Check the manifest for correctness".yellow
+  task :check_manifest do |task|
+    manifest_files  = File.read("Manifest").split
 
-  git_files       = `git ls-files |grep -v 'spec/'`.split
-  ignore_files    = %w{.gitignore .rspec}
+    git_files       = `git ls-files |grep -v 'spec/'`.split
+    ignore_files    = %w{.gitignore .rspec}
 
-  possible_files  = git_files - ignore_files
+    possible_files  = git_files - ignore_files
 
-  missing_files   = possible_files - manifest_files
-  extra_files     = manifest_files - possible_files
+    missing_files   = possible_files - manifest_files
+    extra_files     = manifest_files - possible_files
 
   unless missing_files.empty?
     STDERR.puts "The following files are in the git repo but not the Manifest:"
@@ -84,6 +86,16 @@ Rake::ExtensionTask.new do |ext|
     ext.source_pattern = "**/*.{c,cpp}"
 end
 
+desc "Create the RDoc html files"
+Rake::RDocTask.new("rdoc") { |rdoc|
+  rdoc.rdoc_dir = 'html'
+  rdoc.title    = 'Ruby/FFTW'
+  rdoc.main     = 'rdoc/index.rdoc'
+  rdoc.options << '--exclude' << 'ext/'
+  rdoc.options << '--exclude' << 'include/'
+  rdoc.options << '--exclude' << 'lib/'
+  rdoc.rdoc_files.include('rdoc/*.rdoc')
+}
 require 'rdoc/task'
 RDoc::Task.new do |rdoc|
   rdoc.main = "README.rdoc"
