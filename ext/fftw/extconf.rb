@@ -18,14 +18,14 @@ if ( ! have_header("fftw3.h") && have_library("fftw3") ) then
    print <<-EOS
    ** configure error **
 
-   Header fftw3.h or the compiled fftw3 library is not found.
-   If you have the library installed under /fftw3-dir (that is, fftw3.h is
-   in /fftw3-dir/include and the library in /fftw3-dir/lib/),
+   Header fftw.h or the compiled fftw library is not found.
+   If you have the library installed under /fftw-dir (that is, fftw3.h is
+   in /fftw dir/include and the library in /fftw-dir/lib/),
    try the following:
-   % ruby extconf.rb --with-fftw3-dir=/fftw3-dir
+   % ruby extconf.rb --with-fftw-dir=/fftw-dir
 
    Alternatively, you can specify the two directory separately
-   with --include-dir and --fftw3-dir 
+   with --include-dir and --fftw-dir
   EOS
   exit(-1)
 end

@@ -12,11 +12,23 @@ VALUE rb_fftw(int argc, VALUE* argv, VALUE self);
 #define NM_SHAPE0(val)          (NM_STORAGE(val)->shape[0])
 #define NM_SHAPE1(val)          (NM_STORAGE(val)->shape[1])
 
-void rb_fftw_init_threads()
-
+void rb_fftw_init_threads(V)
+{
+    FTTW *fftw
+    fftw_init(fftw);
+}
 void Init_fftw()
 {
   mFFTW = rb_define_module("FFTW");
-  cFFTW = rb_define_class("FFTW", rb_cObject);
-  rb_define_method(cFFTW, "threads", rb_fftw_init_threads, -1);
+  VALUE cFFTW= rb_define_class_under(mFFTW, "FFTW", rb_cObject);
+  rb_define_alloc_func(cFFTW, fftw_allocate);
+  rb_define_method(cFFTW, "threads", rb_fftw_init_threads);
 }
+static VALUE rb_fftw_allocate(VALUE klass)
+{
+    FFTW *fftw = malloc(sizeof(fftw());
+    return Data_Wrap_Struct(klass, NULL, NULL, fftw);
+}
+                        
+
+                        
