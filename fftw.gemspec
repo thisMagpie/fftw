@@ -4,18 +4,13 @@ require 'fftw/version'
 require 'rubygems'
 
 Gem::Specification.new do |gem|
-  gem.name                          = 'fftw'
+  gem.platform                      = Gem::Platform::RUBY
   gem.version                       =  FFTW::VERSION::STRING
+  gem.name                          = 'fftw'
   gem.license                       = 'BSD 2-clause'
   gem.authors                       = 'Magdalen Berns'
   gem.summary                       = "Ruby FFTW3 wrapper for performing FFT operations on NMatrix objects."
-  gem.description                   = <<-EOF
-                                        Ruby FFTW3 wrapper for performing FFT operations on NMatrix objects.
-                                        FFTW3 requires a C compiler, and has been tested only with GCC 4.8+.
-                                        We are happy to accept contributions which improve the portability
-                                        of this project.
-                                      EOF
-  gem.platform                      = Gem::Platform::RUBY
+  gem.description                   = gem.summary
   gem.require_paths                 = ['lib', 'ext', '../nmatrix/lib']
   gem.autorequire                   = 'fftw'
   gem.extensions                    = 'ext/fftw/extconf.rb'
@@ -39,16 +34,16 @@ Gem::Specification.new do |gem|
 
   ******************************************************************
   EOF
-
+  gem.add_development_dependency 'colorize', '~>0.7', '>=0.7.3'
   gem.add_development_dependency 'rake_tasks', '~> 2.0', '>= 2.0.6'
   gem.add_development_dependency 'rdoc', '~> 4.0', '>= 4.0.1'
   gem.add_development_dependency 'rake-compiler', '~> 0.8', '>= 0.8.1'
   gem.add_development_dependency 'ffi', '~> 1.9', '>= 1.9.3'
-  gem.add_development_dependency 'rspec', '~> 2.14', '>= 2.14.1'
+  gem.add_development_dependency 'rspec-core', '~> 3.0', '>= 3.0.2'
   gem.add_development_dependency 'bundler', '~> 1.6', '>= 1.6.1'
   gem.add_development_dependency 'rspec-longrun', '~> 1.0', '>= 1.0.1'
   gem.add_development_dependency 'pry', '~> 0'
-
+  gem.add_runtime_dependency 'rspec', '~> 3.0.0'
   gem.add_runtime_dependency 'rake', '~> 10.3', '>= 10.3.2'
   gem.add_runtime_dependency 'nmatrix', '0.1.0.rc3'
 end
