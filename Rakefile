@@ -1,10 +1,8 @@
-require 'rake'
 require 'rspec/core/rake_task'
+require 'rubygems'
 require 'rdoc/task'
 require 'rake/extensiontask'
-require 'rdoc/task'
 require 'bundler/gem_tasks'
-require 'colorize'
 
 RSpec::Core::RakeTask.new(:spec) do |t|
   t.fail_on_error = false
@@ -47,7 +45,7 @@ Gem::PackageTask.new(gemspec).define
     end
   end
 
-  desc "Check the manifest for correctness".yellow
+  desc "Check the manifest for correctness"
   task :check_manifest do |task|
     manifest_files  = File.read("Manifest").split
     git_files       = `git ls-files |grep -v 'spec/'`.split
@@ -68,14 +66,14 @@ Gem::PackageTask.new(gemspec).define
   if extra_files.empty? && missing_files.empty?
     STDERR.puts "Manifest looks good!"
   end
-
-  Rake::ExtensionTask.new("fftw") do |ext|
+end
+  Rake::ExtensionTask.new do |ext|
+    ext.name ='fftw'
     ext.ext_dir = 'ext/fftw'
     ext.lib_dir = 'lib/fftw'
     ext.source_pattern = "**/*.{c,cpp,h}"
   end
-end
 RDoc::Task.new do |rdoc|
   rdoc.main = "README.rdoc"
-  rdoc.rdoc_files.include(%w{README.rdoc ChangeLog LICENSE.txt lib/*.rb ext/fftw/**/*.cpp ext/fftw/**/*.c ext/fftw/*.h})
+  rdoc.rdoc_files.include(%w{README.rdoc ChangeLog LICENSE.txt lib/*.rb ext/fftw/*.cpp ext/fftw/*.c ext/fftw/*.h})
 end
