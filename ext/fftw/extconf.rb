@@ -33,7 +33,7 @@ end
 
 # Derived from SciRuby's NMatrix
 def find_newer_gplusplus #:nodoc:
-  print "checking for apparent GNU g++ binary with C++0x/C++11 support... "
+  print "checking for apparent GNU g++ binary with C++0x/C++11 support... ".green
   [9,8,7,6,5,4,3].each do |minor|
     ver = "4.#{minor}"
     gpp = "g++-#{ver}"
@@ -47,9 +47,12 @@ def find_newer_gplusplus #:nodoc:
 end
 
 if have_library("fftw3f")
- $CFLAGS += ' -DFFTW3_HAS_SINGLE_SUPPORT -Wall -I #{INCLUDEDIR}'
+ $CFLAGS += [" -DFFTW3_HAS_SINGLE_SUPPORT -Wall -I #{INCLUDEDIR}"].join(" ")
 end
 
+$CFLAGS = ["-Wall -Werror=return-type",$CFLAGS].join(" ")
+$CXXFLAGS = ["-Wall -Werror=return-type",$CXXFLAGS].join(" ")
+$CPPFLAGS = ["-Wall -Werror=return-type",$CPPFLAGS].join(" ")
 # TODO FFTW for i866 or x86-64 Computers
 #'--enable-float  --enable-threads  --enable-sse'
 
