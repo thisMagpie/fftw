@@ -13,7 +13,6 @@ puts "Library directory:" + LIBDIR.yellow
 puts "Include directory:" + INCLUDEDIR.yellow
 puts "Headers directory:" + "#{HEADER_DIRS}".yellow.to_s
 
-puts "Here is the library directories #{f.gets.chomp}"
 dir_config('fftw',HEADER_DIRS,LIBDIR)
 
 if ( ! have_header("fftw3.h") && have_library("fftw3") ) then
