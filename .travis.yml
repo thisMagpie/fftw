@@ -1,5 +1,5 @@
 language: ruby
-install: bundle install --no-deployment
+install: bundle install
 cache:
   directories:
   - fftw/bundle
