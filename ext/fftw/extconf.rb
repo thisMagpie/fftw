@@ -13,7 +13,9 @@ puts "Library directory:" + LIBDIR.yellow
 puts "Include directory:" + INCLUDEDIR.yellow
 puts "Headers directory:" + "#{HEADER_DIRS}".yellow.to_s
 
+puts "Here is the library directories #{f.gets.chomp}"
 dir_config('fftw',HEADER_DIRS,LIBDIR)
+
 if ( ! have_header("fftw3.h") && have_library("fftw3") ) then
    print <<-EOS
    ** configure error **
@@ -30,6 +32,8 @@ if ( ! have_header("fftw3.h") && have_library("fftw3") ) then
   exit(-1)
 end
 
+puts "#{f.gets.chomp.green}"
+# Derived from SciRuby's NMatrix
 def find_newer_gplusplus #:nodoc:
   print "checking for apparent GNU g++ binary with C++0x/C++11 support... "
   [9,8,7,6,5,4,3].each do |minor|
