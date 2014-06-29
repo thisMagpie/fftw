@@ -1,5 +1,8 @@
 language: ruby
-cache: bundler
+install: bundle install --no-deployment
+cache:
+  directories:
+  - fftw/bundle
 env:
   - CPLUS_INCLUDE_PATH=/usr/include:/usr/include/atlas C_INCLUDE_PATH=/usr/include:/usr/include/atlas
 rvm:
