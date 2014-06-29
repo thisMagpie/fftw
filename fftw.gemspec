@@ -1,8 +1,6 @@
 lib = File.expand_path('../lib/', __FILE__)
 $:.unshift lib unless $:.include?(lib)
 require 'fftw/version'
-require 'rubygems'
-require 'bundler/setup' 
 
 Gem::Specification.new do |gem|
   gem.platform                      = Gem::Platform::RUBY
