@@ -1,12 +1,9 @@
-require 'rspec/core/rake_task'
-require 'rubygems'
-require 'bundler'
-require 'rubygems/package_task'
-require 'rake_tasks'
-require 'bundler/gem_tasks'
 require 'rake'
+require 'rspec/core/rake_task'
+require 'rdoc/task'
 require 'rake/extensiontask'
-require 'rake/packagetask'
+require 'rdoc/task'
+require 'bundler/gem_tasks'
 require 'colorize'
 
 RSpec::Core::RakeTask.new(:spec) do |t|
@@ -29,14 +26,12 @@ gemspec = eval(IO.read("fftw.gemspec"))
 
 Gem::PackageTask.new(gemspec).define
   desc "install the gem locally"
-	task :install => [:package] do
-  sh %{gem install pkg/fftw-#{FFTW::VERSION::STRING}.gem}
-end
-
+  task :install => [:package] do
+    sh %{gem install pkg/fftw-#{FFTW::VERSION::STRING}.gem}
+  end
   def run *cmd
     sh(cmd.join(" "))
   end
-
   namespace :clean do
     task :clean do |task|
       Dir['*~'].each {|fn| rm fn rescue nil}
@@ -52,18 +47,14 @@ end
     end
   end
 
-desc "Check the manifest for correctness".yellow
+  desc "Check the manifest for correctness".yellow
   task :check_manifest do |task|
     manifest_files  = File.read("Manifest").split
-
     git_files       = `git ls-files |grep -v 'spec/'`.split
     ignore_files    = %w{.gitignore .rspec}
-
     possible_files  = git_files - ignore_files
-
     missing_files   = possible_files - manifest_files
     extra_files     = manifest_files - possible_files
-
   unless missing_files.empty?
     STDERR.puts "The following files are in the git repo but not the Manifest:"
     missing_files.each { |f| STDERR.puts " -- #{f}"}
@@ -77,27 +68,14 @@ desc "Check the manifest for correctness".yellow
   if extra_files.empty? && missing_files.empty?
     STDERR.puts "Manifest looks good!"
   end
-end
 
-Rake::ExtensionTask.new do |ext|
-    ext.name = 'fftw'
+  Rake::ExtensionTask.new("fftw") do |ext|
     ext.ext_dir = 'ext/fftw'
     ext.lib_dir = 'lib/fftw'
-    ext.source_pattern = "**/*.{c,cpp}"
+    ext.source_pattern = "**/*.{c,cpp,h}"
+  end
 end
-
-desc "Create the RDoc html files"
-Rake::RDocTask.new("rdoc") { |rdoc|
-  rdoc.rdoc_dir = 'html'
-  rdoc.title    = 'Ruby/FFTW'
-  rdoc.main     = 'rdoc/index.rdoc'
-  rdoc.options << '--exclude' << 'ext/'
-  rdoc.options << '--exclude' << 'include/'
-  rdoc.options << '--exclude' << 'lib/'
-  rdoc.rdoc_files.include('rdoc/*.rdoc')
-}
-require 'rdoc/task'
 RDoc::Task.new do |rdoc|
   rdoc.main = "README.rdoc"
-  rdoc.rdoc_files.include(%w{README.rdoc History.txt LICENSE.txt CONTRIBUTING.md lib/*.rb ext/fftw/**/*.cpp ext/fftw/**/*.c include/*.h})
+  rdoc.rdoc_files.include(%w{README.rdoc ChangeLog LICENSE.txt lib/*.rb ext/fftw/**/*.cpp ext/fftw/**/*.c ext/fftw/*.h})
 end
