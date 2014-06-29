@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    fftw (0.0.3.rc1)
+    fftw (0.0.4.rc1)
       nmatrix (= 0.1.0.rc3)
       rake (~> 10.3, >= 10.3.2)
       rspec (~> 3.0.0)
