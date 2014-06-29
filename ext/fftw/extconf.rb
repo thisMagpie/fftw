@@ -32,7 +32,6 @@ if ( ! have_header("fftw3.h") && have_library("fftw3") ) then
   exit(-1)
 end
 
-puts "#{f.gets.chomp.green}"
 # Derived from SciRuby's NMatrix
 def find_newer_gplusplus #:nodoc:
   print "checking for apparent GNU g++ binary with C++0x/C++11 support... "
