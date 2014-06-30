@@ -5,11 +5,6 @@
 
 VALUE mFFTW;
 
-fftw_complex * allocate_fftw_complex(long n){
-  fftw_complex * fc;
-  return ALLOC_N(fftw_complex, n);;
-}
-
 /**
  * Define Real To Real Transform Method
  * TODO to be tested
@@ -26,12 +21,10 @@ static VALUE fftw_fft(VALUE self, VALUE r2r)
 {
   VALUE p;
   double *in;
-  fftw_complex *out;
   fftw_plan ftp;
   int n;
 
   in = calloc(n, sizeof(double));
-
   rb_need_block();
   rb_funcall(self, rb_intern("define_method"), 2, r2r, rb_block_proc());
   return get_doubles_from_data(in, r2r);
