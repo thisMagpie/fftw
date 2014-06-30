@@ -3,24 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
 VALUE mFFTW;
-
-/**
- * get_doubles
- * Get index double data from an array
- */
-void get_doubles(double *out, VALUE in, long n, long m){
-  VALUE num;
-  int i,j;
-
-  for(i = 0; i < n; i++){
-    for(j = 0; j < m; j++){
-      out[i] += NUM2DBL(rb_ary_entry(in, (i * m) + j));
-    }
-    out[i] /= m;
-  }
-}
 
 /**
  * Define Real To Real Transform Method
@@ -34,21 +17,26 @@ void get_doubles(double *out, VALUE in, long n, long m){
  * Y = fft(X,[],dim)
  * Y = fft(X,n,dim)
  */
-static VALUE fftw_fft(VALUE self, VALUE r2r)
+static VALUE fftw_r2r(VALUE self, VALUE r2r)
 {
   VALUE p;
-  double *in;
-  fftw_plan ftp;
-  int n;
+  double *in, *out;
+  in = calloc(r2r, sizeof(double));
 
-  in = calloc(n, sizeof(double));
-  rb_need_block();
+ rb_need_block();
   rb_funcall(self, rb_intern("define_method"), 2, r2r, rb_block_proc());
-  get_doubles(in, r2r);
-  return Qnil; /* todo return an array */
+  int i,j;
+     for(i = 0; i < 10; i++){
+        for(j = 0; j < 10; j++){
+        out[i] += NUM2DBL(rb_ary_entry(in, (i * 10) + j));
+     }
+    out[i] /= 10;
+    prinf(out[i]);
+  }
+  return out;
 }
 void Init_fftw()
 {
   mFFTW = rb_define_module("FFTW");
-  rb_define_singleton_method(mFFTW,"fft",fftw_fft,1);
+  rb_define_singleton_method(mFFTW,"fftw_r2r",fftw_r2r,1);
 }
