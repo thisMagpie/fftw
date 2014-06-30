@@ -13,47 +13,57 @@ puts "Library directory:" + LIBDIR.yellow
 puts "Include directory:" + INCLUDEDIR.yellow
 puts "Headers directory:" + "#{HEADER_DIRS}".yellow.to_s
 
-dir_config('fftw',HEADER_DIRS,LIBDIR)
-
-if ( ! have_header("fftw3.h") && have_library("fftw3") ) then
-   print <<-EOS
-   ** configure error **
-
-   Header fftw.h or the compiled fftw library is not found.
-   If you have the library installed under /fftw-dir (that is, fftw3.h is
-   in /fftw dir/include and the library in /fftw-dir/lib/),
-   try the following:
-   % ruby extconf.rb --with-fftw-dir=/fftw-dir
-
-   Alternatively, you can specify the two directory separately
-   with --include-dir and --fftw-dir
-  EOS
-  exit(-1)
+if /mingw/ =~ RUBY_PLATFORM then
+  FFTW_CONFIG = "sh fftw-config"
+else
+  FFTW_CONFIG = "fftw-config"
 end
 
-# Derived from SciRuby's NMatrix
-def find_newer_gplusplus #:nodoc:
-  print "checking for apparent GNU g++ binary with C++0x/C++11 support... ".green
-  [9,8,7,6,5,4,3].each do |minor|
-    ver = "4.#{minor}"
-    gpp = "g++-#{ver}"
-    result = `which #{gpp}`
-    next if result.empty?
-    CONFIG['CXX'] = gpp
-    puts ver
-    return CONFIG['CXX']
+def fftw_config()
+  print("checking fftw_cflags... ")
+  IO.popen("#{FFTW_CONFIG} --cflags") do |f|
+    cflags = f.gets.chomp
+    puts(cflags)
+    $CFLAGS += " " + cflags
   end
-  false
-end
 
-if have_library("fftw3f")
- $CFLAGS += [" -DFFTW3_HAS_SINGLE_SUPPORT -Wall -I #{INCLUDEDIR}"].join(" ")
-end
+  IO.popen("#{FFTW_CONFIG} --libs") do |f|
+    libs = f.gets.chomp
+    dir_config("cblas")
+    dir_config("atlas")
+    if have_library("cblas") and have_library("atlas")
+      libs.gsub!("-lfftwfblas", "-lcblas -latlas")
+      $LOCAL_LIBS += " " + libs.gsub(" -lfftwcblas", "")
+      print("checking fftw libs... ")
+      puts(libs)
+    end
+  end
 
-$CFLAGS = ["-Wall -Werror=return-type",$CFLAGS].join(" ")
-$CXXFLAGS = ["-Wall -Werror=return-type",$CXXFLAGS].join(" ")
-$CPPFLAGS = ["-Wall -Werror=return-type",$CPPFLAGS].join(" ")
+  if have_library("fftw3f")
+    $CFLAGS = [" -DFFTW3_HAS_SINGLE_SUPPORT -Wall -I #{INCLUDEDIR}"].join(" ")
+  end
+  $CFLAGS = ["-Wall -Werror=return-type",$CFLAGS].join(" ")
+  $CXXFLAGS = ["-Wall -Werror=return-type",$CXXFLAGS].join(" ")
+  $CPPFLAGS = ["-Wall -Werror=return-type",$CPPFLAGS].join(" ")
+  dir_config('fftw',HEADER_DIRS,LIBDIR)
+
+  if ( ! have_header("fftw3.h") && have_library("fftw3") ) then
+    print <<-EOS
+    ** configure error **
+
+    Header fftw.h or the compiled fftw library is not found.
+    If you have the library installed under /fftw-dir (that is, fftw3.h is
+    in /fftw dir/include and the library in /fftw-dir/lib/),
+    try the following:
+    % ruby extconf.rb --with-fftw-dir=/fftw-dir
+
+    Alternatively, you can specify the two directory separately
+    with --include-dir and --fftw-dir
+    EOS
+    exit(-1)
+  end
 # TODO FFTW for i866 or x86-64 Computers
 #'--enable-float  --enable-threads  --enable-sse'
+end
 
 create_makefile("fftw")
