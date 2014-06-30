@@ -3,7 +3,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
 VALUE mFFTW;
+
+/**
+ * get_doubles
+ * Get index double data from an array
+ */
+void get_doubles(double *out, VALUE in, long n, long m){
+  VALUE num;
+  int i,j;
+
+  for(i = 0; i < n; i++){
+    for(j = 0; j < m; j++){
+      out[i] += NUM2DBL(rb_ary_entry(in, (i * m) + j));
+    }
+    out[i] /= m;
+  }
+}
 
 /**
  * Define Real To Real Transform Method
@@ -27,7 +44,8 @@ static VALUE fftw_fft(VALUE self, VALUE r2r)
   in = calloc(n, sizeof(double));
   rb_need_block();
   rb_funcall(self, rb_intern("define_method"), 2, r2r, rb_block_proc());
-  return get_doubles_from_data(in, r2r);
+  get_doubles(in, r2r);
+  return Qnil; /* todo return an array */
 }
 void Init_fftw()
 {
