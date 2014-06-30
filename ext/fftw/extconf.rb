@@ -14,9 +14,9 @@ puts "Include directory:" + INCLUDEDIR.yellow
 puts "Headers directory:" + "#{HEADER_DIRS}".yellow.to_s
 
 if /mingw/ =~ RUBY_PLATFORM then
-  FFTW_CONFIG = "sh fftw-config"
+  FFTW_CONFIG = "sh fftw"
 else
-  FFTW_CONFIG = "fftw-config"
+  FFTW_CONFIG = "fftw"
 end
 
 def fftw_config()
@@ -26,7 +26,7 @@ def fftw_config()
     puts(cflags)
     $CFLAGS += " " + cflags
   end
-
+  # This is for nmatrix stuff late on TODO
   IO.popen("#{FFTW_CONFIG} --libs") do |f|
     libs = f.gets.chomp
     dir_config("cblas")
@@ -42,9 +42,9 @@ def fftw_config()
   if have_library("fftw3f")
     $CFLAGS = [" -DFFTW3_HAS_SINGLE_SUPPORT -Wall -I #{INCLUDEDIR}"].join(" ")
   end
-  $CFLAGS = ["-Wall -Werror=return-type",$CFLAGS].join(" ")
-  $CXXFLAGS = ["-Wall -Werror=return-type",$CXXFLAGS].join(" ")
-  $CPPFLAGS = ["-Wall -Werror=return-type",$CPPFLAGS].join(" ")
+  $CFLAGS = ["-lfftw3 -Wall -Werror=return-type",$CFLAGS].join(" ")
+  $CXXFLAGS = ["-lfftw3 -Wall -Werror=return-type",$CXXFLAGS].join(" ")
+  $CPPFLAGS = ["-lfftw3 -Wall -Werror=return-type",$CPPFLAGS].join(" ")
   dir_config('fftw',HEADER_DIRS,LIBDIR)
 
   if ( ! have_header("fftw3.h") && have_library("fftw3") ) then
