@@ -1,3 +1,18 @@
+88a5153 FFTW3 update with modified content
+8bb359b ext Add some documentation
+06fb08e ext: use the same funtion name as matlab
+1c9f5e3 fftw.c add basics for a r2r method
+842617c Ext remove nmatrix references
+be526cc Fix Compilation error
+da0ef53 travis: remove whitespace
+ec7aee2 extconf: Remove broken function call
+699c127 extconf: remove failing function call
+92eed6e File error in checker function: removed
+5b7b954 Rakefile Fix Compiler Error
+e8f4165 travis add --trace for debugging
+07ddb69 Gemfile.lock update
+77185aa Rakefile remove needless dependencies
+b8e626b Update Changelog
 6e24175 Bump Version to 0.0.4
 9397943 gemspec: remove unused dependencies
 dcede34 Fix travis bundle error
