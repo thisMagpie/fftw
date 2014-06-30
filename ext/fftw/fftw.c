@@ -9,6 +9,11 @@ VALUE mFFTW;
  * Once this is done this should be able to take nmatrix objects of real data
  * so that the transformed array can be returned an nmatrix object which holds
  * a real to real transform in an nmatrix array
+ * Usage could allow:
+ * Y = fft(x)
+ * Y = fft(X,n)
+ * Y = fft(X,[],dim)
+ * Y = fft(X,n,dim)
  */
 static VALUE fftw_fft(VALUE self, VALUE r2r)
 {
