@@ -1,2 +1,2 @@
 --color
---format RSpec::Longrun::Formatter
+--format documentation
