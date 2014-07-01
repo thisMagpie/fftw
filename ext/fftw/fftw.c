@@ -3,7 +3,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include <ctype.h>
 
 VALUE mFFTW;
 
@@ -24,7 +23,6 @@ static VALUE fftw_r2r(VALUE self, VALUE r2r)
   VALUE p;
   double *in, *out;
   in = calloc(r2r, sizeof(double));
-  rb_need_block();
   rb_funcall(self, rb_intern("define_method"), 2, r2r, rb_block_proc());
   int i,j;
   for(i = 0; i < 10; i++)
@@ -38,6 +36,7 @@ static VALUE fftw_r2r(VALUE self, VALUE r2r)
   }
   return &out;
 }
+
 void Init_fftw()
 {
   mFFTW = rb_define_module("FFTW");
