@@ -1,4 +1,4 @@
-{<img src=https://travis-ci.org/thisMagpie/fftw.png>}[https://travis-ci.org/ThisMagpie/fftw]
+{<img src="https://codeclimate.com/github/thisMagpie/fftw.png" />}[https://codeclimate.com/github/thisMagpie/fftw]
 {<img src=https://travis-ci.org/thisMagpie/fftw.png>}[https://travis-ci.org/ThisMagpie/fftw]
 
 == Install FFTW
@@ -11,7 +11,6 @@ make
 sudo  -s  # Type in your root password and hit the enter button)
 make  install
 ```
-
 Now to do the double precision version, we need to clean up the tree.
 
 ```
@@ -29,14 +28,15 @@ make
 su  (Type in your root password and hit the enter button)
 make  install
 Now to do the double precision version, we need to clean up the tree.
-
+```
 make  distclean
 ./configure  --enable-threads
 make
 make  install
+```
+
 In order to give SciRuby the capability to handle signal analysis, processing and synthesis via the NMatrix gem or otherwise.
  ```
- 
  [Source](http://www.cems.uvm.edu/~smanchu/fftw_installation.html)
 
 It has been determined that implementing the FFTW3 API in ruby makes it possible to perform operations on NMatrix objects.
