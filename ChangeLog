@@ -1,3 +1,22 @@
+15b19d2 gemspec: require code climate
+31fa152 README add code climate link & tidy
+ba954e4 spec helper: require fftw
+b186070 rspec: add r2r describe
+6ce48a3 ext add math include
+396f93f look in the right folder 	modified:   fftw3 (untracked content)
+32a1aa1 gitignore: add untracked
+9e49e9f specs: check fftw arguments
+dd329e1 ext/fftw/fftw.c fix compiler error
+969ed2f travis: do sobmodules stuff
+093726c gitignore: remove o
+2cba7c5 extconf makefile create: Be conventional
+4aa2a4b rspec change formatting
+5b27468 extconf fix compiler error and document
+5733843 ext fftw3 return an array
+2a79532 Add method to get double index values
+7f5d480 ext: remove rough complex work
+211fb7e ext: update to return array of doubles
+0fee452 Versioning: Update to 0.0.5
 88a5153 FFTW3 update with modified content
 8bb359b ext Add some documentation
 06fb08e ext: use the same funtion name as matlab
