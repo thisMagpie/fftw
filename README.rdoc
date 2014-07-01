@@ -1,5 +1,5 @@
 {<img src="https://codeclimate.com/github/thisMagpie/fftw.png" />}[https://codeclimate.com/github/thisMagpie/fftw]
-{<img src=https://travis-ci.org/thisMagpie/fftw.png>}[https://travis-ci.org/ThisMagpie/fftw]
+{<img src=https://travis-ci.org/thisMagpie/fftw.png>}[https://travis-ci.org/thisMagpie/fftw.svg?branch=master]
 
 == Install FFTW
 
