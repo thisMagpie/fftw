@@ -2,6 +2,7 @@
 #include <ruby.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "math.h"
 
 VALUE mFFTW;
 
@@ -22,18 +23,19 @@ static VALUE fftw_r2r(VALUE self, VALUE r2r)
   VALUE p;
   double *in, *out;
   in = calloc(r2r, sizeof(double));
-
- rb_need_block();
+  rb_need_block();
   rb_funcall(self, rb_intern("define_method"), 2, r2r, rb_block_proc());
   int i,j;
-     for(i = 0; i < 10; i++){
-        for(j = 0; j < 10; j++){
-        out[i] += NUM2DBL(rb_ary_entry(in, (i * 10) + j));
-     }
+  for(i = 0; i < 10; i++)
+  {
+    for(j = 0; j < 10; j++)
+    {
+      out[i] += NUM2DBL(rb_ary_entry(r2r, (i * 10) + j));
+    }
     out[i] /= 10;
     prinf(out[i]);
   }
-  return out;
+  return &out;
 }
 void Init_fftw()
 {
