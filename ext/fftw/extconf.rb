@@ -66,4 +66,4 @@ def fftw_config()
 #'--enable-float  --enable-threads  --enable-sse'
 end
 
-create_makefile("fftw")
+create_makefile("fftw/fftw")
