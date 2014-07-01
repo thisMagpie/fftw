@@ -4,3 +4,4 @@ Makefile
 mkmf.log
 *.*~
 .bundle\n
+fftw3/*
