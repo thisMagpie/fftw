@@ -42,9 +42,12 @@ def fftw_config()
   if have_library("fftw3f")
     $CFLAGS = [" -DFFTW3_HAS_SINGLE_SUPPORT -Wall -I #{INCLUDEDIR}"].join(" ")
   end
-  $CFLAGS = ["-lfftw3 -Wall -Werror=return-type",$CFLAGS].join(" ")
-  $CXXFLAGS = ["-lfftw3 -Wall -Werror=return-type",$CXXFLAGS].join(" ")
-  $CPPFLAGS = ["-lfftw3 -Wall -Werror=return-type",$CPPFLAGS].join(" ")
+  common_flags ="-lfftw3 -Wall -Werror=return-type"
+  $CFLAGS   = [common_flags,$CFLAGS].join(" ")
+  $CXXFLAGS = [common_flags,$CXXFLAGS].join(" ")
+  $CPPFLAGS = [common_flags,$CPPFLAGS].join(" ")
+
+  # set up configurtion
   dir_config('fftw',HEADER_DIRS,LIBDIR)
 
   if ( ! have_header("fftw3.h") && have_library("fftw3") ) then
