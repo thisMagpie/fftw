@@ -6,3 +6,5 @@ mkmf.log
 .bundle\n
 fftw3/*
 tmp
+*.so
+*.o
