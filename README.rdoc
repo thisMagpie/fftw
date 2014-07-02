@@ -79,26 +79,8 @@ Exception: typedef struct foo_s {...} foo;  instead of:
 typedef struct foo {...} foo;
 ```
 for C++ compatibility.
----
-
-= Help SciRuby's GSoC fftw gem developer get to San Jose
-
-![Intense celebration time!][1]
-
-**Edinburgh, Scotland.** As a student, I have no money either!
-
-![Hopes, deleted.][2]
-#### **Solution**
-Money, **you give**?
-
-### Why **Give?**
-In 2013 I [implemented caret and focus tracking for GNOME](https://wiki.gnome.org/Outreach/SummerOfCode/2013/Projects/MagdalenBernsCaretAndFocusTracking). An accessibility feature, which was planned around 3 years prior to my taking on the internship which saw it implemented.
-
-![GNOME][3] ![SciRuby][4]
-This summer I am delighted to be able to work with the SciRuby team by implementing a [FFTW3 wrapper for Ruby now, too](http://sciruby.com/blog/2014/06/04/introducing-the-fftw-sciruby-gsoc-project). I am working with a great team and I also have a very talented and awesome mentor in Colin Fuller too :-).
+----
 ![SciRuby][5] ![FFTW][6]
-
-By helping me meet all the wonderful people I have worked with in person, at the  [Google Summer of Code 10 year Reunion](https://sites.google.com/site/gsocmentorsummitstudentreunion/home), San Jose, you will also be helping to grow the open source community!
 
 ![GSoC 2014][7]
 
@@ -106,6 +88,7 @@ By helping me meet all the wonderful people I have worked with in person, at the
 ==========
 
 1129CMrZkqKt32F5kJhYiNMsfhRnWFEeTA
+
   [1]: http://i.imgur.com/5SYYd8Q.jpg
   [2]: http://i.imgur.com/5H30L.gif
   [3]: http://www.gnome.org/wp-content/themes/gnome-grass/images/gnome-logo.png
