@@ -4,7 +4,12 @@
 #include <stdlib.h>
 #include <math.h>
 
+#ifdef HAVE_NMATRIX_H
+#include "nmatrix.h"
+
 VALUE mFFTW;
+
+static VALUE nm_fftw_r2r(int argc, VALUE* argv, VALUE self);
 
 /**
  * Define Real To Real Transform Method
@@ -18,20 +23,19 @@ VALUE mFFTW;
  * Y = fft(X,[],dim)
  * Y = fft(X,n,dim)
  */
-static VALUE fftw_r2r(double *r2r, int m)
+static VALUE nm_fftw_r2r(int argc, VALUE* argv, VALUE self)
 {
   double *in, *out;
-  int n;
-  printf("%d ",&m);
+  const int m;
   /* get the size of the array*/
-  size_t size = (sizeof r2r / sizeof r2r[0]);
-
+  struct NMatrix  *nm;
   int i, j;
 
+  nm = to_nmatrix(argv[0]);
   for(i = 0; i < m; i++)
   {
 
-  in =  malloc(sizeof(r2r)) ;
+  in =  malloc(sizeof(argv)) ;
     for(j = 0; j < m; j++)
     {
       printf("Enter in value\n");
@@ -42,8 +46,9 @@ static VALUE fftw_r2r(double *r2r, int m)
   return out[m-1];
 }
 
-void Init_fftw()
+void Init_nm_fftw()
 {
   mFFTW = rb_define_module("FFTW");
-  rb_define_singleton_method(mFFTW,"r2r",fftw_r2r,1);
+  rb_define_singleton_method(mFFTW,"r2r",nm_fftw_r2r,1);
 }
+#endif
