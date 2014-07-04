@@ -1,6 +1,5 @@
 #ifndef FFTW_H
 #define FFTW_H
-
 #include <ruby.h>
 #include <fftw3.h>
 
@@ -9,6 +8,5 @@
 #endif
 
 extern VALUE mFFTW;
-
-void Init_fftw();
+void Init_nm_fftw();
 #endif
