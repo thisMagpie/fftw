@@ -1,2 +1,5 @@
 --color
 --format documentation
+         html
+         progress
+--warnings
