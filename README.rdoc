@@ -43,26 +43,24 @@ It has been determined that implementing the FFTW3 API in ruby makes it possible
 
 Since existing gem called ruby-ffw3 already exists but only works with narray object a fork of this repository needs to be made compatible with NMatrix instead which is what this repository is all about.
 
-```
-   Common names:
+=== Common names:
 
-   R       : real type, aka fftw_real
-   E       : real type for local variables (possibly extra precision)
-   C       : complex type
-   sz      : size
-   vecsz   : vector size
-   is, os  : input/output stride
-   ri, ii  : real/imag input (complex data)
-   ro, io  : real/imag output (complex data)
-   I, O    : real input/output (real data)
-   A       : assert
-   CK      : check
-   S       : solver, defined internally to each solver file
-   P       : plan, defined internally to each solver file
-   k       : codelet
-   X(...)  : used for mangling of external names (see below)
-   K(...)  : floating-point constant, in E precision
-```
+     R       : real type, aka fftw_real
+     E       : real type for local variables (possibly extra precision)
+     C       : complex type
+     sz      : size
+     vecsz   : vector size
+     is, os  : input/output stride
+     ri, ii  : real/imag input (complex data)
+     ro, io  : real/imag output (complex data)
+     I, O    : real input/output (real data)
+     A       : assert
+     CK      : check
+     S       : solver, defined internally to each solver file
+     P       : plan, defined internally to each solver file
+     k       : codelet
+     X(...)  : used for mangling of external names (see below)
+     K(...)  : floating-point constant, in E precision
 
 == Conventions in FFTW
 
@@ -86,14 +84,3 @@ for C++ compatibility.
 
 [![Donate with Pledgie][8]](https://pledgie.com/campaigns/25892)
 ==========
-
-1129CMrZkqKt32F5kJhYiNMsfhRnWFEeTA
-
-  [1]: http://i.imgur.com/5SYYd8Q.jpg
-  [2]: http://i.imgur.com/5H30L.gif
-  [3]: http://www.gnome.org/wp-content/themes/gnome-grass/images/gnome-logo.png
-  [4]: https://www.symplicity.com/assets/icon_-_Product_Features_-_Accessibility.png
-  [5]: http://sciruby.com/images/logo.png
-  [6]: http://fftw.org/fftw-logo-med.gif
-  [7]:https://1-ps.googleusercontent.com/sx/s.google-melange.appspot.com/www.google-melange.com/soc/content/2-1-20140626//images/gsoc/logo/landing-page-gsoc2014.png.pagespeed.ce.t4C4svuO-G.png
-  [8]: https://pledgie.com/campaigns/25892.png?skin_name=chrome
