@@ -1,3 +1,9 @@
+40ef137 Gemfile: clone the github version nmatrix
+667c68a spec_helper: remove testreporter
+b91308d Gemfile: Formatting
+7497e21 extconf: seek atlas headers before nmatrix
+096b589 README: remove spaces
+cb24a35 Git bump version to 0.0.7
 faaefc3 git dependencies must be requested from Gemfile
 951e381 extconf: add debugging messages
 6160c82 require paths: use exact nmatrix-version/lib
