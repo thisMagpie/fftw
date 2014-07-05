@@ -2,7 +2,14 @@ require 'mkmf'
 require 'colorize'
 require 'rubygems'
 
-puts "COMPILING FFTW"
+puts "******************".colorize(:color => :light_blue,
+                                              :background => :light_red)
+puts "******************".light_blue
+puts "* COMPILING FFTW *".cyan
+puts "******************".light_blue
+puts "******************".colorize(:color => :light_blue,
+                                              :background => :light_red)
+
 LIBDIR = RbConfig::CONFIG['libdir']
 INCLUDEDIR = RbConfig::CONFIG['includedir']
 NMATRIX_DIR = ENV['GEM_HOME'] + '/gems/nmatrix-0.1.0.rc3'
@@ -12,21 +19,27 @@ NMATRIX_INCLUDEDIR = ''
 nm_gemspec = Gem::Specification.find_by_path('nmatrix.h')
 if nm_gemspec then
   puts "nmatrix.gemspec found!".green
-  puts "Searching for nmatrix...".yellow
-    puts ""
-  if have_header('nmatrix.h') && have_library('nmatrix')
-    puts "Status: nmatrix found!".green
-    NMATRIX_INCLUDEDIR += NMATRIX_DIR + 'ext/nmatrix/'
+  puts "**********************".cyan
+
+  puts "Searching for cblas and atlas...".yellow
+  puts "...".yellow
+  if have_library("cblas") and have_library("atlas")
+    puts "CBLAS and ATLAS: Found!".green
     dir_config("cblas")
     dir_config("atlas")
-    puts "Searching for cblas and atlas...".yellow
-    if have_library("cblas") and have_library("atlas")
-      puts "Status: cblas and atlas found!".green
-    else
-      puts "cblas and atlas status: not found!".red
-    end
   else
-    puts "nmatrix.h and nmatrix were not found!".red
+    puts "Not found!".red
+    puts "**********************".cyan
+  end
+
+  puts "Searching for nmatrix...".yellow
+  if (have_header('nmatrix.h') && have_library('nmatrix'))
+    puts "NMatrix: Found!".green
+    puts "**********************".cyan
+
+    NMATRIX_INCLUDEDIR += NMATRIX_DIR + 'ext/nmatrix/'
+  else
+    puts "Not found!".red
   end
 end
 
