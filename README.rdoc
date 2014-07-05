@@ -77,10 +77,6 @@ Exception: typedef struct foo_s {...} foo;  instead of:
 typedef struct foo {...} foo;
 ```
 for C++ compatibility.
-----
-![SciRuby][5] ![FFTW][6]
 
-![GSoC 2014][7]
+{<img src="https://pledgie.com/campaigns/25892.png" alt="donate with pledgie">}[https://pledgie.com/campaigns/25892]
 
-[![Donate with Pledgie][8]](https://pledgie.com/campaigns/25892)
-==========
