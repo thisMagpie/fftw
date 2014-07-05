@@ -1,5 +1,4 @@
 source 'https://rubygems.org'
-gemspec
 
 group :development do
   gem 'colorize', '~>0.7', '>=0.7.3'
@@ -13,8 +12,10 @@ group :development do
   gem 'rspec-longrun', '~>1.0', '>=1.0.1'
   gem 'rspec', '~>3.0.0'
   gem 'rake', '~>10.3', '>=10.3.2'
-  gem 'nmatrix', '0.1.0.rc3'
+  gem 'nmatrix', :git => "git://github.com/thisMagpie/nmatrix.git", :branch => 'gemfile'
 end
 group :test do
 	gem 'codeclimate-test-reporter','~>0.3.0', require: nil
 end
+
+gemspec
