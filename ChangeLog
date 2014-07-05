@@ -1,3 +1,38 @@
+faaefc3 git dependencies must be requested from Gemfile
+951e381 extconf: add debugging messages
+6160c82 require paths: use exact nmatrix-version/lib
+3fb3408 extconf: get rid of sitearchdir reference
+55f06fc travis: why does it always rain on me?
+e1905d5 travis: fix typo in script
+e8e82b2 travis: remove clean && compile
+9ecfee4 READEME get rid of img links
+b126f58 Header: Fix Init function name
+170ae04 Add nmatrix ifdef and clean up procedure
+651bd75 find nmatrix headers
+0026fa9 Gemfile add codeclimate reporter stuff
+afadfa4 rspec: include warnings
+4a04d8f add pledgie link
+05a0c8f gitignore so and o files
+3bb6f28 README add pledgie link & polish
+a7581aa extconf set variable to store flags in
+93c99d8 travis: do a git clean
+6c84bfc travis: clobber and clean as script
+cb8524f travis: clean and clobber before compile
+3ebcfbd [ ext | fftw.c ]  fix some warnings
+007abeb ext: headers add nmatrix ifdef fftw.h
+b9f446d Updates to fftw3
+d89ffd4 add .so and .o files
+97fac91 add composer.json
+f94acc9 remove nmatrix_spec.rb, not needed
+e12a84c README: link to master from travis image:x
+9a0689c deleted: gitmodules
+2fb4394 travis yaml
+7f4bf7f submodules : remove fftw
+32a4a19 gitignore: add tmp dir§
+99c0d4f spec_helper: start code climate reporter
+a448843 lib : add nmatrix require
+b7b2ffd Add changelog
+bf7cbc9 bump version to 0.0.6
 15b19d2 gemspec: require code climate
 31fa152 README add code climate link & tidy
 ba954e4 spec helper: require fftw
