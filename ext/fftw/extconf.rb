@@ -85,5 +85,4 @@ if have_library("fftw3f")
 end
 
 require 'rubygems'
-
 create_makefile("fftw/fftw")
