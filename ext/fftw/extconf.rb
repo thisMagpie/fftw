@@ -1,11 +1,25 @@
 require 'mkmf'
 require 'colorize'
+require 'rubygems'
 
 LIBDIR = RbConfig::CONFIG['libdir']
 INCLUDEDIR = RbConfig::CONFIG['includedir']
 NMATRIX_DIR = ENV['GEM_HOME'] + '/gems/nmatrix-0.1.0.rc3/'
-NMATRIX_LIBDIR = NMATRIX_DIR + 'lib/nmatrix/'
-NMATRIX_INCLUDEDIR = NMATRIX_DIR + 'ext/nmatrix/'
+NMATRIX_LIBDIR = NMATRIX_DIR + 'lib'
+NMATRIX_INCLUDEDIR = ''
+
+nm_gemspec = Gem::Specification.find_by_path('nmatrix.h')
+if nm_gemspec then
+  if have_header('nmatrix.h') && have_library('nmatrix')
+    puts "nmatrix found!".green
+    NMATRIX_INCLUDEDIR += NMATRIX_DIR + 'ext/nmatrix/'
+    dir_config("cblas")
+    dir_config("atlas")
+    if have_library("cblas") and have_library("atlas")
+      puts "found cblas and atlas".green
+    end
+  end
+end
 
 HEADER_DIRS = ['/usr/local/include',
                 INCLUDEDIR,
@@ -27,7 +41,6 @@ end
 puts "Library directory:" + LIBDIR.green
 puts "Include directory:" + INCLUDEDIR.green
 puts "Headers directory:" + "#{HEADER_DIRS}".green.to_s
-puts '#{sitearchdir}'.red
 
 if ( ! have_header("fftw3.h") && have_library("fftw3") ) then
   print <<-EOS
@@ -49,17 +62,9 @@ if have_library("fftw3f")
   $CFLAGS = [" -DFFTW3_HAS_SINGLE_SUPPORT -Wall -I #{INCLUDEDIR}"].join(" ")
 end
 
+# @private
+
 require 'rubygems'
-nm_gemspec = Gem::Specification.find_by_path('nmatrix.h')
-if nm_gemspec then
-  if have_header('nmatrix.h')
-    dir_config("cblas")
-    dir_config("atlas")
-    if have_library("cblas") and have_library("atlas")
-      puts "found cblas and atlas".green
-    end
-  end
-end
 
 
 create_makefile("fftw/fftw")
