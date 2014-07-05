@@ -11,6 +11,7 @@ make
 sudo  -s  # Type in your root password and hit the enter button)
 make  install
 ```
+
 Now to do the double precision version, we need to clean up the tree.
 
 ```
@@ -27,8 +28,11 @@ make  install
 make
 su  (Type in your root password and hit the enter button)
 make  install
+```
+
 Now to do the double precision version, we need to clean up the tree.
 
+```
 make  distclean
 ./configure  --enable-threads
 make
@@ -36,11 +40,9 @@ make  install
 ```
 
 In order to give SciRuby the capability to handle signal analysis, processing and synthesis via the NMatrix gem or otherwise.
- ```
- [Source](http://www.cems.uvm.edu/~smanchu/fftw_installation.html)
+([Source](http://www.cems.uvm.edu/~smanchu/fftw_installation.html))
 
 It has been determined that implementing the FFTW3 API in ruby makes it possible to perform operations on NMatrix objects.
-
 Since existing gem called ruby-ffw3 already exists but only works with narray object a fork of this repository needs to be made compatible with NMatrix instead which is what this repository is all about.
 
 === Common names:
