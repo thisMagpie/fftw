@@ -10,48 +10,60 @@ puts "******************".light_blue
 puts "******************".colorize(:color => :light_blue,
                                               :background => :light_red)
 
-LIBDIR = RbConfig::CONFIG['libdir']
-INCLUDEDIR = RbConfig::CONFIG['includedir']
-NMATRIX_DIR = ENV['GEM_HOME'] + '/gems/nmatrix'
-NMATRIX_LIBDIR = NMATRIX_DIR + 'lib'
-NMATRIX_INCLUDEDIR = ''
+# This only works if fftw3 headers are installed.
+fftw_libdir    = RbConfig::CONFIG['libdir']
+fftw_incdir    = RbConfig::CONFIG['includedir']
+
+# TODO | Improve later:
+# This assumes that gems are installed in $HOME.
+nmatrix_srcdir = ENV['GEM_HOME'] + '/gems/nmatrix'
+nmatrix_libdir = nmatrix_srcdir + '/lib/nmatrix'
+nmatrix_incdir = nmatrix_srcdir + '/ext/nmatrix'
 
 nm_gemspec = Gem::Specification.find_by_path('nmatrix.h')
 if nm_gemspec then
   puts "nmatrix.gemspec found!".green
   puts "**********************".cyan
-
   puts "Searching for cblas and atlas...".yellow
-  puts "...".yellow
+  puts "CBLAS and ATLAS Status:".yellow
   if have_library("cblas") and have_library("atlas")
-    puts "CBLAS and ATLAS: Found!".green
+    puts "******".cyan # TODO stars always need to be same length as string.
+    puts "Found!".green
+    puts "******".cyan # TODO stars always need to be same length as string.
     dir_config("cblas")
     dir_config("atlas")
   else
     puts "Not found!".red
-    puts "**********************".cyan
   end
 
-  puts "Searching for nmatrix...".yellow
+  # Searching for nmatrix.
   if (have_header('nmatrix.h') && have_library('nmatrix'))
-    puts "NMatrix: Found!".green
-    puts "**********************".cyan
 
-    NMATRIX_INCLUDEDIR += NMATRIX_DIR + 'ext/nmatrix/'
+    puts "NMatrix Status:".yellow
+    puts "Found!".green
+    puts "******".cyan
   else
-    puts "Not found!".red
+    puts "NMatrix Not found!".red
   end
 end
 
-HEADER_DIRS = ['/usr/local/include',
-                INCLUDEDIR,
+headers = ['/usr/local/include',
+                fftw_incdir,
                '/usr/include',
                '/usr/include/atlas',
-               NMATRIX_INCLUDEDIR
+                nmatrix_incdir
               ]
-LIB_DIRS = [LIBDIR,NMATRIX_LIBDIR]
+fftw_libdir = [ fftw_libdir, nmatrix_libdir ]
 
-dir_config('fftw',HEADER_DIRS,LIBDIR)
+puts "*********************************************************".cyan
+puts "nmatrix include directory:"
+puts "#{nmatrix_incdir}".green
+puts "nmatrix library directories:"
+puts "#{nmatrix_libdir}".green
+puts "*********************************************************".cyan
+
+dir_config('nmatrix', nmatrix_incdir, nmatrix_libdir)
+incdir, libdir = dir_config('fftw', fftw_incdir, fftw_libdir)
 
 if /mingw/ =~ RUBY_PLATFORM then
   FFTW_CONFIG = "sh fftw"
@@ -59,10 +71,9 @@ else
   FFTW_CONFIG = "fftw"
 end
 
-# set up configurtion
-puts "Library directory:" + LIBDIR.green
-puts "Include directory:" + INCLUDEDIR.green
-puts "Headers directory:" + "#{HEADER_DIRS}".green.to_s
+# set up configurtio
+puts "Library directory:" + libdir.to_s.green
+puts "Headers directory:" + "#{incdir}".green.to_s
 
 if ( ! have_header("fftw3.h") && have_library("fftw3") ) then
   print <<-EOS
@@ -81,8 +92,12 @@ if ( ! have_header("fftw3.h") && have_library("fftw3") ) then
 end
 
 if have_library("fftw3f")
-  $CFLAGS = [" -DFFTW3_HAS_SINGLE_SUPPORT -Wall -I #{INCLUDEDIR}"].join(" ")
+  $CFLAGS = [" -DFFTW3_HAS_SINGLE_SUPPORT -Wall -I #{fftw_incdir}"].join(" ")
 end
 
-require 'rubygems'
+if $warnflags
+  $warnflags.slice!('-Wdeclaration-after-statement')
+  $warnflags.slice!('-Wimplicit-function-declaration')
+end
+
 create_makefile("fftw/fftw")
