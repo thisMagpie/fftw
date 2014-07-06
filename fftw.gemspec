@@ -1,10 +1,9 @@
 lib = File.expand_path('../lib/', __FILE__)
 $:.unshift lib unless $:.include?(lib)
-require 'fftw/version'
 
 Gem::Specification.new do |gem|
   gem.platform                      = Gem::Platform::RUBY
-  gem.version                       =  FFTW::VERSION::STRING
+  gem.version                       = '0.0.9'
   gem.name                          = 'fftw'
   gem.license                       = 'BSD 2-clause'
   gem.authors                       = 'Magdalen Berns'
