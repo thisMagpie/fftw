@@ -5,6 +5,7 @@ cache:
   - fftw/bundle
 env:
   - CPLUS_INCLUDE_PATH=/usr/include:/usr/include/atlas C_INCLUDE_PATH=/usr/include:/usr/include/atlas
+bundler_args: --without :development
 rvm:
   - "1.9.2"
   - "1.9.3"
