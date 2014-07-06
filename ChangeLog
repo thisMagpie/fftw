@@ -1,3 +1,10 @@
+93d8282 Bump Version to 0.0.9
+9a39762 remove version.rb as not needed
+d109179 README Fix Formatting
+277c584 README: Fix image link
+b19daca rspec formatting
+7d9f2dd remove whitespace
+0a8d214 update changelog for v 0.0.8
 12104fe Bump Version to 0.0.8
 40ef137 Gemfile: clone the github version nmatrix
 667c68a spec_helper: remove testreporter
