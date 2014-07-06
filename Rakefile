@@ -7,11 +7,11 @@ require 'bundler/gem_tasks'
 RSpec::Core::RakeTask.new(:spec) do |t|
   t.fail_on_error = false
 end
-task :default => :spec
+task :test => :spec
 
 begin
-  Bundler.setup(:default, :development)
-rescue Bundler::BundlerError => e
+  Bundler.setup(:test, :default, :development)
+  rescue Bundler::BundlerError => e
   $stderr.puts e.message
   $stderr.puts "Run `bundle install` to install missing gems"
   exit e.status_code
@@ -25,7 +25,7 @@ gemspec = eval(IO.read("fftw.gemspec"))
 Gem::PackageTask.new(gemspec).define
   desc "install the gem locally"
   task :install => [:package] do
-    sh %{gem install pkg/fftw-#{FFTW::VERSION::STRING}.gem}
+    sh %{gem install pkg/fftw-#{FFTW::VERSION}.gem}
   end
   def run *cmd
     sh(cmd.join(" "))
