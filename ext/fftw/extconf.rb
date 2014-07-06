@@ -3,7 +3,7 @@ require 'colorize'
 require 'rubygems'
 
 puts "******************".colorize(:color => :light_blue,
-                                              :background => :light_red)
+                                   :background => :light_red)
 puts "******************".light_blue
 puts "* COMPILING FFTW *".cyan
 puts "******************".light_blue
@@ -12,7 +12,7 @@ puts "******************".colorize(:color => :light_blue,
 
 LIBDIR = RbConfig::CONFIG['libdir']
 INCLUDEDIR = RbConfig::CONFIG['includedir']
-NMATRIX_DIR = ENV['GEM_HOME'] + '/gems/nmatrix-0.1.0.rc3'
+NMATRIX_DIR = ENV['GEM_HOME'] + '/gems/nmatrix'
 NMATRIX_LIBDIR = NMATRIX_DIR + 'lib'
 NMATRIX_INCLUDEDIR = ''
 
