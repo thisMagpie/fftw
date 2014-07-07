@@ -1,3 +1,19 @@
+3000fad lib/fftw.rb : general tidy
+2b80383 Gemfile.lock
+18cddff add fftw_nm cpp and h files
+75d7259 remove lib/fftw/fftw.rb
+006758a Gemfile nmatrix is not development dep
+84650de sort out g++ error
+d453e1b extconf: fix compilation error with c++11
+f69c432 Rakefile add debugging messages remove unwanted dependencies
+5e42e4f Gemfile add stdlib
+4be8b05 remove version from spec_helper
+5ebe11f remove fftw.c
+8dadaae extconf: more debugging logs
+9dd4900 travis: check the build works without development
+c07aaeb Rakefile: update version
+46a95d8 extconf: use github nmatrix folder
+7e63b26 Update the Changelog
 93d8282 Bump Version to 0.0.9
 9a39762 remove version.rb as not needed
 d109179 README Fix Formatting
