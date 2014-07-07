@@ -5,39 +5,39 @@
 
 Install FFTW on a Mac
 
-```
+`
 ./configure  --enable-float  --enable-threads
 make
 sudo  -s  # Type in your root password and hit the enter button)
 make  install
-```
+`
 
 Now to do the double precision version, we need to clean up the tree.
 
-```
+`
 make  distclean
 ./configure  --enable-threads
 make
 make  install
-```
+`
 
 == FFTW for Linux
 
-```
+`
 ./configure  --enable-float  --enable-threads
 make
 su  (Type in your root password and hit the enter button)
 make  install
-```
+`
 
 Now to do the double precision version, we need to clean up the tree.
 
-```
+`
 make  distclean
 ./configure  --enable-threads
 make
 make  install
-```
+`
 
 In order to give SciRuby the capability to handle signal analysis, processing and synthesis via the NMatrix gem or otherwise.
 ([Source](http://www.cems.uvm.edu/~smanchu/fftw_installation.html))
