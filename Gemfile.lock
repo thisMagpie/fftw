@@ -1,10 +1,10 @@
-PATH
-  remote: .
+GIT
+  remote: git://github.com/thisMagpie/nmatrix.git
+  revision: 5b92d4acef3617d0aa80ef632f26636d40aba1b1
+  branch: removeunused
   specs:
-    fftw (0.0.6.rc1)
-      nmatrix (= 0.1.0.rc3)
-      rake (~> 10.3, >= 10.3.2)
-      rspec (~> 3.0.0)
+    nmatrix (0.1.0.rc4)
+      rdoc (>= 4.0.1)
 
 GEM
   remote: https://rubygems.org/
@@ -19,8 +19,6 @@ GEM
     json (1.8.1)
     method_source (0.8.2)
     multi_json (1.10.1)
-    nmatrix (0.1.0.rc3)
-      rdoc (>= 4.0.1)
     pry (0.10.0)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -51,6 +49,7 @@ GEM
       simplecov-html (~> 0.8.0)
     simplecov-html (0.8.0)
     slop (3.5.0)
+    stdlib (0.1.0)
 
 PLATFORMS
   ruby
@@ -60,10 +59,13 @@ DEPENDENCIES
   codeclimate-test-reporter (~> 0.3.0)
   colorize (~> 0.7, >= 0.7.3)
   ffi (~> 1.9, >= 1.9.3)
-  fftw!
+  nmatrix!
   pry (~> 0)
+  rake (~> 10.3, >= 10.3.2)
   rake-compiler (~> 0.8, >= 0.8.1)
   rake_tasks (~> 2.0, >= 2.0.6)
   rdoc (~> 4.0, >= 4.0.1)
+  rspec (~> 3.0.0)
   rspec-core (~> 3.0, >= 3.0.2)
   rspec-longrun (~> 1.0, >= 1.0.1)
+  stdlib (~> 0.1, >= 0.1.0)
