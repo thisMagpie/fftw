@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'nmatrix', :git => "git://github.com/thisMagpie/nmatrix.git", :branch => 'removeunused'
+
 group :development do
   gem 'stdlib', '~>0.1', '>=0.1.0'
   gem 'colorize', '~>0.7', '>=0.7.3'
@@ -10,7 +12,6 @@ group :development do
   gem 'bundler', '~>1.6', '>=1.6.1'
   gem 'pry', '~>0'
   gem 'rake', '~>10.3', '>=10.3.2'
-  gem 'nmatrix', :git => "git://github.com/thisMagpie/nmatrix.git", :branch => 'removeunused'
 end
 group :test do
 	gem 'codeclimate-test-reporter','~>0.3.0', require: nil
