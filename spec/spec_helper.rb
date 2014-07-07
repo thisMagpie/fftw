@@ -1,5 +1,4 @@
 require './lib/fftw'
-require "./lib/fftw/version"
 
 require 'bundler/setup'
 Bundler.setup
