@@ -40,6 +40,7 @@ puts "Include directories:".white
 puts "#{fftw_incdir}".green
 puts "Library directories:".white
 puts "#{fftw_libdir}".green
+
 have_type("u_int8_t", fftw_incdir)
 have_type("uint8_t", fftw_incdir)
 have_type("int16_t", fftw_incdir)
@@ -53,16 +54,22 @@ have_type("uint32_t", fftw_incdir)
 ###############################################################################
 def gplusplus_version
   cxxvar = proc { |n| `#{CONFIG['CXX']} -E -dM - </dev/null | grep #{n}`.chomp.split(' ')[2] }
+  puts "cxxvar:  #{cxxvar}".colorize(:color => :cyan,
+                                     :background => :white)
+
   major = cxxvar.call('__GNUC__')
   minor = cxxvar.call('__GNUC_MINOR__')
   patch = cxxvar.call('__GNUC_PATCHLEVEL__')
+
   if CONFIG['CXX'] == 'clang++'
+    puts "CXX= #{CONFIG['CXX']}"
     $CPP_STANDARD = 'c++11'
     $CPP_FLAGS = '-std=c++11'
     $CXX_FLAGS = '-stc=gnu++11'
     puts "using C++ standard... #{$CPP_STANDARD}".cyan
   else
     version = gplusplus_version
+    puts "g++ version is #{}"
     if version < '4.3.0' && CONFIG['CXX'] == 'g++'  # see if we can find a newer G++, unless it's been overridden by user
       if ! find_newer_gplusplus
         raise("g++ which supports the flags -std=c++0x or -std=c++11. \
@@ -92,8 +99,9 @@ end
 puts "Searching for NMatrix...".white
 nmatrix_config = dir_config('nmatrix','ext/nmatrix','lib/nmatrix')
 if nmatrix_config then
-  puts "nmatrix_config found!".green
-  unless have_library('nmatrix_config')
+
+  puts "nmatrix_config found in #{nmatrix_config}".green
+  unless have_library 'nmatrix', 'nmatrix/version'  %w(nmatrix/header.h)
     puts "Library directories for NMatrix: Not Found!".colorize(:color => :red,
                                                                 :background => :white)
   end
