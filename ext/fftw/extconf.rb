@@ -1,6 +1,11 @@
 require 'mkmf'
 require 'colorize'
 require 'nmatrix'
+###############################################################################
+#
+# Install Message
+#
+###############################################################################
 
 puts "####################".colorize(:color => :cyan,
                                      :background => :white)
@@ -12,6 +17,12 @@ puts "####################".colorize(:color => :light_blue,
                                      :background => :light_red)
 puts "####################".colorize(:color => :cyan,
                                      :background => :white)
+
+if have_func "malloc()"
+  puts "malloc()"
+  abort "missing malloc()"
+end
+
 ###############################################################################
 #
 # This only works if fftw3 headers are installed
@@ -31,16 +42,14 @@ puts "Include directories:".white
 puts "#{fftw_incdir}".green
 puts "Library directories:".white
 puts "#{fftw_libdir}".green
+###############################################################################
 #
 # Make sure CXX is set to g++ and not clang or gcc by setting its value
 #
 ###############################################################################
-
 cxxvar = proc { |n| `#{CONFIG['CXX']} -E -dM - </dev/null | grep #{n}`.chomp.split(' ')[2] }
-
 puts "cxxvar:  #{cxxvar}".to_str.colorize(:color => :black,
                                    :background => :white)
-
 major = cxxvar.call('__GNUC__')
 minor = cxxvar.call('__GNUC_MINOR__')
 patch = cxxvar.call('__GNUC_PATCHLEVEL__')
@@ -51,7 +60,7 @@ $CPP_FLAGS = '-std=c++11'
 $CXX_FLAGS = '-stc=++11'
 puts `g++ --version`.colorize(:color => :black,
                               :background => :white)
-puts "using C++ standard... #{$CPP_STANDARD}".cyan
+puts "CPP_STANDARD is #{$CPP_STANDARD}".cyan
 `#{CONFIG['CXX']} --version|head -n 1|cut -f 3 -d " "`.colorize(:color => :black,
                                                                 :background => :white)
 
@@ -68,24 +77,19 @@ else
   puts "CBLAS and ATLAS Status: Not found!".red
 end
 
-if dir_config('nmatrix','../nmatrix/lext','../nmatrix/lib')
-  puts "Searching for NMatrix...".colorize(:color => :light_blue,
-                                           :background => :black)
-  unless have_library 'nmatrix', 'nmatrix/version',  %w('nmatrix_config.h')
-     puts "Library directories for NMatrix: Not Found!".colorize(:color => :red,
-                                                                 :background => :white)
-  end
-  unless find_header('nmatrix.h')
-    abort "nmatrix is missing.  please install nmatrix".red
-  end
-  unless find_header('data.h')
-     puts "Headers nmatrix.h and data.h are found!".colorize(:color => :red,
-                                                             :background => :white)
-  end
-else
-  puts "Headers nmatrix.h and data.h are found!".colorize(:color => :red,
-                                                          :background => :white)
-end
+# puts "Searching for NMatrix...".colorize(:color => :light_blue,
+#                                            :background => :black)
+# unless have_library 'nmatrix', 'nmatrix/version',  %w('nmatrix_config.h')
+#      puts "Library directories for NMatrix: Not Found!".colorize(:color => :red,
+#                                                                  :background => :white)
+# end
+# unless find_header('nmatrix.h')
+#     abort "nmatrix is missing.  please install nmatrix".red
+# end
+# unless find_header('data.h')
+#      puts "Headers nmatrix.h and data.h are found!".colorize(:color => :red,
+#                                                              :background => :white)
+# end
 ###############################################################################
 #
 # Configuration of directory named in first argument, i.e. The arguments of
@@ -117,7 +121,7 @@ end
 $CFLAGS   += " -static -O3"
 $CPPFLAGS += " -O3"
 
-print "creating #{file}\n"
+print "creating fftw_config.h\n"
 hfile = open('fftw_config.h', "w")
 for line in $defs
   line =~ /^-D(.*)/
