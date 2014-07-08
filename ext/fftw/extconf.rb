@@ -69,7 +69,7 @@ def gplusplus_version
     puts "using C++ standard... #{$CPP_STANDARD}".cyan
   else
     version = gplusplus_version
-    puts "g++ version is #{}"
+    puts "g++ version is #{version}"
     if version < '4.3.0' && CONFIG['CXX'] == 'g++'  # see if we can find a newer G++, unless it's been overridden by user
       if ! find_newer_gplusplus
         raise("g++ which supports the flags -std=c++0x or -std=c++11. \
