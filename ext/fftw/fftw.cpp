@@ -83,4 +83,9 @@ Init_fftw_nm (void)
 {
   mFFTW = rb_define_module("FFTW");
   cFFTW = rb_const_get(rb_cObject, rb_intern("FFTW"));
+
+rb_define_alloc_func(cFFTW, fftw_nm_alloc);
+rb_define_method(cFFTW, "initialize", fftw_nm_init, 1);
+rb_define_method(cFFTW, "free", fftw_nm_release, 0);
+}
 }
