@@ -1,13 +1,12 @@
-#ifndef FFTW_H
-#define FFTW_H
+#ifndef __FFTW_H__
+#define __FFTW_H__
+#endif
 
 #include "ruby.h"
 #include <fftw3.h>
-#include "fftw.h"
-#include "nmatrix.h"
-
+#ifdef __NMATRIX_H__
+#include __NMATRIX_H__
+#endif
 VALUE mFFTW;
 VALUE cFFTW;
-extern VALUE cNM;
-void Init_nm_fftw();
-#endif
+void Init_fftw_nm();
