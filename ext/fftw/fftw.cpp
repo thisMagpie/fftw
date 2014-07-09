@@ -3,50 +3,50 @@
 #endif
 #include "fftw.h"
 
-struct fftw_nm
+struct fftw
 {
   size_t size;
   void *ptr;
 };
 
 /**
- * Free up memory taken up ßfrom fftw_nm instance.
+ * Free up memory taken up ßfrom fftw instance.
  */
-static void
-fftw_nm_free(void *p)
+void
+fftw_free(void *p)
 {
-  struct fftw_nm *ptr;
+  struct fftw *ptr;
 
   if (ptr->size > 0)
     free(ptr->ptr);
 }
 
 /**
- * Allocate memory taken up ßfrom fftw_nm instance.
+ * Allocate memory taken up ßfrom fftw instance.
  */
 
 static VALUE
-fftw_nm_alloc(VALUE klass)
+fftw_alloc(VALUE klass)
 {
   VALUE obj;
-  struct fftw_nm *ptr;
+  struct fftw *ptr;
   obj = Data_Make_Struct(klass,
-                         struct fftw_nm,
+                         struct fftw,
                          NULL,
-                         fftw_nm_free,
+                         fftw_free,
                          ptr);
   ptr->size = 0;
   ptr->ptr  = NULL;
   return obj;
 }
 
-static VALUE
-fftw_nm_init(VALUE self, VALUE size)
+VALUE
+fftw_init(VALUE self, VALUE size)
 {
-  struct fftw_nm *ptr;
+  struct fftw *ptr;
   size_t requested = NUM2SIZET(size);
   rb_const_get(rb_cObject, rb_intern("FFTW"));
-  Data_Get_Struct(self, struct fftw_nm, ptr);
+  Data_Get_Struct(self, struct fftw, ptr);
 
   ptr->ptr = malloc(requested);
 
@@ -63,12 +63,11 @@ fftw_nm_init(VALUE self, VALUE size)
   return self;
 }
 
-static VALUE
-fftw_nm_release(VALUE self)
+VALUE
+fftw_release(VALUE self)
 {
-  struct fftw_nm *ptr;
-
-  Data_Get_Struct(self, struct fftw_nm, ptr);
+  struct fftw *ptr;
+  Data_Get_Struct(self, struct fftw, ptr);
 
   if (0 == ptr->size)
       return self;
@@ -79,13 +78,12 @@ fftw_nm_release(VALUE self)
   return self;
 }
 void
-Init_fftw_nm (void)
+Init_fftw (void)
 {
   mFFTW = rb_define_module("FFTW");
   cFFTW = rb_const_get(rb_cObject, rb_intern("FFTW"));
 
-rb_define_alloc_func(cFFTW, fftw_nm_alloc);
-rb_define_method(cFFTW, "initialize", fftw_nm_init, 1);
-rb_define_method(cFFTW, "free", fftw_nm_release, 0);
-}
+  rb_define_alloc_func(cFFTW, fftw_alloc);
+  rb_define_singleton_method(mFFTW, "initialize", fftw_init, 1);
+  rb_define_singleton_method(mFFTW, "free", fftw_release, 0);
 }
