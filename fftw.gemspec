@@ -12,7 +12,7 @@ Gem::Specification.new do |gem|
   gem.description                   = gem.summary + "Fastest Fourier Transform in the West"
   gem.require_paths                 = [ 'lib/fftw', 'ext/fftw' ]
   gem.autorequire                   = [ 'fftw','nmatrix', 'colorize' ]
-  gem.extensions                    = [ '../nmatrix/ext/nmatrix/extconf.rb', 'ext/fftw/extconf.rb' ]
+  gem.extensions                    = [ 'ext/fftw/extconf.rb' ]
   gem.files                         = `git ls-files`.split("\n")
   gem.executables                   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   gem.test_files                    = `git ls-files -- {spec}/*`.split("\n")
