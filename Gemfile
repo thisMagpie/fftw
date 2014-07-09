@@ -12,9 +12,10 @@ group :development do
   gem 'bundler', '~>1.6', '>=1.6.1'
   gem 'pry', '~>0'
   gem 'rake', '~>10.3', '>=10.3.2'
+  gem 'gemnasium'
 end
 group :test do
-	gem 'codeclimate-test-reporter','~>0.3.0', require: nil
+	gem 'codeclimate-test-reporter','~>0.3.0'
   gem 'rspec-longrun', '~>1.0', '>=1.0.1'
   gem 'rspec', '~>3.0.0'
 end
