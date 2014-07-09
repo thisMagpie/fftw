@@ -18,10 +18,8 @@ puts "####################".colorize(:color => :light_blue,
 puts "####################".colorize(:color => :cyan,
                                      :background => :white)
 
-if have_func "malloc()"
-  puts "malloc()"
-  abort "missing malloc()"
-end
+abort "missing malloc()" unless have_func "malloc"
+abort "missing free()"   unless have_func "free"
 
 ###############################################################################
 #
@@ -74,7 +72,8 @@ puts "******************************".colorize(:color => :black,
 dir_config("cblas")
 dir_config("atlas")
 else
-  puts "CBLAS and ATLAS Status: Not found!".red
+  puts "CBLAS and ATLAS Status: Not found!".colorize(:color => :black,
+                                              :background => :cyan)
 end
 
 # puts "Searching for NMatrix...".colorize(:color => :light_blue,
