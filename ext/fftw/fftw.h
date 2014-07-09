@@ -9,4 +9,4 @@
 #endif
 VALUE mFFTW;
 VALUE cFFTW;
-void Init_fftw_nm();
+void Init_fftw();
