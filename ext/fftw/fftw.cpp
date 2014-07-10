@@ -13,17 +13,10 @@
 
 using namespace std;
 
-VALUE mFFTW_NMatrix;
-VALUE cFFTW;
-
-struct
-fftw_init
-{ 
-  size_t *size;
+template <class T>
+struct fftw{
+  size_t size;
   void *ptr;
-  void *fftw_free;
-  int rank;
-  VALUE fftw_complex;
 };
 
 /*
@@ -95,14 +88,15 @@ fftw_release(VALUE self)
   return self;
 }
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif /* __cplusplus */
 
+#ifdef __cplusplus
+  extern "C"
+{
 void
 Init_fftw(void)
   {
+    VALUE mFFTW_NMatrix;
+    VALUE cFFTW;
     mFFTW_NMatrix = rb_define_module("NMatrix");
     cFFTW = rb_define_module_under(mFFTW_NMatrix, "FFTW");
     rb_define_singleton_method(cFFTW, "initialize", fftw_init, -1);
@@ -111,7 +105,5 @@ Init_fftw(void)
     rb_define_singleton_method(cFFTW, "release", fftw_release, 0);
   }
 }
-
-#ifdef __cplusplus
-}  /* extern "C" */
+ /* extern "C" */
 #endif /* __cplusplus */
