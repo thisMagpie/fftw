@@ -76,16 +76,17 @@ else
                                               :background => :cyan)
 end
 
+###############################################################################
+#
+# Seek out NMatrix
+#
+###############################################################################
 puts "Searching for NMatrix...".colorize(:color => :light_blue,
-                                           :background => :black)
-if find_header('nmatrix.h')
-    puts "nmatrix found.  please install nmatrix".green
+                                         :background => :black)
+if find_header('nmatrix.h') && find_library('nmatrix')
+  puts "NMatrix Status: nmatrix library found!".green
 else
     puts "nmatrix is missing.  please install nmatrix".red
-end
-if find_header('data.h')
-     puts "Headers nmatrix.h and data.h are found!".colorize(:color => :green,
-                                                             :background => :white)
 end
 ###############################################################################
 #

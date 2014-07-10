@@ -12,35 +12,28 @@
 VALUE mFFTW;
 VALUE cFFTW;
 
-/*! fftw_malloc only ever needs to be used for real and
-    complex arrays. Two convenient wrapper routines:
-
-      1. fftw_alloc_real(N)
-      2. fftw_alloc_complex(N)
-
-    1. and 2. are equivalent to:
-      (double*)fftw_malloc(sizeof(double) * N)
-    More information:
-  <http://www.fftw.org/doc/SIMD-alignment-and-fftw_005fmalloc.html> */
-
-struct fftw
-{
-  size_t size;
-  void *ptr;
+void FFTW(){
+}
+struct fftw {
+    size_t size;
+    void *ptr;
 };
 
- /*! fftw_free
-  @param *p: pointer reference to object
+/*
+fftw_free
+@param *p: pointer reference to object
               that is taking up space which
-              needs to be freed. */
+              needs to be freed.
+*/
 void
 fftw_free(void *p)
 {
   struct fftw *ptr;
 
-  /*! Check pointer reference has size > 0
-     If so, detach pointer from referenced object
-     to free up space. */
+  printf (" Check pointer reference has size > 0 \
+     If so, detach pointer from referenced object \
+     to free up space.");
+
   if (ptr->size > 0)
     free(ptr->ptr);
 }
