@@ -13,7 +13,6 @@
 
 using namespace std;
 
-template <class T>
 struct fftw{
   size_t size;
   void *ptr;
