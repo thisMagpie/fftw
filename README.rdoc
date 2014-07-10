@@ -1,6 +1,6 @@
 {<img src="https://codeclimate.com/github/thisMagpie/fftw.png" />}[https://codeclimate.com/github/thisMagpie/fftw]
 {<img src=https://travis-ci.org/thisMagpie/fftw.png>}[https://travis-ci.org]
-{<img src=https://gemnasium.com/gemnasium/gemnasium-gem.png>}[https://gemnasium.com/gemnasium/thisMagpie/fftw]
+{<img src=https://gemnasium.com/gemnasium/gemnasium-gem.png>}[https://gemnasium.com/thisMagpie/fftw]
 
 == Install FFTW
 
