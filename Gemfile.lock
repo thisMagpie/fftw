@@ -16,6 +16,7 @@ GEM
     diff-lcs (1.2.5)
     docile (1.1.5)
     ffi (1.9.3)
+    gemnasium (3.2.0)
     json (1.8.1)
     method_source (0.8.2)
     multi_json (1.10.1)
@@ -59,6 +60,7 @@ DEPENDENCIES
   codeclimate-test-reporter (~> 0.3.0)
   colorize (~> 0.7, >= 0.7.3)
   ffi (~> 1.9, >= 1.9.3)
+  gemnasium
   nmatrix!
   pry (~> 0)
   rake (~> 10.3, >= 10.3.2)
