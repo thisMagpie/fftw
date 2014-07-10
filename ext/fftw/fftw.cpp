@@ -15,6 +15,8 @@ using namespace std;
 VALUE mFFTW_NMatrix;
 VALUE cFFTW;
 
+class FFTW {
+};
 /**
  * [0] stores the real part.
  * [1] stores the imaginary part. */
@@ -24,10 +26,6 @@ typedef struct fftw_init {
     size_t size;
     void *ptr;
 } header;
-
-
-class FFTW {
-};
 
 /*
 fftw_free
