@@ -5,6 +5,7 @@
 #include "ruby.h"
 #include <fftw3.h>
 #include <stdio.h>
+#include <iostream>
 
 #ifdef __NMATRIX_H__
   #include __NMATRIX_H__
@@ -15,21 +16,15 @@ using namespace std;
 VALUE mFFTW_NMatrix;
 VALUE cFFTW;
 
-/**
- * [0] stores the real part.
- * [1] stores the imaginary part. */
-typedef double fftw_nm_complex[2];
-
-class FFTW() {
-    struct fftw_init; 
-    void fftw_free;
-
+struct
+fftw_init
+{ 
+  size_t *size;
+  void *ptr;
+  void *fftw_free;
+  int rank;
+  VALUE fftw_complex;
 };
-
-typedef struct fftw_init {
-    size_t size;
-    void *ptr;
-} header;
 
 /*
 fftw_free
@@ -52,8 +47,7 @@ fftw_free(void *p)
                  that is taking up space which
                  needs to be freed. */
 static VALUE
-fftw_alloc(VALUE klass)
-{
+fftw_alloc(VALUE klass) {
   VALUE obj;
   struct fftw *ptr;
   obj = Data_Make_Struct(klass,
@@ -66,14 +60,14 @@ fftw_alloc(VALUE klass)
   return obj;
 }
 
-fftw_init(VALUE self, VALUE size)
+fftw_nm_complex(VALUE self, VALUE size)
 {
   struct fftw *ptr;
   size_t requested = NUM2SIZET(size);
- rb_const_get(rb_cObject, rb_intern("FFTW"));
+  rb_const_get(rb_cObject, rb_intern("FFTW"));
   Data_Get_Struct(self, struct fftw, ptr);
 
-  ptr->ptr = fftw_malloc(requested);
+  ptr->ptr = (double) fftw_malloc(requested);
 
   if (0 == requested)
     rb_raise(rb_eArgError, "unable to allocate 0 bytes");
@@ -101,7 +95,11 @@ fftw_release(VALUE self)
   return self;
 }
 
-extern "C" {
+#ifdef __cplusplus
+extern "C"
+{
+#endif /* __cplusplus */
+
 void
 Init_fftw(void)
   {
@@ -113,3 +111,7 @@ Init_fftw(void)
     rb_define_singleton_method(cFFTW, "release", fftw_release, 0);
   }
 }
+
+#ifdef __cplusplus
+}  /* extern "C" */
+#endif /* __cplusplus */
