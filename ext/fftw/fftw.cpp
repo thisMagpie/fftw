@@ -4,6 +4,7 @@
 #include "fftw.h"
 #include "ruby.h"
 #include <fftw3.h>
+#include <stdio.h>
 
 #ifdef __NMATRIX_H__
   #include __NMATRIX_H__
