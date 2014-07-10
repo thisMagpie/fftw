@@ -76,19 +76,17 @@ else
                                               :background => :cyan)
 end
 
-# puts "Searching for NMatrix...".colorize(:color => :light_blue,
-#                                            :background => :black)
-# unless have_library 'nmatrix', 'nmatrix/version',  %w('nmatrix_config.h')
-#      puts "Library directories for NMatrix: Not Found!".colorize(:color => :red,
-#                                                                  :background => :white)
-# end
-# unless find_header('nmatrix.h')
-#     abort "nmatrix is missing.  please install nmatrix".red
-# end
-# unless find_header('data.h')
-#      puts "Headers nmatrix.h and data.h are found!".colorize(:color => :red,
-#                                                              :background => :white)
-# end
+puts "Searching for NMatrix...".colorize(:color => :light_blue,
+                                           :background => :black)
+if find_header('nmatrix.h')
+    puts "nmatrix found.  please install nmatrix".green
+else
+    puts "nmatrix is missing.  please install nmatrix".red
+end
+if find_header('data.h')
+     puts "Headers nmatrix.h and data.h are found!".colorize(:color => :green,
+                                                             :background => :white)
+end
 ###############################################################################
 #
 # Configuration of directory named in first argument, i.e. The arguments of
@@ -101,7 +99,8 @@ end
 fftw_incdir = ['/usr/local/include',
                 fftw_incdir,
                '/usr/include',
-               '/usr/include/atlas'
+               '/usr/include/atlas',
+               '#{ENV[HOME]}/nmatrix/ext/nmatrix'
               ]
 incdir, libdir = dir_config('fftw', fftw_incdir, fftw_libdir)
 
@@ -110,7 +109,6 @@ if have_library("fftw3f") then
 else
   $CFLAGS = ["-Wall -I#{fftw_incdir} --libdir=#{fftw_libdir}"].join(" ")
 end
-
 if $warnflags then
   $warnflags.slice!('-Wdeclaration-after-statement')
   $warnflags.slice!('-Wimplicit-function-declaration')

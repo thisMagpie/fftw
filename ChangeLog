@@ -1,3 +1,34 @@
+6011732 ext fix compiler errors and add docs
+207b811 Update the changelog
+3bd6cc7 fftw.h fix typo
+5ad73e6 fftw.cpp: fix compile warnings
+a7cbbab Update version to 0.1.0
+fad844d Gemfile: add gemnasium
+fa6f4f5 extension: add methods
+d3ec6d5 Version create file
+adb30f7 lib: add composer and create fftw_nm
+b55ed3f composer tidy§
+48a0c84 create composer.phar
+ecf03d1 spec_helper add code-climate
+6f5cdec travis: use later versions
+9b7ea86 gemspec: FIX build fail
+44fe718 lib/ remove file open function
+e4afb84 Rakefile: use explicit init call
+13a34ee write in c++ and define class
+f8c7f70 extconf: add some debug logs
+aa31eb3 reorganise header
+d9147b0 extconf: FIX error due to typo
+5f0c9bf extconf: take out functions
+8169d2f extconf: add version instad of empty string
+d20da06 extconf: add some more debugging messages
+cb666b3 gemspec remove ../lib/nmatrix from reference
+0634327 README use single ` instead of triple
+09a8515 add nmatrix headers and define n init stuff
+584e150 add headers for nmatrix and define stuff
+37d5314 specs update with init
+0fad33b exconf: fix some more errors
+6c0859f travis add code climate api
+9c00002 Update ChangeLog
 3000fad lib/fftw.rb : general tidy
 2b80383 Gemfile.lock
 18cddff add fftw_nm cpp and h files
