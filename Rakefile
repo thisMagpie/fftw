@@ -32,7 +32,7 @@ Gem::PackageTask.new(gemspec).define
     sh(cmd.join(" "))
   end
   namespace :clean do
-    task :clean do |task|
+    task :clean => :environment do |task|
       Dir['*~'].each {|fn| rm fn rescue nil}
         tmp_path = "tmp/#{RUBY_PLATFORM}/fftw/#{RUBY_VERSION}"
         chdir tmp_path do
@@ -69,10 +69,21 @@ Gem::PackageTask.new(gemspec).define
     end
   end # end task :check_manifest .... done!
 
+desc "list tasks"
+task :list do
+  puts "Tasks: #{(Rake::Task.tasks - [Rake::Task[:list]]).join(', ')}"
+  puts "(type rake -T for more detail)\n\n"
+end
+
 begin
   Bundler.setup(:test, :default,:clean,:development)
-  rescue Bundler::BundlerError => e
-  $stderr.puts e.message
-  $stderr.puts "Run `bundle install` to install missing gems"
-  exit e.status_code
+    rescue Bundler::BundlerError => e
+    $stderr.puts e.message
+    $stderr.puts "Run `bundle install` to install missing gems"
+    exit e.status_code
+  end
+
+def get_stdin(message)
+  print message
+  STDIN.gets.chomp
 end
