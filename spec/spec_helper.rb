@@ -1,13 +1,9 @@
-require "codeclimate-test-reporter"
-CodeClimate::TestReporter.start
-require './lib/fftw'
-
 require 'bundler/setup'
 Bundler.setup
-require 'rspec'
+require "codeclimate-test-reporter"
+CodeClimate::TestReporter.start
 require 'fftw'
+require 'rspec'
+require './lib/fftw'
 
-RSpec.configure do |config|
-   config.expect_with :rspec
-end
 

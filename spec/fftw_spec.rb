@@ -14,10 +14,4 @@ describe FFTW, "init" do
     expect(n.entries).to eq([0,1,2,3])
     expect { |fft| 0.tap(fft) }.to yield_with_args(1)
   end
-  it "Takes the inverse of a 1 kHz frequency multiplied by the number of samples per second" do
-    sample_rate = 2048 # Per Second.
-    frequency = 1000 #hz
-    max = tmax(frequency,sample_rate)
-    expect tmax.to eq(max)
-  end
 end
