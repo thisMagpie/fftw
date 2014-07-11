@@ -1,7 +1,6 @@
 ChangeLog
 Manifest
 Rakefile
-.gitmodules
 .travis.yml
 Gemfile
 README.rdoc
