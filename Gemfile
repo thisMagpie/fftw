@@ -15,10 +15,10 @@ group :development do
   gem 'gemnasium'
 end
 group :test do
-	gem 'codeclimate-test-reporter','~>0.3.0'
   gem 'rspec-longrun', '~>1.0', '>=1.0.1'
   gem 'rspec', '~>3.0.0'
 end
+
 group :documentation do
   gem 'rdoc', '~>4.0', '>=4.0.1'
 end
