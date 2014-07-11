@@ -3,16 +3,17 @@ require './lib/fftw'
 require 'colorize'
 
 class FFTW
-  def self.initialise()
-    raise ArgumentError, "need a block" if !block
+  def self.r2c()
     define_method()
   end
-  def self.release()
-    raise ArgumentError, "need a block" if !block
+  def self.fft_complex()
     define_method()
   end
   def self.free()
     raise ArgumentError, "need a block" if !block
+    define_method()
+  end
+  def self.alloc()
     define_method()
   end
   def method_missing(sym, *argv)

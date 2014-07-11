@@ -1,116 +1,77 @@
-#ifdef __FFTW_H__
-#include __FFTW_H__
-#endif
-#include "fftw.h"
+
+
 #include "ruby.h"
 #include <fftw3.h>
 #include <stdio.h>
 #include <iostream>
+#include <fftw.hpp>
+#include "fftw_config.h"
 
 #ifdef __NMATRIX_H__
   #include __NMATRIX_H__
+  VALUE cNMatrix;
 #endif
 
+VALUE mFFTW;
+VALUE cFFTW;
+
+fftw_complex *fftw_complex_alloc(long n);
+
 using namespace std;
-/* The guru interface introduces one basic new data structure
+
+/* The guru interface introduces one basic new nmatrix structure
    fftw_iodim, that is used to specify sizes and strides for
    multi-dimensional transforms and vectors
    http://www.fftw.org/doc/Guru-vector-and-transform-sizes.html
+   The structure contains member functions of FFTW
    */
-struct fftw {
-    int n;
-    int is;
-    int os;
-    size_t size;
-    void *ptr;
-};
+typedef struct fftw_nm{
+  long n;
+  VALUE size;
+  fftw_complex fc;
+  fftw_complex out;
+  VALUE nmatrix;
+} FFTW;
 
-/*
-  fftw_free
-  @param *p: 
-  pointer reference to object
-  that is taking up space which
-  needs to be freed.*/
-static void nm_free(void *p)
-{
-  struct fftw *ptr = p;
+static void fftw_nm_free(void * nmatrix){
+  fftw_complex* fc;
 
-  if (ptr->size > 0)
-      free(ptr->ptr);
-  }
-};
-
-/*
- * fftw_alloc: function to llocate memory taken
-                by an fftw object.
-   @param klass: pointer reference to object
-                 that is taking up space which
-                 needs to be freed. */
-VALUE
-fftw_alloc(VALUE klass)
-{
-  struct fftw *ptr;
-  obj = Data_Make_Struct(klass,
-                         struct fftw,
-                         NULL,
-                         fftw_free,
-                         ptr);
-  ptr->size = 0;
-  ptr->ptr  = NULL;
-  return obj;
-
-}
-
-static VALUE
-fftw_init(VALUE self, VALUE size) {
-struct fftw *ptr;
-size_t requested = NUM2SIZET(size);
-
-if (0 == requested)
-    rb_raise(rb_eArgError, "unable to allocate 0 bytes");
-
-Data_Get_Struct(self, struct fftw, ptr);
-
-ptr->ptr = malloc(requested);
-
-if (NULL == ptr->ptr)
-    rb_raise(rb_eNoMemError, "unable to allocate %ld bytes", requested);
-
-ptr->size = requested;
-
-return self;
+  free(((FFTW *)nmatrix)->fc);
+  free(nmatrix);
 }
 
 VALUE
-fftw_release(VALUE self)
-{
-  struct fftw *ptr;
-  Data_Get_Struct(self, struct fftw, ptr);
+fftw_alloc(VALUE klass){
+  long n;
+  fftw_complex* fc;
 
-  if (0 == ptr->size)
-      return self;
+  FFTW *nmatrix;
+  nmatrix = ALLOC(FFTW);
+  nmatrix->n = n;
+  (FFTW *)nmatrix->fc = fc;
+  return Data_Wrap_Struct(klass, 0, free, nmatrix);
+}
 
-  ptr->size = 0;
-  free(ptr->ptr);
+VALUE fftw_r2c(int argc, VALUE* argv, VALUE self) {
+  VALUE nmatrix, opts, size;
+  double *in;
+  fftw_complex out;
+  fftw_plan plan;
+  long n;
 
+  rb_scan_args(argc, argv, "11", &nmatrix, &opts);
+  in = (double *) fftw_malloc(sizeof(double) * n);  
+  /*out = (fftw_complex *) fftw_malloc(sizeof(fftw_complex) * (n/2+1)); */
+  /* TODO add plan */
   return self;
 }
 
-#ifdef __cplusplus
-  extern "C"
-{
 void
 Init_fftw(void)
-  {
-    VALUE mFFTW_NMatrix;
-    VALUE cFFTW;
-    mFFTW_NMatrix = rb_define_module("NMatrix");
-    cFFTW = rb_define_module_under(mFFTW_NMatrix, "FFTW");
-    rb_define_singleton_method(cFFTW, "initialize", fftw_init, -1);
-    rb_define_singleton_method(cFFTW, "alloc", fftw_alloc, 0);
-    rb_define_singleton_method(cFFTW, "free", fftw_free, 0);
-    rb_define_singleton_method(cFFTW, "release", fftw_release, 0);
-  }
+{
+  long fftw_size(VALUE v);
+  rb_define_singleton_method(mFFTW, "fft_complex", fftw_complex, 1);
+  rb_define_singleton_method(mFFTW, "r2c", fftw_r2c, -1);
+  rb_define_singleton_method(mFFTW, "alloc", fftw_alloc, 0);
+  rb_define_singleton_method(mFFTW, "free", fftw_free, 0);
 }
- /* extern "C" */
-#endif /* __cplusplus */
