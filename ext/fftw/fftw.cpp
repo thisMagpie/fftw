@@ -12,25 +12,33 @@
 #endif
 
 using namespace std;
-
-struct fftw{
-  size_t size;
-  void *ptr;
+/* The guru interface introduces one basic new data structure
+   fftw_iodim, that is used to specify sizes and strides for
+   multi-dimensional transforms and vectors
+   http://www.fftw.org/doc/Guru-vector-and-transform-sizes.html
+   */
+struct fftw {
+    int n;
+    int is;
+    int os;
+    size_t size;
+    void *ptr;
 };
 
 /*
-fftw_free
-@param *p: pointer reference to object
-              that is taking up space which
-              needs to be freed.*/
-void
-fftw_free(void *p)
+  fftw_free
+  @param *p: 
+  pointer reference to object
+  that is taking up space which
+  needs to be freed.*/
+static void nm_free(void *p)
 {
-  struct fftw *ptr;
+  struct fftw *ptr = p;
 
   if (ptr->size > 0)
-    free(ptr->ptr);
-}
+      free(ptr->ptr);
+  }
+};
 
 /*
  * fftw_alloc: function to llocate memory taken
@@ -38,9 +46,9 @@ fftw_free(void *p)
    @param klass: pointer reference to object
                  that is taking up space which
                  needs to be freed. */
-static VALUE
-fftw_alloc(VALUE klass) {
-  VALUE obj;
+VALUE
+fftw_alloc(VALUE klass)
+{
   struct fftw *ptr;
   obj = Data_Make_Struct(klass,
                          struct fftw,
@@ -50,26 +58,27 @@ fftw_alloc(VALUE klass) {
   ptr->size = 0;
   ptr->ptr  = NULL;
   return obj;
+
 }
 
-fftw_nm_complex(VALUE self, VALUE size)
-{
-  struct fftw *ptr;
-  size_t requested = NUM2SIZET(size);
-  rb_const_get(rb_cObject, rb_intern("FFTW"));
-  Data_Get_Struct(self, struct fftw, ptr);
+static VALUE
+fftw_init(VALUE self, VALUE size) {
+struct fftw *ptr;
+size_t requested = NUM2SIZET(size);
 
-  ptr->ptr = (double) fftw_malloc(requested);
-
-  if (0 == requested)
+if (0 == requested)
     rb_raise(rb_eArgError, "unable to allocate 0 bytes");
-  ptr->ptr = fftw_malloc(requested);
-  if (NULL == ptr->ptr)
-      rb_raise(rb_eNoMemError, "Unable to allocate %ld bytes", requested);
 
-  ptr->size = requested;
+Data_Get_Struct(self, struct fftw, ptr);
 
-  return self;
+ptr->ptr = malloc(requested);
+
+if (NULL == ptr->ptr)
+    rb_raise(rb_eNoMemError, "unable to allocate %ld bytes", requested);
+
+ptr->size = requested;
+
+return self;
 }
 
 VALUE
@@ -86,7 +95,6 @@ fftw_release(VALUE self)
 
   return self;
 }
-
 
 #ifdef __cplusplus
   extern "C"
