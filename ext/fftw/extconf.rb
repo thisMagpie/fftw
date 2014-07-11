@@ -78,18 +78,6 @@ end
 
 ###############################################################################
 #
-# Seek out NMatrix
-#
-###############################################################################
-puts "Searching for NMatrix...".colorize(:color => :light_blue,
-                                         :background => :black)
-if find_header('nmatrix.h') && find_library('nmatrix')
-  puts "NMatrix Status: nmatrix library found!".green
-else
-    puts "nmatrix is missing.  please install nmatrix".red
-end
-###############################################################################
-#
 # Configuration of directory named in first argument, i.e. The arguments of
 # dir_config('fftw', HEADERS, LIBS) are as follows (in this case):
 #
