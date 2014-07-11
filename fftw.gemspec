@@ -12,7 +12,6 @@ Gem::Specification.new do |gem|
   gem.summary                       = "Ruby FFTW3 wrapper for performing FFTW operations on NMatrix objects."
   gem.description                   = gem.summary + "Fastest Fourier Transform in the West"
   gem.require_paths                 = [ 'lib/fftw', 'ext/fftw' ]
-  gem.autorequire                   = [ 'fftw','nmatrix', 'colorize' ]
   gem.extensions                    = [ 'ext/fftw/extconf.rb' ]
   gem.files                         = `git ls-files`.split("\n")
   gem.executables                   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
