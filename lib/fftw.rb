@@ -11,14 +11,12 @@ class FFTW
     raise ArgumentError, "need a block" if !block
     define_method()
   end
-  def free(self)
+  def self.free()
     raise ArgumentError, "need a block" if !block
     define_method()
   end
   def method_missing(sym, *argv)
-
       method_name = sym.to_s.downcase
-
       if respond_to?(method_name) then
           send(method_name, *argv)
       else
