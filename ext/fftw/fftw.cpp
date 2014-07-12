@@ -1,5 +1,3 @@
-
-
 #include "ruby.h"
 #include <fftw3.h>
 #include <stdio.h>
@@ -7,15 +5,19 @@
 #include <iostream>
 #include "fftw_config.h"
 
+using namespace std;
+
+#ifdef __cplusplus
+extern "C" {
 VALUE mFFTW;
 VALUE cFFTW;
 
 fftw_complex *fftw_complex_alloc(long n);
 
-using namespace std;
 
-#ifdef __cplusplus
-extern "C" {
+
+
+
   typedef struct fftw
   {
     long n;
