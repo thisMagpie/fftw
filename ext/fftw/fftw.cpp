@@ -1,3 +1,7 @@
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 #include "ruby.h"
 #include <fftw3.h>
 #include <stdio.h>
@@ -5,11 +9,14 @@
 #include <iostream>
 #include "fftw_config.h"
 
-using namespace std;
+VALUE fft_my_nmatrix(VALUE n) {
+  // 0, 0th element
+  double x  = NUM2DBL(rb_funcall(n, rb_intern("[]"), 2, 0, 0));
+  // etc.
 
 fftw_complex *fftw_complex_alloc(long n);
 
-  typedef struct fftw
+  typedef struct *fftw
   {
     long n;
     VALUE size;
@@ -35,6 +42,10 @@ fftw_complex *fftw_complex_alloc(long n);
     FFTW *nmatrix;
     nmatrix = ALLOC(FFTW);
 
+/**
+ * pass Data_Wrap_Struct a corresponding function to free
+ * that memory as the third argument)
+ */
     return Data_Wrap_Struct(klass, 0, free, nmatrix);
   }
 
@@ -56,24 +67,17 @@ fftw_complex *fftw_complex_alloc(long n);
      out = (fftw_complex*)fftw_malloc(sizeof(fftw_complex) *  nm[0] * (nm[1]/2 + 1));
 
 
-     plan = fftw_plan_dft_r2c(2,
-                              nm,
-                              in,
-                              (fftw_complex*)in,
-                              FFTW_MEASURE
-                              );
+    fftw_create_plan(n, FFTW_FORWARD, FFTW_ESTIMATE)
     /* TODO add plan */
     return self;
   }
-#ifdef __cplusplus
-extern "C" {
-#endif
-  
+
   void
   Init_fftw(void)
   {
 
-    VALUE mFFTW = rb_define_module("FFTW");
+    VALUE mFFTW;
+    mFFTW3 = rb_define_module("FFTW");
     rb_define_singleton_method(mFFTW, "ifft", fftw_complex, 1);
     rb_define_singleton_method(mFFTW, "r2c", fftw_r2c, 1);
     rb_define_singleton_method(mFFTW, "alloc", fftw_alloc, 0);
