@@ -1,7 +1,3 @@
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 #include "ruby.h"
 #include <fftw3.h>
 #include <stdio.h>
@@ -15,6 +11,11 @@ VALUE fft_my_nmatrix(VALUE n) {
 
 fftw_complex *fftw_complex_alloc(long n);
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
   typedef struct *fftw
   {
     long n;
@@ -24,22 +25,6 @@ fftw_complex *fftw_complex_alloc(long n);
     VALUE nmatrix;
     VALUE ftw_r2c;
   } FFTW;
-
-  static void fftw_nm_free(void * nmatrix){
-    fftw_complex* fc;
-
-    free(((FFTW *)nmatrix)->fc);
-    free(nmatrix);
-  }
-
-  VALUE
-  fftw_alloc(VALUE klass)
-  {
-    long n;
-    fftw_complex* fc;
-
-    FFTW *nmatrix;
-    nmatrix = ALLOC(FFTW);
 
 /**
  * pass Data_Wrap_Struct a corresponding function to free
@@ -79,7 +64,7 @@ fftw_complex *fftw_complex_alloc(long n);
     mFFTW3 = rb_define_module("FFTW");
     rb_define_singleton_method(mFFTW, "ifft", fftw_complex, 1);
     rb_define_singleton_method(mFFTW, "r2c", fftw_r2c, 1);
-    rb_define_singleton_method(mFFTW, "alloc", fftw_alloc, 0);
+    rb_define_singleton_method(mFFTW, "alloc", fftw_malloc, 0);
     rb_define_singleton_method(mFFTW, "free", fftw_free, 0);
   }
 
