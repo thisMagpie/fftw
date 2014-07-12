@@ -99,11 +99,11 @@ if have_library("fftw3f") then
 else
   $CFLAGS = [" -I#{fftw_incdir} --libdir=#{fftw_libdir}"].join(" ")
 end
-if $warnflags then
-  $warnflags.slice!('-Wdeclaration-after-statement')
-  $warnflags.slice!('-Wimplicit-function-declaration')
-  $warnflags.slice!('-Wshorten-64-to-32')
-end
+# if $warnflags then
+#   $warnflags.slice!('-Wdeclaration-after-statement')
+#   $warnflags.slice!('-Wimplicit-function-declaration')
+#   $warnflags.slice!('-Wshorten-64-to-32')
+# end
 
 $CFLAGS   += " -static -O3"
 $CPPFLAGS += " -O3"

@@ -5,7 +5,6 @@ extern "C" {
 #include "ruby.h"
 #include <fftw3.h>
 #include <stdio.h>
-#include <fftw.h>
 #include <iostream>
 #include "fftw_config.h"
 
@@ -83,6 +82,8 @@ fftw_complex *fftw_complex_alloc(long n);
     rb_define_singleton_method(mFFTW, "alloc", fftw_alloc, 0);
     rb_define_singleton_method(mFFTW, "free", fftw_free, 0);
   }
+
+  
 #ifdef __cplusplus
 }
 #endif
