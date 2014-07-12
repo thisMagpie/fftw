@@ -56,9 +56,11 @@ puts "CXX= #{CONFIG['CXX']}".cyan
 $CPP_STANDARD = 'c++11'
 $CPP_FLAGS = '-std=c++11'
 $CXX_FLAGS = '-stc=++11'
+
 puts `g++ --version`.colorize(:color => :black,
                               :background => :white)
 puts "CPP_STANDARD is #{$CPP_STANDARD}".cyan
+
 `#{CONFIG['CXX']} --version|head -n 1|cut -f 3 -d " "`.colorize(:color => :black,
                                                                 :background => :white)
 
@@ -73,7 +75,7 @@ dir_config("cblas")
 dir_config("atlas")
 else
   puts "CBLAS and ATLAS Status: Not found!".colorize(:color => :black,
-                                              :background => :cyan)
+                                                     :background => :cyan)
 end
 
 ###############################################################################
@@ -89,7 +91,6 @@ fftw_incdir = ['/usr/local/include',
                 fftw_incdir,
                '/usr/include',
                '/usr/include/atlas',
-               '#{ENV[HOME]}/nmatrix/ext/nmatrix'
               ]
 incdir, libdir = dir_config('fftw', fftw_incdir, fftw_libdir)
 
