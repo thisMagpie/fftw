@@ -7,11 +7,6 @@
 
 using namespace std;
 
-#ifdef __cplusplus
-extern "C" {
-VALUE mFFTW;
-VALUE cFFTW;
-
 fftw_complex *fftw_complex_alloc(long n);
 
   typedef struct fftw
@@ -70,11 +65,13 @@ fftw_complex *fftw_complex_alloc(long n);
     /* TODO add plan */
     return self;
   }
-
+#ifdef __cplusplus
+extern "C" {
   void
   Init_fftw(void)
   {
-    rb_define_module("FFTW");
+
+    VALUE mFFTW = rb_define_module("FFTW");
     rb_define_singleton_method(mFFTW, "ifft", fftw_complex, 1);
     rb_define_singleton_method(mFFTW, "r2c", fftw_r2c, 1);
     rb_define_singleton_method(mFFTW, "alloc", fftw_alloc, 0);
