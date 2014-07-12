@@ -13,4 +13,4 @@ rvm:
 before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -qq libfftw3-dev libatlas-base-dev
-script: CODECLIMATE_REPO_TOKEN=ce953eb332bfdfbdad4a2e10d5764a334edff4eea7ef888786d9575b1bbec012 bundle exec rake compile && bundle exec rake spec
+script: bundle exec rake compile && bundle exec rake spec
