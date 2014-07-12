@@ -1,7 +1,7 @@
 #include "ruby.h"
 #include <fftw3.h>
+#include <fftw.h>
 #include <stdio.h>
-#include "fftw_config.h"
 
 struct fftw
 {
@@ -30,7 +30,7 @@ fftw_r2c(int argc, VALUE* argv, VALUE self)
    out = (fftw_complex*)fftw_malloc(sizeof(fftw_complex) *  nm[0] * (nm[1]/2 + 1));
 
 
-  fftw_create_plan(n, FFTW_FORWARD, FFTW_ESTIMATE)
+  plan = fftw_plan_dft_r2c(nm[0], nm, in, out, (const int) FFTW_ESTIMATE);
   /* TODO add plan */
   return self;
 }
@@ -40,7 +40,7 @@ Init_fftw(void)
 {
 
   VALUE mFFTW;
-  mFFTW3 = rb_define_module("FFTW");
+  mFFTW = rb_define_module("FFTW");
   rb_define_singleton_method(mFFTW, "ifft", fftw_complex, 1);
   rb_define_singleton_method(mFFTW, "r2c", fftw_r2c, 1);
   rb_define_singleton_method(mFFTW, "alloc", fftw_malloc, 0);
