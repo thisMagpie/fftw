@@ -22,10 +22,8 @@
 
 /* fftw.h -- system-wide definitions */
 #ifndef FFTW_H
-    #define FFTW_H
-
-  #include <stdlib.h>
-
+  #define FFTW_H
+#include <stdlib.h>
 
  // Defining a space for information and references about the module to be stored internally
 VALUE mFFTW = Qnil;
