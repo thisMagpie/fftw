@@ -67,6 +67,8 @@ fftw_complex *fftw_complex_alloc(long n);
   }
 #ifdef __cplusplus
 extern "C" {
+#endif
+  
   void
   Init_fftw(void)
   {
@@ -77,4 +79,6 @@ extern "C" {
     rb_define_singleton_method(mFFTW, "alloc", fftw_alloc, 0);
     rb_define_singleton_method(mFFTW, "free", fftw_free, 0);
   }
+#ifdef __cplusplus
 }
+#endif
