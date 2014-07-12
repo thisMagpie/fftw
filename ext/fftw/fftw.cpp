@@ -14,10 +14,6 @@ VALUE cFFTW;
 
 fftw_complex *fftw_complex_alloc(long n);
 
-
-
-
-
   typedef struct fftw
   {
     long n;
@@ -79,7 +75,7 @@ fftw_complex *fftw_complex_alloc(long n);
   Init_fftw(void)
   {
     rb_define_module("FFTW");
-    rb_define_singleton_method(mFFTW, "ifftw", fftw_complex, 1);
+    rb_define_singleton_method(mFFTW, "ifft", fftw_complex, 1);
     rb_define_singleton_method(mFFTW, "r2c", fftw_r2c, 1);
     rb_define_singleton_method(mFFTW, "alloc", fftw_alloc, 0);
     rb_define_singleton_method(mFFTW, "free", fftw_free, 0);

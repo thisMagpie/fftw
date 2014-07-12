@@ -3,10 +3,10 @@ require './lib/fftw'
 require 'colorize'
 
 class FFTW
-  def self.r2c()
+  def self.ifft()
     define_method()
   end
-  def self.fft_complex()
+  def self.r2c()
     define_method()
   end
   def self.free()
