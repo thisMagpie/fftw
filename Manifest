@@ -6,3 +6,10 @@ Gemfile
 README.rdoc
 fftw3
 lib/fftw.rb
+Gemfile.lock
+ext/fftw/extconf.rb
+ext/fftw/fftw.cpp
+ext/fftw/fftw.h
+ext/fftw/fftw_config.h
+fftw.gemspec
+lib/fftw/version.rb
