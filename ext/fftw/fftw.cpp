@@ -3,9 +3,7 @@
 #include <stdio.h>
 #include "fftw_config.h"
 
-fftw_complex *fftw_complex_alloc(long n);
-
-typedef struct *fftw
+struct fftw
 {
   long n;
   VALUE size;
@@ -13,15 +11,7 @@ typedef struct *fftw
   fftw_complex out;
   VALUE nmatrix;
   VALUE ftw_r2c;
-} FFTW;
-
-/**
-* pass Data_Wrap_Struct a corresponding function to free
-* that memory as the third argument)
-*/
-  return Data_Wrap_Struct(klass, 0, free, nmatrix);
-}
-
+};
 
 VALUE
 fftw_r2c(int argc, VALUE* argv, VALUE self)
