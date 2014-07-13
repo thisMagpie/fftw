@@ -16,7 +16,7 @@ gemspec = eval(IO.read("fftw.gemspec"))
 puts "Found: " + gemspec.to_s.colorize(:color => :black,
                                   :background => :white)
 
-Rake::ExtensionTask.new "fftw_nm" do |ext|
+Rake::ExtensionTask.new "fftw" do |ext|
   ext.name ='fftw'
   ext.ext_dir = 'ext/fftw'
   ext.lib_dir = 'lib/fftw'
