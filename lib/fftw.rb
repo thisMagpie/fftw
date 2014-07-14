@@ -3,26 +3,18 @@ require './lib/fftw'
 require 'colorize'
 
 class FFTW
-  def self.ifft()
-    define_method()
-  end
-  def self.r2c()
-    define_method()
-  end
-  def self.free()
-    raise ArgumentError, "need a block" if !block
-    define_method()
-  end
-  def self.alloc()
-    define_method()
-  end
-  def method_missing(sym, *argv)
+  class NMatrix
+    def self.nmatrix()
+      define_method()
+    end
+    def method_missing(sym, *argv)
       method_name = sym.to_s.downcase
       if respond_to?(method_name) then
-          send(method_name, *argv)
+        send(method_name, *argv)
       else
-          raise NotImplementedError, "no such method #{method_name}"
+        raise NotImplementedError, "no such method #{method_name}"
       end
+    end
   end
 end
 
