@@ -21,7 +21,6 @@
 #include "ruby.h"
 #include <fftw3.h>
 #include <stdlib.h>
-VALUE mFFTW = Qnil;
 
 /* fftw.h -- system-wide definitions */
 #ifndef FFTW_H
