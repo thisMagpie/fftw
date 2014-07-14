@@ -17,15 +17,16 @@ static VALUE fftw_nmatrix(int argc, VALUE* argv, VALUE self)
 {
   VALUE in;
   VALUE nmatrix, size;
-  rb_scan_args(argc, argv, "11", &nmatrix, &size);    // informs ruby that the method takes 1 mandatory and 1 optional argument, 
-                                                    // the values of which are stored in nmatrix and size.
+  rb_scan_args(argc, argv, "11", &nmatrix, &size);
 
-  if (NIL_P(size))         // if no size was given...
-    size = INT2NUM(10);  // use the default value
+  if (NIL_P(size))        // if no size was given...
+    size = INT2NUM(0);  // use the default value
 
   rb_iv_set(self, "in", in);
 
-  //double nm = NUM2DBL(rb_funcall(args, rb_intern("[]")) 2, 0, 0));
+  //for (int i = 0; i< length; i++){
+  // double nm = NUM2DBL(rb_funcall(args, rb_intern("[]") 2));
+  //}
 
  // rb_yield(Qnil);
   printf("TEST\n");
@@ -47,10 +48,10 @@ VALUE fftw_r2c(VALUE self, VALUE nmatrix)
   in = (double*)malloc(sizeof(double)*(nm[0] * nm[1]));
   out = (fftw_complex*)fftw_malloc(sizeof(fftw_complex) *  nm[0] * (nm[1]/2 + 1));
 
-   TODO add plan
-   Expected arguments
-   fftw_plan_dft_r2c(int rank, const int *n, double *in, fftw_complex *out, unsigned flags);
-  plan = fftw_plan_dft_r2c(...n, out, FFTW_ESTIMATE);
+   //TODO add plan
+   //Expected arguments
+   //fftw_plan_dft_r2c(int rank, const int *n, double *in, fftw_complex *out, unsigned flags);
+   plan = fftw_plan_dft_r2c(...n, out, FFTW_ESTIMATE);
 
   fftw_execute(plan);
   free(in);
