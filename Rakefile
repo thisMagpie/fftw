@@ -5,6 +5,10 @@ require 'rake/extensiontask'
 require 'bundler/gem_tasks'
 require 'colorize'
 
+def get_stdin(message)
+  print message
+  STDIN.gets.chomp
+end
 RSpec::Core::RakeTask.new(:spec) do |t|
   puts "Set to not fail on error".red
   t.fail_on_error = false
@@ -81,9 +85,14 @@ begin
     $stderr.puts e.message
     $stderr.puts "Run `bundle install` to install missing gems"
     exit e.status_code
+
   end
 
-def get_stdin(message)
-  print message
-  STDIN.gets.chomp
-end
+ruby_path = File.dirname(__FILE__)
+project_path = File.expand_path( File.join(ruby_path, '..') )
+binary_path = File.join(project_path, VERSION)
+
+pattern = File.join(binary_path, "*.{so,bundle}")
+Dir.glob(pattern).each { |library|
+  require library
+}
