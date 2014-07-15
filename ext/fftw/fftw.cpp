@@ -4,7 +4,13 @@
 #include <stdio.h>
 #include <iostream>
 #include <cmath>
-using namespace std;
+
+// From https://github.com/ruby/ruby/blob/trunk/include/ruby/ruby.h
+#if defined(cplusplus)
+extern "C" {
+{ /* extern "C" { */
+#endif
+/* RUBY_RUBY_H */
 
 // Prototype for ruby to call
 void Init_fftw();
@@ -61,10 +67,14 @@ VALUE fftw_r2c(VALUE self, VALUE nmatrix)
   return self;
 }
 */
-/*
+
 void Init_fftw(void)
 {
   mFFTW = rb_define_module("FFTW");
   cNMatrix = rb_define_class("NMatrix",mFFTW);
-  rb_define_singleton_method(cNMatrix, "nmatrix", fftw_nmatrix, 0);
-}*/
+ /* rb_define_singleton_method(cNMatrix, "nmatrix", fftw_nmatrix, 0)*/
+}
+
+#if defined(cplusplus)
+}  /* extern "C" { */
+#endif
