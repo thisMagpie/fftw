@@ -27,13 +27,13 @@ Gem::Specification.new do |gem|
   *                                                              *
   *  Welcome to SciRuby: Tools for Scientific Computing in Ruby! *
   *                                                              *
-  *  FFTW3 requires a C compiler, and has been tested only with  *
+  *  FFTW requires a C compiler, and has been tested only with  *
   *  GCC 4.8+.                                                   *
   *                                                              *
   *  We are happy to accept contributions which improve the      *
   *  portability of this project.                                *
   *                                                              *
-  *  Thanks for trying out FFTW3! Happy coding!                  *
+  *  Thanks for trying out FFTW! Happy coding!                  *
   *                                                              *
   ****************************************************************
   EOF
