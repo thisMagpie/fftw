@@ -1,52 +1,34 @@
-{<img src="https://codeclimate.com/github/thisMagpie/fftw.png" />}[https://codeclimate.com/github/thisMagpie/fftw]
-{<img src=https://travis-ci.org/thisMagpie/fftw.png>}[https://travis-ci.org]
-{<img src=https://gemnasium.com/gemnasium/gemnasium-gem.png>}[https://gemnasium.com/thisMagpie/fftw]
 
-== Install FFTW
+![[Travis CLI][(https://travis-ci.org)](https://travis-ci.org/thisMagpie/fftw.png)
+![[Gemnasium][(https://gemnasium.com/thisMagpie/fftw)](https://gemnasium.com/gemnasium/gemnasium-gem.png)
 
-Install FFTW on a Mac
+## Install FFTW
 
-`
-./configure  --enable-float  --enable-threads
-make
-sudo  -s  # Type in your root password and hit the enter button)
-make  install
-`
+    git clone http://github.com/thismagpie/fftw
 
-Now to do the double precision version, we need to clean up the tree.
+### Install FFTW3 on a Mac or linux
 
-`
-make  distclean
-./configure  --enable-threads
-make
-make  install
-`
-
-== FFTW for Linux
-
-`
-./configure  --enable-float  --enable-threads
-make
-su  (Type in your root password and hit the enter button)
-make  install
-`
+    cd fftw/fftw3
+    ./configure  --enable-float  --enable-threads
+    make
+    sudo  -s  # Type in your root password and hit the enter button)
+    make  install
 
 Now to do the double precision version, we need to clean up the tree.
 
-`
-make  distclean
-./configure  --enable-threads
-make
-make  install
-`
+    make  distclean
+    ./configure  --enable-threads
+    make
+    make  install
 
-In order to give SciRuby the capability to handle signal analysis, processing and synthesis via the NMatrix gem or otherwise.
-([Source](http://www.cems.uvm.edu/~smanchu/fftw_installation.html))
+Now to do the double precision version, we need to clean up the tree.
 
-It has been determined that implementing the FFTW3 API in ruby makes it possible to perform operations on NMatrix objects.
-Since existing gem called ruby-ffw3 already exists but only works with narray object a fork of this repository needs to be made compatible with NMatrix instead which is what this repository is all about.
+    make  distclean
+    ./configure  --enable-threads
+    make
+    make  install
 
-=== Common names:
+## Common names
 
      R       : real type, aka fftw_real
      E       : real type for local variables (possibly extra precision)
@@ -65,21 +47,16 @@ Since existing gem called ruby-ffw3 already exists but only works with narray ob
      X(...)  : used for mangling of external names (see below)
      K(...)  : floating-point constant, in E precision
 
-== Conventions in FFTW
+##  Conventions in FFTW3
 
-If a name is used often and must have the form fftw_foo to avoid
-namespace pollution, #define FOO fftw_foo and use the short name.
+If a name is used often and must have the form `fftw_foo` to avoid namespace pollution, `#define FOO fftw_foo` and use the short name: Use `foo` instead.
 
-Leave that hungarian crap to MS.  foo_t counts as hungarian: use foo instead.
+foo is lowercase so that it does not look like a `DOS` program.
 
-foo is lowercase so that it does not look like a DOS program.
+Exception: `typedef struct foo_s {...} foo;`  instead of:
 
-Exception: typedef struct foo_s {...} foo;  instead of:
+    typedef struct foo {...} foo;
 
-```
-typedef struct foo {...} foo;
-```
-for C++ compatibility.
+for `C++` compatibility.
 
-{<img src="https://pledgie.com/campaigns/25892.png" alt="donate with pledgie">}[https://pledgie.com/campaigns/25892]
-
+![[Donate with Pledgie][(https://pledgie.com/campaigns/25892)](https://pledgie.com/campaigns/25892.png)
