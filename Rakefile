@@ -89,5 +89,3 @@ begin
   $stderr.puts "Run `bundle install` to install missing gems".red
   exit e.status_code
 end
-
-
