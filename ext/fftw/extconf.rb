@@ -6,7 +6,6 @@ require 'nmatrix'
 # Install Message
 #
 ###############################################################################
-
 puts "####################".colorize(:color => :cyan,
                                      :background => :white)
 puts "####################".colorize(:color => :light_blue,
@@ -18,9 +17,8 @@ puts "####################".colorize(:color => :light_blue,
 puts "####################".colorize(:color => :cyan,
                                      :background => :white)
 
-abort "missing malloc()" unless have_func "malloc"
-abort "missing free()"   unless have_func "free"
-
+abort "missing malloc()".red unless have_func "malloc".cyan
+abort "missing free()".red   unless have_func "free".cyan
 ###############################################################################
 #
 # This only works if fftw3 headers are installed
@@ -47,7 +45,8 @@ puts "#{fftw_libdir}".green
 ###############################################################################
 cxxvar = proc { |n| `#{CONFIG['CXX']} -E -dM - </dev/null | grep #{n}`.chomp.split(' ')[2] }
 puts "cxxvar:  #{cxxvar}".to_str.colorize(:color => :black,
-                                   :background => :white)
+                                          :background => :white
+                                          )
 major = cxxvar.call('__GNUC__')
 minor = cxxvar.call('__GNUC_MINOR__')
 patch = cxxvar.call('__GNUC_PATCHLEVEL__')
@@ -77,7 +76,6 @@ else
   puts "CBLAS and ATLAS Status: Not found!".colorize(:color => :black,
                                                      :background => :cyan)
 end
-
 ###############################################################################
 #
 # Configuration of directory named in first argument, i.e. The arguments of
@@ -99,6 +97,7 @@ if have_library("fftw3f") then
 else
   $CFLAGS = [" -I#{fftw_incdir} --libdir=#{fftw_libdir}"].join(" ")
 end
+
 # if $warnflags then
 #   $warnflags.slice!('-Wdeclaration-after-statement')
 #   $warnflags.slice!('-Wimplicit-function-declaration')
