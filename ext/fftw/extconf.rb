@@ -17,8 +17,8 @@ puts "####################".colorize(:color => :light_blue,
 puts "####################".colorize(:color => :cyan,
                                      :background => :white)
 
-abort "missing malloc()".red unless have_func "malloc".cyan
-abort "missing free()".red   unless have_func "free".cyan
+abort "missing malloc()".red unless have_func "malloc"
+abort "missing free()".red   unless have_func "free"
 ###############################################################################
 #
 # This only works if fftw3 headers are installed
