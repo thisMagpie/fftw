@@ -13,3 +13,4 @@ ext/fftw/fftw.h
 ext/fftw/fftw_config.h
 fftw.gemspec
 lib/fftw/version.rb
+README.md
