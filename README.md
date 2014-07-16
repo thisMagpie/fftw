@@ -1,6 +1,6 @@
 
-![[Travis CLI][(https://travis-ci.org)](https://travis-ci.org/thisMagpie/fftw.png)
-![[Gemnasium][(https://gemnasium.com/thisMagpie/fftw)](https://gemnasium.com/gemnasium/gemnasium-gem.png)
+
+![[Travis CLI][(https://travis-ci.org)]](https://travis-ci.org/thisMagpie/fftw.png) ![[Gemnasium][(https://gemnasium.com/thisMagpie/fftw)]](https://gemnasium.com/gemnasium/gemnasium-gem.png)
 
 ## Install FFTW
 
