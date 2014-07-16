@@ -1,8 +1,7 @@
 require 'nmatrix'
-require './lib/fftw'
 require 'colorize'
 
-class FFTW
+module FFTW
   class NMatrix
     def self.nmatrix()
       define_method()
