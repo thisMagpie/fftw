@@ -1,3 +1,26 @@
+22e9fed Create README.md
+2a85842 convert syntax to md, tidy and reformat
+f27c63f Rakefile: add docs and debug colours
+fee064d extconf: FIX find malloc and free
+04b488a add malloc debugging colours
+683c0b3 lib/ remove circular require
+f1f71ee post install message fftw3 to fftw
+b5fa67a ext: add cpp if
+a8599d8 Rake link libraries
+00b3aac fix specs
+6aeb9d8 remove module init from header
+917e803 rm commen blocks
+18a4be4 comment blocks
+eb50edc tidy up
+8d81ae2 rakefile: rename extention task to fftw
+1783074 fix a bunch of failures
+8b8492a fix typo in fftw module declaration
+70f0913 fix syntax error
+4bd2c9c remove notes
+ec14c9b remove alloc and free
+e80d8cf try without .h
+2ab438a Fix indentation
+b952d45 Bump version to 1.0.1 to reflect dependency changes
 73c7bf4 Manifest: Update
 3dfd24d add fftw.h
 0ab98ea remove hpp
