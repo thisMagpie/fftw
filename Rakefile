@@ -9,9 +9,10 @@ def get_stdin(message)
   print message
   STDIN.gets.chomp
 end
+
+desc "Set to fail on error by defaul".cyan
 RSpec::Core::RakeTask.new(:spec) do |t|
-  puts "Set to not fail on error".red
-  t.fail_on_error = false
+  t.fail_on_error = true
 end
 task :default => :spec
 
@@ -63,13 +64,13 @@ task :check_manifest do |task|
   end
 
   if extra_files.empty? && missing_files.empty?
-    STDERR.puts "Manifest looks good!"
+    STDERR.puts "Manifest looks good!".green
   end
 end # end task :check_manifest .... done!
 
 desc "List tasks".cyan
 task :list do
-  puts "Tasks: #{(Rake::Task.tasks - [Rake::Task[:list]]).join(', ')}"
+  puts "Tasks: #{(Rake::Task.tasks - [Rake::Task[:list]]).join(' ')}"
   puts "(type rake -T for more detail)\n\n"
 end
 
