@@ -5,7 +5,7 @@
 
 [![Travis CLI](https://travis-ci.org/thisMagpie/fftw.png)](https://travis-ci.org)
 
-[![Gemnasium]](https://gemnasium.com/gemnasium/gemnasium-gem.png)(https://gemnasium.com/thisMagpie/fftw)
+[![Gemnasium](https://gemnasium.com/gemnasium/gemnasium-gem.png)](https://gemnasium.com/thisMagpie/fftw)
 
 ## Install FFTW
 
