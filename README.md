@@ -2,8 +2,10 @@
 
 
 [![Code Climate](https://codeclimate.com/github/thisMagpie/fftw.png)](https://codeclimate.com/github/thisMagpie/fftw)
-[![Travis CLI](https://travis-ci.org)](https://travis-ci.org/thisMagpie/fftw.png) 
-[![Gemnasium](https://gemnasium.com/thisMagpie/fftw)](https://gemnasium.com/gemnasium/gemnasium-gem.png)
+
+[![Travis CLI](https://travis-ci.org/thisMagpie/fftw.png)](https://travis-ci.org)
+
+[![Gemnasium]](https://gemnasium.com/gemnasium/gemnasium-gem.png)(https://gemnasium.com/thisMagpie/fftw)
 
 ## Install FFTW
 
@@ -62,4 +64,4 @@ Exception: `typedef struct foo_s {...} foo;`  instead of:
 
 for `C++` compatibility.
 
-[![Donate with Pledgie](https://pledgie.com/campaigns/25892)](https://pledgie.com/campaigns/25892.png)
+[![Donate with Pledgie](https://pledgie.com/campaigns/25892.png)](https://pledgie.com/campaigns/25892)
