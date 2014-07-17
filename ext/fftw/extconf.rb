@@ -43,13 +43,11 @@ puts "#{fftw_libdir}".green
 # Make sure CXX is set to g++ and not clang or gcc by setting its value
 #
 ###############################################################################
-cxxvar = proc { |n| `#{CONFIG['CXX']} -E -dM - </dev/null | grep #{n}`.chomp.split(' ')[2] }
-puts "cxxvar:  #{cxxvar}".to_str.colorize(:color => :black,
-                                          :background => :white
-                                          )
-major = cxxvar.call('__GNUC__')
-minor = cxxvar.call('__GNUC_MINOR__')
-patch = cxxvar.call('__GNUC_PATCHLEVEL__')
+cxx_proc = proc { |n| `#{CONFIG['CXX']} -E -dM - </dev/null | grep #{n}`.chomp.split(' ')[2] }
+puts "#{cxx_proc}"
+major = cxx_proc.call('__GNUC__')
+minor = cxx_proc.call('__GNUC_MINOR__')
+patch = cxx_proc.call('__GNUC_PATCHLEVEL__')
 puts "CXX= #{CONFIG['CXX']}".cyan
 
 $CPP_STANDARD = 'c++11'
