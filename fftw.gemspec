@@ -20,23 +20,4 @@ Gem::Specification.new do |gem|
   gem.rubygems_version              = '2.2.2'
   gem.required_rubygems_version     = Gem::Requirement.new(">= 2.2.2")
   gem.email                         = 'm.berns@thismagpie.com'
-  gem.post_install_message          =
-
-  <<-EOF
-  ****************************************************************
-  *                                                              *
-  *  Welcome to SciRuby: Tools for Scientific Computing in Ruby! *
-  *                                                              *
-  *  FFTW requires a C compiler, and has been tested only with  *
-  *  GCC 4.8+.                                                   *
-  *                                                              *
-  *  We are happy to accept contributions which improve the      *
-  *  portability of this project.                                *
-  *                                                              *
-  *  Thanks for trying out FFTW! Happy coding!                  *
-  *                                                              *
-  ****************************************************************
-  EOF
-  puts gem.post_install_message.to_s.colorize(:color => :black,
-                                         :background => :light_blue)
 end
