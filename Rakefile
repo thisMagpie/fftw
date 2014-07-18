@@ -10,7 +10,7 @@ def get_stdin(message)
   STDIN.gets.chomp
 end
 
-desc "Set to fail on error by defaul".cyan
+desc "Set to fail on error by default".cyan
 RSpec::Core::RakeTask.new(:spec) do |t|
   t.fail_on_error = true
 end
