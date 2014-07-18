@@ -16,7 +16,7 @@ VALUE mFFTW;
 VALUE cNMatrix;
 int i = 0;
 
-fftw_r2c(VALUE self, VALUE nm)
+VALUE fftw_r2c(VALUE self, VALUE nm)
 {
   int rank;
   const int *n;
