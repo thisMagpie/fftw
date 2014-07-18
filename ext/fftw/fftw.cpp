@@ -24,12 +24,10 @@ fftw_r2c(VALUE self, VALUE nm)
   fftw_complex *out;
   fftw_plan plan;
 
-  //In place inpute 
+  //In place input
   in = (double*)malloc(sizeof(double)*(nm * nm));
   out = (fftw_complex*)fftw_malloc(sizeof(fftw_complex) *  nm * (nm/2 + 1));
-
-  plan = fftw_plan_dft_r2c(rank, n, in, out, FFTW_ESTIMATE);
-
+  plan = fftw_plan_dft_r2c(rank, n, in, out, FFTW_ESTIMATE); //estimate is rough
   fftw_execute(plan);
   free(in);
   fftw_destroy_plan(plan);
