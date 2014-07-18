@@ -38,11 +38,12 @@ extern "C"
 // }
 
 // Prototype for ruby to call
-void Init_fftw();
 
 VALUE mFFTW;
 VALUE cNMatrix;
 int i = 0;
+
+void Init_fftw(void);
 
 VALUE fftw_r2c(VALUE self, VALUE nm)
 {
@@ -89,7 +90,7 @@ void Init_fftw(void)
 {
   mFFTW = rb_define_module("FFTW");
   cNMatrix = rb_define_class("NMatrix",mFFTW);
-  //fftw_missing = get_method(cNMatrix, "missing");
+ // rb_define_singleton_method(cNMatrix, "missing", fftw_missing, 1);
 }
 
 #if defined(cplusplus)
