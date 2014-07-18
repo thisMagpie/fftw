@@ -16,6 +16,19 @@ RSpec::Core::RakeTask.new(:spec) do |t|
 end
 task :default => :spec
 
+require 'rdoc/task'
+
+RDoc::Task.new(:rdoc) do |rdoc|
+  rdoc.main = "README.rdoc"
+  rdoc.rdoc_files.include(%w{README.rdoc
+                             Rakefile
+                             fftw.gemspec
+                             MANUAL.md
+                             lib/fftw/**/*.rb
+                             ext/fftw/*.cpp
+                             ext/fftw/*.h})
+end
+
 Rake::ExtensionTask.new "fftw" do |ext|
   ext.name ='fftw'
   ext.ext_dir = 'ext/fftw'
