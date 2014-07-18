@@ -3,15 +3,20 @@ require 'colorize'
 
 module FFTW
   class NMatrix
-    def self.nmatrix()
-      define_method()
-    end
-    def method_missing(sym, *argv)
-      method_name = sym.to_s.downcase
-      if respond_to?(method_name) then
-        send(method_name, *argv)
+    def singleton_method?self.missing(sym, *argv)
+      name = sym.to_s.downcase
+      if respond_to?(name) then
+        send(name, *argv)
       else
-        raise NotImplementedError, "no such method #{method_name}"
+        raise NotImplementedError, "no such method #{name}"
+      end
+    end
+    def singleton_method?self.r2c(sym, *argv)
+      name = sym.to_s.downcase
+      if respond_to?(name) then
+        send(name, *argv)
+      else
+        raise NotImplementedError, "no such method #{name}"
       end
     end
   end
