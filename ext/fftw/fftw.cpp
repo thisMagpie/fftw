@@ -13,9 +13,8 @@ extern "C"
 { /* extern "C" { */
 #endif
 
-VALUE mFFTW;
-VALUE cNMatrix;
-int i = 0;
+VALUE mFFTW = Qnil;
+VALUE cNMatrix = Qnil;
 
 /**
   fftw_r2c
@@ -70,7 +69,7 @@ void Init_fftw(void)
 {
   mFFTW = rb_define_module("FFTW");
   cNMatrix = rb_define_class("NMatrix",mFFTW);
- // rb_define_singleton_method(cNMatrix, "r2c", fftw_r2c, 1);
+  //rb_define_singleton_method(cNMatrix, "r2c", fftw_r2c, 2);
 }
 
 #if defined(cplusplus)
