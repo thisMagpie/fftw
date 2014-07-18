@@ -16,8 +16,6 @@ VALUE mFFTW;
 VALUE cNMatrix;
 int i = 0;
 
-void Init_fftw(void);
-
 VALUE fftw_r2c(VALUE self, VALUE nm)
 {
   int rank;
@@ -63,7 +61,7 @@ void Init_fftw(void)
 {
   mFFTW = rb_define_module("FFTW");
   cNMatrix = rb_define_class("NMatrix",mFFTW);
- // rb_define_singleton_method(cNMatrix, "missing", fftw_missing, 1);
+  rb_define_singleton_method(cNMatrix, "r2c", fftw_r2c, 1);
 }
 
 #if defined(cplusplus)
