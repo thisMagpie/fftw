@@ -1,6 +1,7 @@
 #include "ruby.h"
 #include <fftw3.h>
 #include <fftw.h>
+#include <fftw_config.h>
 #include <stdio.h>
 #include <iostream>
 #include <cmath>
