@@ -17,6 +17,16 @@ VALUE mFFTW;
 VALUE cNMatrix;
 int i = 0;
 
+/**
+  fftw_r2c
+  @param self
+  @param nm
+  @return
+
+  With FFTW_ESTIMATE as a flag in the plan,
+  the input and and output are not overwritten at runtime
+  The plan will use a heuristic approach to picking plans
+  rather than take measurements */
 VALUE fftw_r2c(VALUE self, VALUE nm)
 {
   int rank;
