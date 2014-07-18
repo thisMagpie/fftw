@@ -12,33 +12,6 @@ extern "C"
 { /* extern "C" { */
 #endif
 
-// VALUE fftw_nmatrix(int argc, VALUE* argv, VALUE self)
-// {
-//   VALUE in;
-//   VALUE nmatrix, size;
-
-//   rb_funcall(rb_funcall(*argv, rb_intern("to_s"), 0),
-//              rb_intern("downcase"),0);
-
-//   rb_scan_args(argc, argv, "11", &nmatrix, &size);
-
-//   if (NIL_P(size))        // if no size was given...
-//     size = INT2NUM(0);  // use the default value
-
-//   rb_iv_set(self, "in", in);
-
-//   //for (int i = 0; i< length; i++){ 
-//   //literal constructor  == []
-//   // double nm = NUM2DBL(rb_funcall(args, rb_intern("[]") 2));
-//   //}
-
-//  // rb_yield(Qnil);
-//   printf("TEST\n");
-//   return 0;
-// }
-
-// Prototype for ruby to call
-
 VALUE mFFTW;
 VALUE cNMatrix;
 int i = 0;
