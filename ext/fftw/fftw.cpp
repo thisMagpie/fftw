@@ -70,11 +70,11 @@ void Init_fftw(void)
   cNMatrix = rb_define_class("NMatrix",mFFTW);
   rb_define_singleton_method(cNMatrix, "r2c",
                              (VALUE (*)(...)) fftw_r2c,
-                             2);
+                             -1);
   rb_define_singleton_method(cNMatrix,
                              "missing",
                              (VALUE (*)(...)) fftw_missing,
-                             2);
+                             -1);
 
 }
 #if defined(cplusplus)
