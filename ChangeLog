@@ -1,3 +1,34 @@
+a703ee4 cpp add singleton def for missing
+dd8f2b6 fftw.cpp  FIX define singleton
+14e8320 fftw.cpp: initialise constants
+6ef33eb spec remove comparison with uninited constant
+8f85e59 lib fix failing specs
+6db39d8 specs: fix failing definition
+5ab0f48 add r2c as singleton method
+45e3146 fftw.cpp/ add some documentation
+522f3a9 RAkefile: add rdoc task
+b37fd58 Rakefile: fix typo in description
+f22d50b fftw.cpp: add fftw_config header include
+f17d2c0 ext/ put type in front of method declaration
+bafdeb6 Remove post install message
+3765f4f Create Manual.md and add rake tasks table
+9b72e59 ext add informative comment
+45d98f1 ext: comment out singleton declaration
+1a38ba5 remove init function from top
+19e539a ext: remove old commented code
+8197f3c ext don't use add_method
+e4c76fe ext/ add fixed r2c
+c296a89 README.rdoc: Remove images
+174ace5 extconf: call a spade a spade
+58150b7 Rakefile: set specs to fail on error
+7a12d08 EADME fix image links#5
+98f089d README fix image links#4
+e528f98 Rakefile remove whitespace
+88a2f23 README fix links#3
+74118e1 README fix links
+90f9b41 Manifest: Add README.md
+4e76a3b README fix broken images
+3f63509 Bump version to 0.1.2
 22e9fed Create README.md
 2a85842 convert syntax to md, tidy and reformat
 f27c63f Rakefile: add docs and debug colours
