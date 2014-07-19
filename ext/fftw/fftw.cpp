@@ -10,7 +10,7 @@ using namespace std;
 // From https://github.com/ruby/ruby/blob/trunk/include/ruby/ruby.h
 #if defined(cplusplus)
 extern "C"
-{ /* extern "C" { */
+{
 #endif
 
 VALUE mFFTW = Qnil;
@@ -44,7 +44,6 @@ static VALUE fftw_r2c(int argc, VALUE* argv, VALUE self)
   return self;
 }
 
-
  //http://banisterfiend.wordpress.com/2008/10/06/metaprogramming-in-the-ruby-c-api-part-two-dynamic-methods/
 VALUE fftw_missing(int argc, VALUE *argv, VALUE self)
 {
@@ -69,8 +68,15 @@ void Init_fftw(void)
 {
   mFFTW = rb_define_module("FFTW");
   cNMatrix = rb_define_class("NMatrix",mFFTW);
-  rb_define_singleton_method(cNMatrix, "r2c", (VALUE (*)(...)) fftw_r2c, 2);
+  rb_define_singleton_method(cNMatrix, "r2c",
+                             (VALUE (*)(...)) fftw_r2c,
+                             2);
+  rb_define_singleton_method(cNMatrix,
+                             "missing",
+                             (VALUE (*)(...)) fftw_missing,
+                             2);
+
 }
 #if defined(cplusplus)
-}  /* extern "C" { */
+}
 #endif
