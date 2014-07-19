@@ -26,7 +26,7 @@ VALUE cNMatrix = Qnil;
   the input and and output are not overwritten at runtime
   The plan will use a heuristic approach to picking plans
   rather than take measurements */
-VALUE fftw_r2c(VALUE self, VALUE nm)
+static VALUE fftw_r2c(int argc, VALUE* argv, VALUE self)
 {
   int rank;
   const int *n;
@@ -35,8 +35,8 @@ VALUE fftw_r2c(VALUE self, VALUE nm)
   fftw_plan plan;
 
   //In place input
-  in = (double*)malloc(sizeof(double)*(nm * nm));
-  out = (fftw_complex*)fftw_malloc(sizeof(fftw_complex) *  nm * (nm/2 + 1));
+  in = (double*)malloc(sizeof(double)*(self * self));
+  out = (fftw_complex*)fftw_malloc(sizeof(fftw_complex) *  self * (self/2 + 1));
   plan = fftw_plan_dft_r2c(rank, n, in, out, FFTW_ESTIMATE); //estimate is rough
   fftw_execute(plan);
   free(in);
@@ -69,9 +69,8 @@ void Init_fftw(void)
 {
   mFFTW = rb_define_module("FFTW");
   cNMatrix = rb_define_class("NMatrix",mFFTW);
-  //rb_define_singleton_method(cNMatrix, "r2c", fftw_r2c, 2);
+  rb_define_singleton_method(cNMatrix, "r2c", (VALUE (*)(...)) fftw_r2c, 2);
 }
-
 #if defined(cplusplus)
 }  /* extern "C" { */
 #endif
