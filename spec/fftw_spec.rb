@@ -1,6 +1,7 @@
 require 'spec_helper'
 require 'fftw'
 require 'nmatrix'
+require 'spec_helper'
 
 describe FFTW, "nmatrix" do
   it "creates an nmatrix object" do
