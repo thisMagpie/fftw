@@ -67,7 +67,7 @@ if have_library("cblas") and have_library("atlas")
                                                  :background => :cyan)
 puts "CBLAS and ATLAS Status: Found!".green
 puts "******************************".colorize(:color => :black,
-                                              :background => :cyan)
+                                               :background => :cyan)
 dir_config("cblas")
 dir_config("atlas")
 else
@@ -90,17 +90,20 @@ fftw_incdir = ['/usr/local/include',
               ]
 incdir, libdir = dir_config('fftw', fftw_incdir, fftw_libdir)
 
+puts "libdir=#{libdir}".green
+puts "incdir=#{incdir}".green
+
 if have_library("fftw3f") then
   $CFLAGS = [" -DFFTW3_HAS_SINGLE_SUPPORT -I#{fftw_incdir} --libdir=#{fftw_libdir}"].join(" ")
 else
   $CFLAGS = [" -I#{fftw_incdir} --libdir=#{fftw_libdir}"].join(" ")
 end
 
-# if $warnflags then
-#   $warnflags.slice!('-Wdeclaration-after-statement')
-#   $warnflags.slice!('-Wimplicit-function-declaration')
-#   $warnflags.slice!('-Wshorten-64-to-32')
-# end
+if $warnflags then
+  $warnflags.slice!('-Wdeclaration-after-statement')
+  $warnflags.slice!('-Wimplicit-function-declaration')
+  $warnflags.slice!('-Wshorten-64-to-32')
+end
 
 $CFLAGS   += " -static -O3"
 $CPPFLAGS += " -O3"
