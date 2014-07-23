@@ -13,8 +13,8 @@ extern "C"
 {
 #endif
 
-VALUE mFFTW = Qnil;
-VALUE cNMatrix = Qnil;
+VALUE mFFTW;
+VALUE cNMatrix;
 
 /**
   fftw_r2c
@@ -25,7 +25,8 @@ VALUE cNMatrix = Qnil;
   With FFTW_ESTIMATE as a flag in the plan,
   the input and and output are not overwritten at runtime
   The plan will use a heuristic approach to picking plans
-  rather than take measurements */
+  rather than take measurements
+*/
 static VALUE fftw_r2c(int argc, VALUE* argv, VALUE self)
 {
   int rank;
