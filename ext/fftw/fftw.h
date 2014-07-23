@@ -21,10 +21,14 @@
 #include "ruby.h"
 #include <fftw3.h>
 #include <stdlib.h>
-
+#if defined(cplusplus)
+extern "C"
+{
+#endif
 /* fftw.h -- system-wide definitions */
 #ifndef FFTW_H
-    #define FFTW_H
+  #define FFTW_H
+
  // Defining a space for information and references about the module to be stored internally
 
 // Prototype for the initialization method - Ruby calls this, not you
@@ -93,12 +97,6 @@
   typedef void (fftw_hc2real_codelet)
        (const fftw_real *, const fftw_real *,
         fftw_real *, int, int, int);
-  typedef void (fftw_hc2hc_codelet)
-       (fftw_real *, const fftw_complex *,
-        int, int, int);
-  typedef void (fftw_rgeneric_codelet)
-       (fftw_real *, const fftw_complex *, int,
-        int, int, int);
 
   /*********************************************
    *     Configurations
@@ -111,10 +109,6 @@
        FFTW_NOTW, FFTW_TWIDDLE, FFTW_GENERIC, FFTW_RADER,
        FFTW_REAL2HC, FFTW_HC2REAL, FFTW_HC2HC, FFTW_RGENERIC
   };
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
   #define FFTW_OUT_OF_PLACE (0)
   #define FFTW_IN_PLACE (8)
@@ -147,10 +141,11 @@ extern "C" {
   #endif
       /* FFTW_H */
 
-void Init_fftw();
+void Init_fftw()
 
 
-#ifdef __cplusplus
+#if defined(cplusplus)
 }
 #endif
 #endif
+
