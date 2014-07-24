@@ -68,12 +68,12 @@ task :check_manifest do |task|
 
   unless missing_files.empty?
     STDERR.puts "The following files are in the git repo but not the Manifest:"
-    missing_files.each { |f| STDERR.puts " -- #{f}"}
+    missing_files.each { |f| STDERR.puts "#{f}"}
   end
 
   unless extra_files.empty?
     STDERR.puts "The following files are in the Manifest but may not be necessary:"
-    extra_files.each { |f| STDERR.puts " -- #{f}"}
+    extra_files.each { |f| STDERR.puts "#{f}"}
   end
 
   if extra_files.empty? && missing_files.empty?
