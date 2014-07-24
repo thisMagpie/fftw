@@ -10,7 +10,7 @@ def get_stdin(message)
   STDIN.gets.chomp
 end
 
-desc "Set to fail on error by default".cyan
+desc "Set to fail on error by default".red
 RSpec::Core::RakeTask.new(:spec) do |t|
   t.fail_on_error = true
 end
@@ -43,6 +43,7 @@ end
 def run *cmd
   sh(cmd.join(" "))
 end
+
 namespace :clean do
   task :clean => :environment do |task|
     Dir['*~'].each {|fn| rm fn rescue nil}
