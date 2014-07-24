@@ -1,6 +1,14 @@
 require 'nmatrix'
 require 'colorize'
 
+if File.exist?("../lib/fftw/fftw.so")
+  require 'fftw.so'
+end
+
+if File.exist?("../ext/fftw/fftw.o")
+  require 'fftw.o'
+end
+
 module FFTW
   class << NMatrix
     def self.r2c(sym, *argv)
@@ -15,12 +23,4 @@ module FFTW
       end
     end
   end
-end
-
-if File.exist?("../lib/fftw/fftw.so")
-  require 'fftw.so'
-end
-
-if File.exist?("../ext/fftw/fftw.o")
-  require 'fftw.o'
 end
