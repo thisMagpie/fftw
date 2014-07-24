@@ -7,7 +7,7 @@
 #include <cmath>
 using namespace std;
 
-// From https://github.com/ruby/ruby/blob/trunk/include/ruby/ruby.h
+/* From https://github.com/ruby/ruby/blob/trunk/include/ruby/ruby.h */
 #if defined(cplusplus)
 extern "C"
 {
@@ -37,11 +37,23 @@ fftw_r2c(int argc, VALUE *argv, VALUE self)
   /* called directly */
 #endif
 {
-  int rank;
+  VALUE nm, direction;
+  int rank = argc - 2;
   const int *n;
   double *in;
+  int i, j;
+  double nmatrix;
   fftw_complex *out;
   fftw_plan plan;
+
+  for(i = 0; i < rank; i++)
+  {
+    for(j = 0; j < rank; j++)
+    {
+      nmatrix<i,j>= NUM2DBL(rb_funcall(argv[i], rb_intern( "[]" ), j ));
+      printf("%g",&nmatrix);
+    }
+  }
 
   //In place input
   in = (double*)malloc(sizeof(double)*(self * self));
@@ -77,7 +89,7 @@ void Init_fftw(void)
 {
   mFFTW = rb_define_module("FFTW");
   rb_global_variable(&mFFTW);
-  cNMatrix = rb_define_class("NMatrix",mFFTW);
+  cNMatrix = rb_define_class ("NMatrix",mFFTW);
   rb_define_singleton_method(cNMatrix, "r2c",
                              (VALUE (*)(...)) fftw_r2c,
                              -1);
