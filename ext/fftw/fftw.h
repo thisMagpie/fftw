@@ -21,10 +21,7 @@
 #include "ruby.h"
 #include <fftw3.h>
 #include <stdlib.h>
-#if defined(cplusplus)
-extern "C"
-{
-#endif
+
 /* fftw.h -- system-wide definitions */
 #ifndef FFTW_H
   #define FFTW_H
@@ -143,9 +140,3 @@ extern "C"
 
 void Init_fftw()
 #endif
-
-
-#if defined(cplusplus)
-}
-#endif
-
