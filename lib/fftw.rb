@@ -10,7 +10,7 @@ if File.exist?("../ext/fftw/fftw.o")
 end
 
 module FFTW
-  class << NMatrix
+  class FFTW::NMatrix
     def self.r2c(sym, *argv)
       define_method()
     end
