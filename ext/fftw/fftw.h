@@ -142,10 +142,10 @@ extern "C"
       /* FFTW_H */
 
 void Init_fftw()
+#endif
 
 
 #if defined(cplusplus)
 }
-#endif
 #endif
 
