@@ -27,7 +27,15 @@ VALUE cNMatrix;
   The plan will use a heuristic approach to picking plans
   rather than take measurements
 */
-static VALUE fftw_r2c(int argc, VALUE* argv, VALUE self)
+
+static VALUE
+#ifdef FFTW3_HAS_SINGLE_SUPPORT
+fftw_r2c_double(int argc, VALUE *argv, VALUE self)
+  /* called by fftw_r2c */
+#else
+fftw_r2c(int argc, VALUE *argv, VALUE self)
+  /* called directly */
+#endif
 {
   int rank;
   const int *n;
@@ -68,6 +76,7 @@ VALUE fftw_missing(int argc, VALUE *argv, VALUE self)
 void Init_fftw(void)
 {
   mFFTW = rb_define_module("FFTW");
+  rb_global_variable(&mFFTW);
   cNMatrix = rb_define_class("NMatrix",mFFTW);
   rb_define_singleton_method(cNMatrix, "r2c",
                              (VALUE (*)(...)) fftw_r2c,
