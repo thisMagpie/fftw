@@ -93,10 +93,11 @@ incdir, libdir = dir_config('fftw', fftw_incdir, fftw_libdir)
 puts "libdir=#{libdir}".green
 puts "incdir=#{incdir}".green
 
+flags = " -I#{fftw_incdir} --libdir=#{fftw_libdir}"
 if have_library("fftw3f") then
-  $CFLAGS = [" -DFFTW3_HAS_SINGLE_SUPPORT -I#{fftw_incdir} --libdir=#{fftw_libdir}"].join(" ")
+  $CFLAGS = [" -DFFTW3_HAS_SINGLE_SUPPORT #{flags}"].join(" ")
 else
-  $CFLAGS = [" -I#{fftw_incdir} --libdir=#{fftw_libdir}"].join(" ")
+  $CFLAGS = [s].join(" ")
 end
 
 if $warnflags then
