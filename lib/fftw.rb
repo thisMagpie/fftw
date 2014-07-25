@@ -1,5 +1,6 @@
 require 'nmatrix'
 require 'colorize'
+require 'fftw'
 
 if File.exist?("../lib/fftw/fftw.so")
   require 'fftw.so'
