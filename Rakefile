@@ -10,9 +10,9 @@ def get_stdin(message)
   STDIN.gets.chomp
 end
 
-desc "Set to fail on error by default".red
+desc "Set to fail on error by default".green
 RSpec::Core::RakeTask.new(:spec) do |t|
-  t.fail_on_error = true
+  t.fail_on_error = false
 end
 task :default => :spec
 
