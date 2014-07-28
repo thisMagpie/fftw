@@ -3,7 +3,7 @@ require 'fftw'
 require 'nmatrix'
 require 'spec_helper'
 
-describe FFTW, "nmatrix" do
+describe FFTW, "r2c" do
   it "creates an nmatrix object" do
     n = NMatrix.new([2,2], dtype: :int64)
     expect(n.dtype).to eq(:int64)
