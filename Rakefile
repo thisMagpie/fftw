@@ -99,7 +99,7 @@ ruby_path = File.dirname(__FILE__)
 project_path = File.expand_path( File.join(ruby_path, '..') )
 binary_path = File.join(project_path, VERSION)
 
-pattern = File.join(binary_path, "*.{so,bundle}")
+pattern = File.join(binary_path, "*.{so,bundle,o}")
 Dir.glob(pattern).each do |library|
   require library
 end
