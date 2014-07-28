@@ -10,14 +10,21 @@ def get_stdin(message)
   STDIN.gets.chomp
 end
 
-desc "Set to fail on error by default".green
+desc "Set to not fail on error by default".green
 RSpec::Core::RakeTask.new(:spec) do |t|
   t.fail_on_error = false
 end
 task :default => :spec
 
-require 'rdoc/task'
+RSpec::Core::RakeTask.new(:build) do |build|
+  Dir.chdir('ext/fftw') do
+    puts `ruby extconf.rb`
+    puts `make`
+  end
+end
+task :default => :build
 
+require 'rdoc/task'
 RDoc::Task.new(:rdoc) do |rdoc|
   rdoc.main = "README.rdoc"
   rdoc.rdoc_files.include(%w{README.rdoc
@@ -53,7 +60,7 @@ namespace :clean do
         `nmake soclean`
       else
         mkcmd = ENV['MAKE'] || %w[gmake make].find { |c| system("#{c} -v >> /dev/null 2>&1") }
-        `#{mkcmd} soclean`
+        `#{mkcmd} distclean`
       end
     end
   end
@@ -68,12 +75,12 @@ task :check_manifest do |task|
   extra_files     = manifest_files - possible_files
 
   unless missing_files.empty?
-    STDERR.puts "The following files are in the git repo but not the Manifest:"
+    STDERR.puts "WARNING: following files are missing from the Manifest:"
     missing_files.each { |f| STDERR.puts "#{f}"}
   end
 
   unless extra_files.empty?
-    STDERR.puts "The following files are in the Manifest but may not be necessary:"
+    STDERR.puts "WARNING: The following files are in the Manifest but should be removed"
     extra_files.each { |f| STDERR.puts "#{f}"}
   end
 
@@ -92,13 +99,13 @@ ruby_path = File.dirname(__FILE__)
 project_path = File.expand_path( File.join(ruby_path, '..') )
 binary_path = File.join(project_path, VERSION)
 
-pattern = File.join(binary_path, "*.{so,bundle}")
+pattern = File.join(binary_path, "*.{so,bundle,o}")
 Dir.glob(pattern).each do |library|
   require library
 end
 
 begin
-  Bundler.setup(:test, :default,:clean,:development)
+  Bundler.setup(:test,:default,:clean,:development,:build,:list)
   rescue Bundler::BundlerError => e
   $stderr.puts e.message
   $stderr.puts "Run `bundle install` to install missing gems".red

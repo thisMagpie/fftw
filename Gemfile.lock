@@ -1,10 +1,10 @@
 GIT
   remote: git://github.com/thisMagpie/nmatrix.git
-  revision: 5b92d4acef3617d0aa80ef632f26636d40aba1b1
-  branch: removeunused
+  revision: 30fcf711a36e634ad4337f3ccc857fe17b7b3240
+  branch: master
   specs:
-    nmatrix (0.1.0.rc4)
-      rdoc (>= 4.0.1)
+    nmatrix (0.1.0.rc5)
+      rdoc (~> 4.0, >= 4.0.1)
 
 GEM
   remote: https://rubygems.org/

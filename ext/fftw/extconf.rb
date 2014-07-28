@@ -72,7 +72,7 @@ dir_config("cblas")
 dir_config("atlas")
 else
   puts "CBLAS and ATLAS Status: Not found!".colorize(:color => :black,
-                                                     :background => :cyan)
+                                                     :background => :red)
 end
 ###############################################################################
 #
@@ -93,11 +93,20 @@ incdir, libdir = dir_config('fftw', fftw_incdir, fftw_libdir)
 puts "libdir=#{libdir}".green
 puts "incdir=#{incdir}".green
 
+###############################################################################
+#
+# Configuration of directory named in first argument, i.e. The arguments of
+# dir_config('fftw', HEADERS, LIBS) are as follows (in this case):
+#
+# HEADERS == fftw_incdir
+# LIBS    == _libdir
+#
+#############################################################################
 flags = " -I#{fftw_incdir} --libdir=#{fftw_libdir}"
 if have_library("fftw3f") then
   $CFLAGS = [" -DFFTW3_HAS_SINGLE_SUPPORT #{flags}"].join(" ")
 else
-  $CFLAGS = [s].join(" ")
+  $CFLAGS = [flags].join(" ")
 end
 
 if $warnflags then
