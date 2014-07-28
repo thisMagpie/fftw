@@ -16,6 +16,20 @@ extern "C"
 VALUE mFFTW;
 VALUE cNMatrix;
 
+void fftw_1d(unsigned long n,
+             fftw_complex *f,
+             fftw_complex *fhat,
+             int direction)
+{
+  fftw_plan p = fftw_plan_dft_1d(n,f,fhat,
+                                 direction<0?FFTW_BACKWARD:FFTW_FORWARD,
+                                 FFTW_ESTIMATE
+                                 );
+
+  fftw_execute(p);
+  fftw_destroy_plan(p);
+}
+
 /**
   fftw_r2c
   @param self
