@@ -10,14 +10,21 @@ def get_stdin(message)
   STDIN.gets.chomp
 end
 
-desc "Set to fail on error by default".green
+desc "Set to not fail on error by default".green
 RSpec::Core::RakeTask.new(:spec) do |t|
   t.fail_on_error = false
 end
 task :default => :spec
 
-require 'rdoc/task'
+RSpec::Core::RakeTask.new(:build) do |build|
+  Dir.chdir('ext/fftw') do
+    puts `ruby extconf.rb`
+    puts `make`
+  end
+end
+task :default => :build
 
+require 'rdoc/task'
 RDoc::Task.new(:rdoc) do |rdoc|
   rdoc.main = "README.rdoc"
   rdoc.rdoc_files.include(%w{README.rdoc
@@ -98,7 +105,7 @@ Dir.glob(pattern).each do |library|
 end
 
 begin
-  Bundler.setup(:test, :default,:clean,:development)
+  Bundler.setup(:test,:default,:clean,:development,:build,:list)
   rescue Bundler::BundlerError => e
   $stderr.puts e.message
   $stderr.puts "Run `bundle install` to install missing gems".red
