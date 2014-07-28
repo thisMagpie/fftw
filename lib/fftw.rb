@@ -12,7 +12,7 @@ end
 module FFTW
   class FFTW::NMatrix
     def self.r2c(sym, *argv)
-      define_method()
+      define_singleton_method()
     end
     def method_missing(sym, *argv)
       method_name = sym.to_s.downcase
