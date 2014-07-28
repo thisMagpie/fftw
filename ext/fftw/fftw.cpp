@@ -51,7 +51,7 @@ fftw_r2c(int argc, VALUE *argv, VALUE self)
     for(j = 0; j < rank; j++)
     {
       nmatrix<i,j>= NUM2DBL(rb_funcall(argv[i], rb_intern( "[]" ), j ));
-      printf("%f",&nmatrix);
+      printf("NMatrix: %f",nmatrix);
     }
   }
 
