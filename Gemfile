@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'nmatrix', :git => "git://github.com/thisMagpie/nmatrix.git", :branch => 'removeunused'
+gem 'nmatrix', :git => "git://github.com/thisMagpie/nmatrix.git", :branch => 'master'
 
 group :development do
   gem 'stdlib', '~>0.1', '>=0.1.0'
