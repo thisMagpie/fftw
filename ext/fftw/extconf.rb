@@ -72,7 +72,7 @@ dir_config("cblas")
 dir_config("atlas")
 else
   puts "CBLAS and ATLAS Status: Not found!".colorize(:color => :black,
-                                                     :background => :cyan)
+                                                     :background => :red)
 end
 ###############################################################################
 #
