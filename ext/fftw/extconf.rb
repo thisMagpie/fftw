@@ -118,7 +118,7 @@ end
 $CFLAGS   += " -static -O3"
 $CPPFLAGS += " -O3"
 
-print "creating fftw_config.h\n"
+print "creating fftw_config.h\n".yellow
 hfile = open('fftw_config.h', "w")
 for line in $defs
   line =~ /^-D(.*)/
