@@ -1,6 +1,5 @@
 require 'mkmf'
 require 'colorize'
-require 'nmatrix'
 ###############################################################################
 #
 # Install Message
