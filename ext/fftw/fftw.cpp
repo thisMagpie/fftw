@@ -1,10 +1,10 @@
 #include "ruby.h"
-#include <fftw3.h>
 #include <fftw.h>
 #include <fftw_config.h>
 #include <stdio.h>
 #include <iostream>
-#include <cmath>
+#include <fftw3.h>
+
 using namespace std;
 
 /* From https://github.com/ruby/ruby/blob/trunk/include/ruby/ruby.h */
