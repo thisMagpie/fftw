@@ -14,7 +14,7 @@ extern "C"
 #endif
 
 VALUE mFFTW;
-VALUE cNMatrix;
+VALUE cfftw;
 
 void fftw_1d(unsigned long n,
              fftw_complex *f,
@@ -103,11 +103,11 @@ void Init_fftw(void)
 {
   mFFTW = rb_define_module("FFTW");
   rb_global_variable(&mFFTW);
-  cNMatrix = rb_define_class ("NMatrix",mFFTW);
-  rb_define_singleton_method(cNMatrix, "r2c",
+  cfftw = rb_define_class ("fftw",mFFTW);
+  rb_define_singleton_method(cfftw, "r2c",
                              (VALUE (*)(...)) fftw_r2c,
                              -1);
-  rb_define_singleton_method(cNMatrix,
+  rb_define_singleton_method(cfftw,
                              "missing",
                              (VALUE (*)(...)) fftw_missing,
                              -1);
