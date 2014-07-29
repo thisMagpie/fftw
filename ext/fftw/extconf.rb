@@ -102,7 +102,7 @@ puts "incdir=#{incdir}".green
 # LIBS    == _libdir
 #
 #############################################################################
-flags = " -I#{fftw_incdir} --libdir=#{fftw_libdir}"
+flags = " -I#{incdir} --libdir=#{libdir}"
 if have_library("fftw3f") then
   $CFLAGS = [" -DFFTW3_HAS_SINGLE_SUPPORT #{flags}"].join(" ")
 else
