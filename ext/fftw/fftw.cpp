@@ -4,7 +4,6 @@
 #include <stdio.h>
 #include <iostream>
 #include <fftw3.h>
-
 using namespace std;
 
 /* From https://github.com/ruby/ruby/blob/trunk/include/ruby/ruby.h */
@@ -15,6 +14,8 @@ extern "C"
 
 VALUE mFFTW;
 VALUE cfftw;
+
+VALUE fftw_new(VALUE self, int argc, VALUE * argv);
 
 void fftw_1d(unsigned long n,
              fftw_complex *f,
@@ -107,6 +108,10 @@ void Init_fftw(void)
   rb_global_variable(&mFFTW);
   cfftw = rb_define_class ("fftw",mFFTW);
   rb_global_variable(&cfftw);
+
+  rb_define_singleton_method(cfftw, "new",
+                             (VALUE (*)(...)) fftw_new,
+                             -1);
   rb_define_singleton_method(cfftw, "r2c",
                              (VALUE (*)(...)) fftw_r2c,
                              -1);
