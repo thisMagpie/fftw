@@ -75,13 +75,13 @@ task :check_manifest do |task|
   extra_files     = manifest_files - possible_files
 
   unless missing_files.empty?
-    STDERR.puts "WARNING: following files are missing from the Manifest:"
-    missing_files.each { |f| STDERR.puts "#{f}"}
+    puts "WARNING: following files are missing from the Manifest:".yellow
+    missing_files.each { |f| puts "#{f}"}
   end
 
   unless extra_files.empty?
-    STDERR.puts "WARNING: The following files are in the Manifest but should be removed"
-    extra_files.each { |f| STDERR.puts "#{f}"}
+    puts "WARNING: The following files are in the Manifest but should be removed".yellow
+    extra_files.each { |f| puts "#{f}"}
   end
 
   if extra_files.empty? && missing_files.empty?
