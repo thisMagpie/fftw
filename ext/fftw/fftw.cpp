@@ -21,13 +21,15 @@ void fftw_1d(unsigned long n,
              fftw_complex *fhat,
              int direction)
 {
-  fftw_plan p = fftw_plan_dft_1d(n,f,fhat,
+  fftw_plan plan = fftw_plan_dft_1d(n,f,fhat,
                                  direction<0?FFTW_BACKWARD:FFTW_FORWARD,
                                  FFTW_ESTIMATE
                                  );
 
-  fftw_execute(p);
-  fftw_destroy_plan(p);
+  fftw_execute(plan);
+  fftw_destroy_plan(plan);
+  fftw_free(plan);
+
 }
 
 /**
@@ -75,6 +77,7 @@ fftw_r2c(int argc, VALUE *argv, VALUE self)
   fftw_execute(plan);
   free(in);
   fftw_destroy_plan(plan);
+  fftw_free(plan);
   return self;
 }
 
@@ -103,6 +106,7 @@ void Init_fftw(void)
   mFFTW = rb_define_module("FFTW");
   rb_global_variable(&mFFTW);
   cfftw = rb_define_class ("fftw",mFFTW);
+  rb_global_variable(&cfftw);
   rb_define_singleton_method(cfftw, "r2c",
                              (VALUE (*)(...)) fftw_r2c,
                              -1);
