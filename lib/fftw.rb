@@ -10,7 +10,11 @@ if File.exist?("../ext/fftw/fftw.o")
 end
 
 module FFTW
-  class fftw
+  class FFTW::NMatrix
+    attr_accessor :size
+    def init(nmatrix={})
+      self.size = nmatrix[:size]
+    end
     def self.r2c(sym, *argv)
       define_singleton_method()
     end
