@@ -1,3 +1,47 @@
+831fcf3 Gemfile: remove unused dependencies
+00d7a10 Gemfile: remove unused dependencies
+210c222 remove unused included and include native libs first
+0dcfe99 remove print statement
+dc70ffe fftw.cpp: change class name to fftw
+1196d6c extconf: don't require nmatrix
+0faf951 debug: add yellow colour output
+808a310 use full include dirs
+58414ae fftw.rb: define_singleton_method for r2c
+dba5ddf Merge branch 'master' of https://github.com/thisMagpie/fftw
+24e16f2 add a simple 1d method for testing
+1c25583 ext/fftw/fftw.cpp: fix print warning
+88e9cd6 spec: test r2c method
+0e0e42d Rakefile: Use clearer Manifest Check
+f7ad9b7 Rakefile, link *.o files
+573e2bc Rakefile: add build task
+63aab73 Gemfile: bundle nmatrix from master
+c03bba7 extconf: fix typo in cflag variable
+bbad9b2 extconf: change cyan to red
+d5a3bf6 fftw.cpp: use correct specifier for double
+f435195 remove circular require
+7b60b47 Rakefile set to not fail on spec error
+880f8c4 lib: require fftw
+a5803b2 ext: don't repeat code
+c6eda24 intialiase nmatrix elements **untested**
+07755da lib: define class
+0ec8aa1 Rakefile: use red for fail on error 'on'
+4039202 Gemfile.lock
+97e5019 fftw.cpp: add single support
+a3efc2c Manifest: update following check
+1c71437 Rakefile: paste friendly format manifest_check files
+e3dc726 lib/fftw.rb: move lib requires above definitions
+a167537 remove fftw3 from top level  directory
+02aff01 move fftw3 to ext/fftw directory
+a5014bf revert header back to 7f0236a state
+094b36f remove c ifdef
+16dc91e move endif
+1da006d fftw.cpp remove boolean init
+dc58988 fftw.h add c ifdef
+7f0236a add additional debugging messages
+8f711d3 fftw_spec require spec_helper
+2ca9488 add nmatrix spec
+7637d74 rb_add_singleton_method change last arg to -1
+e52094b Bump version to 0.1.3
 a703ee4 cpp add singleton def for missing
 dd8f2b6 fftw.cpp  FIX define singleton
 14e8320 fftw.cpp: initialise constants
