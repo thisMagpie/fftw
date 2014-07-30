@@ -1,7 +1,6 @@
 GIT
   remote: git://github.com/thisMagpie/nmatrix.git
   revision: 30fcf711a36e634ad4337f3ccc857fe17b7b3240
-  branch: master
   specs:
     nmatrix (0.1.0.rc5)
       rdoc (~> 4.0, >= 4.0.1)
@@ -9,17 +8,10 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    coderay (1.1.0)
     colorize (0.7.3)
     diff-lcs (1.2.5)
-    ffi (1.9.3)
     gemnasium (3.2.0)
     json (1.8.1)
-    method_source (0.8.2)
-    pry (0.10.0)
-      coderay (~> 1.1.0)
-      method_source (~> 0.8.1)
-      slop (~> 3.4)
     rake (10.3.2)
     rake-compiler (0.9.2)
       rake
@@ -40,19 +32,14 @@ GEM
     rspec-mocks (3.0.3)
       rspec-support (~> 3.0.0)
     rspec-support (3.0.3)
-    slop (3.6.0)
-    stdlib (0.1.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  bundler (~> 1.6, >= 1.6.1)
   colorize (~> 0.7, >= 0.7.3)
-  ffi (~> 1.9, >= 1.9.3)
   gemnasium
   nmatrix!
-  pry (~> 0)
   rake (~> 10.3, >= 10.3.2)
   rake-compiler (~> 0.8, >= 0.8.1)
   rake_tasks (~> 2.0, >= 2.0.6)
@@ -60,4 +47,3 @@ DEPENDENCIES
   rspec (~> 3.0.0)
   rspec-core (~> 3.0, >= 3.0.2)
   rspec-longrun (~> 1.0, >= 1.0.1)
-  stdlib (~> 0.1, >= 0.1.0)

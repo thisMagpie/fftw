@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 
-gem 'nmatrix', :git => "git://github.com/thisMagpie/nmatrix.git", :branch => 'master'
+group :runtime do
+  gem 'nmatrix', :git => "git://github.com/thisMagpie/nmatrix.git"
+end
 
 group :development do
   gem 'colorize', '~>0.7', '>=0.7.3'
