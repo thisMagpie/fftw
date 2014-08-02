@@ -106,7 +106,7 @@ void Init_fftw(void)
 {
   mFFTW = rb_define_module("FFTW");
   rb_global_variable(&mFFTW);
-  cfftw = rb_define_class ("fftw",mFFTW);
+  cfftw = rb_define_class ("FFTW",mFFTW);
   rb_global_variable(&cfftw);
 
   rb_define_singleton_method(cfftw, "new",
