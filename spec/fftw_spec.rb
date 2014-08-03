@@ -25,7 +25,7 @@ describe FFTW do
   end
   describe "new" do
     it "creates a new FFTW object" do
-      fftw = FFTW.new
+      fftw = FFTW::FFTW.new
       pending
     end
   end
