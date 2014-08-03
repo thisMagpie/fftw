@@ -15,9 +15,6 @@ module FFTW
     def init(nmatrix={})
       self.size = nmatrix[:size]
     end
-    def self.new(sym, *argv)
-      define_singleton_method()
-    end
     def self.r2c(sym, *argv)
       define_singleton_method()
     end
