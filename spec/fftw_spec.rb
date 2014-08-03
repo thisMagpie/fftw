@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe FFTW do
   attr_accessor :size
-  def init(nm={})
+  def initialize(nm={})
     self.size = nm[:size]
   end
   describe "r2c" do
@@ -23,8 +23,7 @@ describe FFTW do
       expect(n[1,1]).to eq(2.83811411759045e-309)
     end
     it "creates a new FFTW object" do
-      fftw = FFTW::FFTW.new
-      pending
+      fftw = FFTW::FFTW.new()  
     end
   end
 end
