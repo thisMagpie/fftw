@@ -13,9 +13,7 @@ extern "C"
 #endif
 
 VALUE mFFTW;
-VALUE cfftw;
-
-VALUE fftw_new(VALUE self, int argc, VALUE * argv);
+VALUE cFFTW;
 
 void fftw_1d(unsigned long n,
              fftw_complex *f,
@@ -106,16 +104,16 @@ void Init_fftw(void)
 {
   mFFTW = rb_define_module("FFTW");
   rb_global_variable(&mFFTW);
-  cfftw = rb_define_class ("FFTW",mFFTW);
-  rb_global_variable(&cfftw);
-
-  rb_define_singleton_method(cfftw, "new",
-                             (VALUE (*)(...)) fftw_new,
-                             -1);
-  rb_define_singleton_method(cfftw, "r2c",
+  cFFTW = rb_define_class ("FFTW",mFFTW);
+  rb_global_variable(&cFFTW);
+  
+  rb_define_singleton_method(cFFTW, "r2c",
                              (VALUE (*)(...)) fftw_r2c,
                              -1);
-  rb_define_singleton_method(cfftw,
+  rb_define_singleton_method(cFFTW, "1d",
+                             (VALUE (*)(...)) fftw_1d,
+                             -1);
+  rb_define_singleton_method(cFFTW,
                              "missing",
                              (VALUE (*)(...)) fftw_missing,
                              -1);
