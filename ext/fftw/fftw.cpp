@@ -110,9 +110,9 @@ void Init_fftw(void)
   rb_define_singleton_method(cFFTW, "r2c",
                              (VALUE (*)(...)) fftw_r2c,
                              -1);
-  rb_define_singleton_method(cFFTW, "1d",
+  rb_define_singleton_method(cFFTW, "v",
                              (VALUE (*)(...)) fftw_1d,
-                             -1);
+                             4);
   rb_define_singleton_method(cFFTW,
                              "missing",
                              (VALUE (*)(...)) fftw_missing,
