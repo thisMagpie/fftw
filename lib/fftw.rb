@@ -11,10 +11,6 @@ end
 
 module FFTW
   class FFTW
-    attr_accessor :size
-    def init(nmatrix={})
-      self.size = nmatrix[:size]
-    end
     def self.r2c(sym, *argv)
       define_singleton_method()
     end
