@@ -46,7 +46,7 @@ if [ -f /usr/bin/apt-get ] ; then
     sudo cpupower frequency-set -g performance
     echo
     echo "Going to install the following packages:"
-    echo "libatlas3 and libatlas3-dev ruby-dev lapack-dev fftw-dev"
+    echo "libatlas3 and libatlas-dev ruby-dev fftw-dev"
     sudo apt-get install libatlas3-dev ruby-dev lapack-dev
 fi
 
