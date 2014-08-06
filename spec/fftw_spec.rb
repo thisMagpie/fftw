@@ -22,8 +22,9 @@ describe FFTW do
       expect(n[1,0]).to eq(1.0e-323)
       expect(n[1,1]).to eq(2.83811411759045e-309)
     end
-    it "creates a new FFTW object" do
-      fftw = FFTW::FFTW.new()  
+    it "creates a new FFTW object instance" do
+      fftw = FFTW::FFTW.new()
+      expect(fftw).to eq(fftw)
     end
   end
 end
