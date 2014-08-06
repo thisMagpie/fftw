@@ -11,6 +11,9 @@ end
 
 module FFTW
   class FFTW
+    def self.1d(sym, *argv)
+      define_singleton_method()
+    end
     def self.r2c(sym, *argv)
       define_singleton_method()
     end
