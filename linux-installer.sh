@@ -28,8 +28,10 @@ if [ -x /usr/bin/zypper ] ; then
 elif [ -f /usr/bin/yum ] ; then
     echo ""
     echo "Login as root, now..."
-    sudo yum install gcc gcc-c++ curl cpupower
-    sudo cpupower frequency-set -g performance
+    echo "Installing gcc gcc-c++ curl cpufrequtils with yum:"
+    sudo yum install gcc gcc-c++ curl cpufrequtils
+    echo "Set cpu frequency to performance mode"
+    sudo cpufreq-set -g performance
     echo
     echo "Going to install the following packages:"
     echo "libatlas3 libatlas3-devel blas-devel ruby-devel lapack-devel fftw-devel"
@@ -42,11 +44,13 @@ if [ -f /usr/bin/apt-get ] ; then
     echo ""
     source ~/.bash_profile
     echo "Login as root, now..."
+    echo "Installing gcc gcc-c++ curl cpufrequtils with apt-get:"
     sudo apt-get install gcc gcc-c++ curl cpufrequtils
+    echo "Set cpu frequency to performance mode"
     sudo cpufreq-set -g performance
     echo
     echo "Going to install the following packages:"
-    echo "libatlas3 and libatlas-dev ruby-dev fftw-dev"
+    echo "libatlas3 and libatlas-dev ruby-dev fftw-dev libatlas-base-dev"
     sudo apt-get install libatlas-dev ruby-dev liblapack-dev
 fi
 
@@ -57,7 +61,7 @@ if [ -d /usr/include/atlas ] ; then
     echo "Setting CPLUS_INCLUDE_PATH in ~/.bashrc"
     echo "export CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:/usr/include/atlas:$GEM_HOME/gems/fftw/ext/fftw/fftw3/api" >> ~/.bashrc
     echo "Setting C_INCLUDE_PATH in ~/.bashrc"
-    echo "export C_INCLUDE_PATH=$C_INCLUDE_PATH:/usr/include/atlas:GEM_HOME/gems/fftw/ext/fftw3/api" >> ~/.bashrc
+    echo "export C_INCLUDE_PATH=$C_INCLUDE_PATH:/usr/include/atlas:$GEM_HOME/gems/fftw/ext/fftw3/api" >> ~/.bashrc
     echo "source ~/.bashrc"
 fi
 
