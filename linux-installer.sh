@@ -47,7 +47,7 @@ if [ -f /usr/bin/apt-get ] ; then
     echo
     echo "Going to install the following packages:"
     echo "libatlas3 and libatlas-dev ruby-dev fftw-dev"
-    sudo apt-get install libatlas3-dev ruby-dev liblapack-dev
+    sudo apt-get install libatlas-dev ruby-dev liblapack-dev
 fi
 
 echo "Installation for $s complete!"
