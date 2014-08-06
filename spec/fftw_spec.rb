@@ -1,10 +1,6 @@
 require 'spec_helper'
 
 describe FFTW do
-  attr_accessor :size
-  def initialize(nm={})
-    self.size = nm[:size]
-  end
   describe "r2c" do
     it "creates an NMatrix object" do
       n = NMatrix.new([2,2], dtype: :int64)
