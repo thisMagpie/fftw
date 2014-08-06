@@ -42,8 +42,8 @@ if [ -f /usr/bin/apt-get ] ; then
     echo ""
     source ~/.bash_profile
     echo "Login as root, now..."
-    sudo apt-get install gcc gcc-c++ curl cpupower
-    sudo cpupower frequency-set -g performance
+    sudo apt-get install gcc gcc-c++ curl cpufrequtils
+    sudo cpufreq-set -g performance
     echo
     echo "Going to install the following packages:"
     echo "libatlas3 and libatlas-dev ruby-dev fftw-dev"
