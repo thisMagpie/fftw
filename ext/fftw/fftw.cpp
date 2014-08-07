@@ -60,10 +60,10 @@ void fftw_1d(unsigned long n,
 
 static VALUE
 #ifdef FFTW3_HAS_SINGLE_SUPPORT
-fftw_r2c_double(int argc, VALUE *argv, VALUE self)
+fftw_r2c_double(VALUE self, VALUE nmatrix)
   /* called by fftw_r2c */
 #else
-fftw_r2c(int argc, VALUE *argv, VALUE self)
+fftw_r2c(VALUE self, VALUE nmatrix)
   /* called directly */
 #endif
 {
@@ -79,7 +79,7 @@ fftw_r2c(int argc, VALUE *argv, VALUE self)
   {
     for(j = 0; j < rank; j++)
     {
-      nmatrix<i,j>= NUM2DBL(rb_funcall(argv[i], rb_intern( "[]" ), j ));
+      rb_funcall(nmatrix, rb_intern("[]"), 2, i, j);
     }
   }
 
