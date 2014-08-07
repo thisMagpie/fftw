@@ -6,14 +6,29 @@
 #include <fftw3.h>
 using namespace std;
 
+VALUE mFFTW;
+VALUE cFFTW;
+
+void fftw_print_nmatrix(int nmatrix[], int rows, int columns);
+
+template<int rows, int columns>
+void fftw_print_nmatrix(int (&nmatrix)[rows][columns])
+{
+  for(int i = 0; i < rows; i++)
+  {
+    for(int j = 0; j < columns; j++)
+    {
+      cout << nmatrix[i][j] << " ";
+    }
+    cout << endl;
+  }
+}
+
 /* From https://github.com/ruby/ruby/blob/trunk/include/ruby/ruby.h */
 #if defined(cplusplus)
 extern "C"
 {
 #endif
-
-VALUE mFFTW;
-VALUE cFFTW;
 
 void fftw_1d(unsigned long n,
              fftw_complex *f,
@@ -53,11 +68,10 @@ fftw_r2c(int argc, VALUE *argv, VALUE self)
 #endif
 {
   VALUE nm, direction;
-  int rank = argc - 2;
+  int rank = NUM2INT(rb_funcall(nmatrix, rb_intern("rank"), 0));
   const int *n;
   double *in;
   int i, j;
-  double nmatrix;
   fftw_complex *out;
   fftw_plan plan;
 
@@ -109,7 +123,7 @@ void Init_fftw(void)
   
   rb_define_singleton_method(cFFTW, "r2c",
                              (VALUE (*)(...)) fftw_r2c,
-                             -1);
+                             1);
   rb_define_singleton_method(cFFTW, "v",
                              (VALUE (*)(...)) fftw_1d,
                              4);
