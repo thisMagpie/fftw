@@ -74,13 +74,13 @@ puts "#{info} CPP_STANDARD is #{$CPP_STANDARD}"
 # Configuration of directory named in first argument:
 # cblas and atlas in this case.
 def header_configs()
-  puts "Searching for cblas and atlas...".cyan
+  puts "#{info} Searching for cblas and atlas..."
   if have_library("cblas") and have_library("atlas")
     puts "#{success} CBLAS and ATLAS Status Found!"
     dir_config("cblas")
     dir_config("atlas")
   else
-    puts "#{failure} CBLAS and ATLAS Status: Not found!"
+    puts "#{failure} CBLAS and ATLAS not found!"
   end
 end
 header_configs
@@ -112,7 +112,7 @@ puts "#{info} incdir=#{incdir}"
 # LIBS    == _libdir
 #
 #############################################################################
-flags = " -I#{incdir} --libdir=#{libdir}"
+flags = " -I#{incdir} --libdir=#{libdir} --enable-float"
 if have_library("fftw3f") then
   $CFLAGS = [" -DFFTW3_HAS_SINGLE_SUPPORT #{flags}"].join(" ")
   puts "#{info} -DFFTW3_HAS_SINGLE_SUPPORT is being used..."
@@ -126,8 +126,8 @@ if $warnflags then
   $warnflags.slice!('-Wshorten-64-to-32')
 end
 
-$CFLAGS   += " -static -O3"
-$CPPFLAGS += " -O3"
+$CFLAGS   += " -static -O5"
+$CPPFLAGS += " -O5"
 
 print "#{info} creating fftw_config.h \n"
 hfile = open('fftw_config.h', "w")
