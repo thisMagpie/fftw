@@ -77,7 +77,7 @@ if [ -d ../fftw ]; then
   echo "FFTW found!"
   if [ -f  Gemfile ] ; then
     bundle install
-    bundle exec rake compile -- --with-lapacklib
+    bundle exec rake compile
     bundle exec rake spec
    fi
 fi
