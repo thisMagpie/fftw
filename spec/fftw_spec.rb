@@ -1,6 +1,9 @@
 require 'spec_helper'
 
 describe FFTW do
+  describe "v" do
+    it "creates an FFTW::FFTW::v object"
+  end
   describe "r2c" do
     it "creates an NMatrix object" do
       n = NMatrix.new([2,2], dtype: :int64)
@@ -18,7 +21,7 @@ describe FFTW do
       expect(n[1,0]).to eq(1.0e-323)
       expect(n[1,1]).to eq(2.83811411759045e-309)
     end
-    it "creates a new FFTW object instance" do
+    it "creates a new FFTW  instance" do
       fftw = FFTW::FFTW.new()
       expect(fftw).to eq(fftw)
     end
