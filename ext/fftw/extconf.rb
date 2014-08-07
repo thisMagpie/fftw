@@ -1,5 +1,21 @@
 require 'mkmf'
 require 'colorize'
+
+# INFO
+def info()
+  return " INFO: ".colorize(:color       => :black,
+                            :background  => :yellow) + " "
+end
+# FAILURE
+def failure()
+  return " FAILURE: ".colorize(:color       => :black,
+                               :background  => :red) + " "
+end
+# SUCCESS
+def success()
+  return " SUCCESS: ".colorize(:color       => :black,
+                               :background  => :green) + " "
+end
 ###############################################################################
 #
 # Install Message
@@ -33,46 +49,42 @@ fftw_incdir = RbConfig::CONFIG['includedir']
 # README output messages for debugging.
 #
 ###############################################################################
-puts "Include directories:".white
-puts "#{fftw_incdir}".green
-puts "Library directories:".white
-puts "#{fftw_libdir}".green
+puts "#{info} Include directories #{fftw_incdir}"
+puts "#{info} Library directories #{fftw_libdir}"
 ###############################################################################
 #
 # Make sure CXX is set to g++ and not clang or gcc by setting its value
 #
 ###############################################################################
 cxx_proc = proc { |n| `#{CONFIG['CXX']} -E -dM - </dev/null | grep #{n}`.chomp.split(' ')[2] }
-puts "#{cxx_proc}"
 major = cxx_proc.call('__GNUC__')
 minor = cxx_proc.call('__GNUC_MINOR__')
 patch = cxx_proc.call('__GNUC_PATCHLEVEL__')
-puts "CXX= #{CONFIG['CXX']}".cyan
+puts "#{info} CXX = #{CONFIG['CXX']}"
 
 $CPP_STANDARD = 'c++11'
 $CPP_FLAGS = '-std=c++11'
-$CXX_FLAGS = '-stc=++11'
+$CXX_FLAGS = '-stc=++11 `Magick++-config --cppflags --cxxflags --ldflags --libs` `pkg-config fftw3 --libs` -g -Wall -O0'
 
-puts `g++ --version`.colorize(:color => :black,
-                              :background => :white)
-puts "CPP_STANDARD is #{$CPP_STANDARD}".cyan
+puts info + `g++ --version`
+puts "#{info} CPP_STANDARD is #{$CPP_STANDARD}"
 
-`#{CONFIG['CXX']} --version|head -n 1|cut -f 3 -d " "`.colorize(:color => :black,
-                                                                :background => :white)
+`#{CONFIG['CXX']} --version|head -n 1|cut -f 3 -d " "`
 
-puts "Searching for cblas and atlas...".cyan
-if have_library("cblas") and have_library("atlas")
-  puts "******************************".colorize(:color => :black,
-                                                 :background => :cyan)
-puts "CBLAS and ATLAS Status: Found!".green
-puts "******************************".colorize(:color => :black,
-                                               :background => :cyan)
-dir_config("cblas")
-dir_config("atlas")
-else
-  puts "CBLAS and ATLAS Status: Not found!".colorize(:color => :black,
-                                                     :background => :red)
+# Configuration of directory named in first argument:
+# cblas and atlas in this case.
+def header_configs()
+  puts "Searching for cblas and atlas...".cyan
+  if have_library("cblas") and have_library("atlas")
+    puts "#{success} CBLAS and ATLAS Status Found!"
+    dir_config("cblas")
+    dir_config("atlas")
+  else
+    puts "#{failure} CBLAS and ATLAS Status: Not found!"
+  end
 end
+header_configs
+
 ###############################################################################
 #
 # Configuration of directory named in first argument, i.e. The arguments of
@@ -89,9 +101,8 @@ fftw_incdir = ['/usr/local/include',
               ]
 incdir, libdir = dir_config('fftw', fftw_incdir, fftw_libdir)
 
-puts "libdir=#{libdir}".green
-puts "incdir=#{incdir}".green
-
+puts "#{info} libdir=#{libdir}"
+puts "#{info} incdir=#{incdir}"
 ###############################################################################
 #
 # Configuration of directory named in first argument, i.e. The arguments of
@@ -104,6 +115,7 @@ puts "incdir=#{incdir}".green
 flags = " -I#{incdir} --libdir=#{libdir}"
 if have_library("fftw3f") then
   $CFLAGS = [" -DFFTW3_HAS_SINGLE_SUPPORT #{flags}"].join(" ")
+  puts "#{info} -DFFTW3_HAS_SINGLE_SUPPORT is being used..."
 else
   $CFLAGS = [flags].join(" ")
 end
@@ -117,7 +129,7 @@ end
 $CFLAGS   += " -static -O3"
 $CPPFLAGS += " -O3"
 
-print "creating fftw_config.h\n".yellow
+print "#{info} creating fftw_config.h \n"
 hfile = open('fftw_config.h', "w")
 for line in $defs
   line =~ /^-D(.*)/
