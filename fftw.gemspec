@@ -18,6 +18,6 @@ Gem::Specification.new do |gem|
   gem.test_files                    = `git ls-files -- {spec}/*`.split("\n")
   gem.homepage                      = 'http://sciruby.com/fftw'
   gem.rubygems_version              = '2.2.2'
-  gem.required_rubygems_version     = Gem::Requirement.new(">= 2.2.2")
+  gem.required_rubygems_version     = Gem::Requirement.new(">= #{gem.rubygems_version}")
   gem.email                         = 'm.berns@thismagpie.com'
 end
