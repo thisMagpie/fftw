@@ -4,8 +4,7 @@ cache:
   directories:
   - fftw/bundle
 env:
-  - CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:/usr/include/atlas:$GEM_HOME/gems/fftw/ext/fftw/fftw3/api
-  - C_INCLUDE_PATH=$C_INCLUDE_PATH:/usr/include/atlas:$GEM_HOME/gems/fftw/ext/fftw/fftw3/api
+  - CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:/usr/include/atlas:$GEM_HOME/gems/fftw/ext/fftw/fftw3/api C_INCLUDE_PATH=$C_INCLUDE_PATH:/usr/include/atlas:$GEM_HOME/gems/fftw/ext/fftw/fftw3/api
 bundler_args: --without :development
 rvm:
   - "2.1.0"
