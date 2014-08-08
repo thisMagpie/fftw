@@ -1,3 +1,4 @@
+$:.unshift(File.dirname(__FILE__)+"/../lib")
 require 'bundler/setup'
 Bundler.setup
 require 'fftw'
