@@ -57,7 +57,6 @@ void fftw_1d(unsigned long n,
   The plan will use a heuristic approach to picking plans
   rather than take measurements
 */
-
 static VALUE
 #ifdef FFTW3_HAS_SINGLE_SUPPORT
 fftw_r2c_double(VALUE self, VALUE nmatrix)
@@ -85,7 +84,6 @@ fftw_r2c(VALUE self, VALUE nmatrix)
         }
       }
     }
-
 
   //In place input
   in = (double*)malloc(sizeof(double)*(self * self));
@@ -124,6 +122,16 @@ void Init_fftw(void)
   rb_global_variable(&mFFTW);
   cFFTW = rb_define_class("FFTW",mFFTW);
   rb_global_variable(&cFFTW);
+
+  #ifdef FFTW3_HAS_SINGLE_SUPPORT
+    rb_define_singleton_method(cFFTW, "r2c",
+                            (VALUE (*)(...)) fftw_r2c_double,
+                             1);
+  #else
+    rb_define_singleton_method(cFFTW, "r2c",
+                            (VALUE (*)(...)) fftw_r2c,
+                             1);
+  #endif
   
   rb_define_singleton_method(cFFTW, "r2c",
                             (VALUE (*)(...)) fftw_r2c,
