@@ -8,6 +8,7 @@ using namespace std;
 
 VALUE mFFTW;
 VALUE cFFTW;
+VALUE FFTW;
 
 void fftw_print_nmatrix(int nmatrix[], int rows, int columns);
 
@@ -120,7 +121,7 @@ void Init_fftw(void)
 {
   mFFTW = rb_define_module("FFTW");
   rb_global_variable(&mFFTW);
-  cFFTW = rb_define_class("FFTW",mFFTW);
+  cFFTW = rb_define_class_under(mFFTW,"FFTW",FFTW);
   rb_global_variable(&cFFTW);
 
   #ifdef FFTW3_HAS_SINGLE_SUPPORT
