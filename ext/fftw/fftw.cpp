@@ -50,7 +50,7 @@ void fftw_1d(unsigned long n,
   fftw_r2c
   @param self
   @param nm
-  @return
+  @return self
 
   With FFTW_ESTIMATE as a flag in the plan,
   the input and and output are not overwritten at runtime
@@ -75,13 +75,17 @@ fftw_r2c(VALUE self, VALUE nmatrix)
   fftw_complex *out;
   fftw_plan plan;
 
-  for(i = 0; i < rank; i++)
-  {
-    for(j = 0; j < rank; j++)
+    for(i = 0; i < rank; i++)
     {
-      rb_funcall(nmatrix, rb_intern("[]"), 2, i, j);
+      for(j = 0; j < rank; j++)
+      {
+        if (i > 2 && j > 2)
+        {
+          rb_funcall(nmatrix, rb_intern("[]"), 2, i, j);
+        }
+      }
     }
-  }
+
 
   //In place input
   in = (double*)malloc(sizeof(double)*(self * self));
@@ -118,20 +122,19 @@ void Init_fftw(void)
 {
   mFFTW = rb_define_module("FFTW");
   rb_global_variable(&mFFTW);
-  cFFTW = rb_define_class ("FFTW",mFFTW);
+  cFFTW = rb_define_class("FFTW",mFFTW);
   rb_global_variable(&cFFTW);
   
   rb_define_singleton_method(cFFTW, "r2c",
-                             (VALUE (*)(...)) fftw_r2c,
+                            (VALUE (*)(...)) fftw_r2c,
                              1);
   rb_define_singleton_method(cFFTW, "v",
-                             (VALUE (*)(...)) fftw_1d,
+                            (VALUE (*)(...)) fftw_1d,
                              4);
   rb_define_singleton_method(cFFTW,
                              "missing",
                              (VALUE (*)(...)) fftw_missing,
                              -1);
-
 }
 #if defined(cplusplus)
 }
