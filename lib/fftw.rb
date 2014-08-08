@@ -14,8 +14,9 @@ module FFTW
     def self.v(sym, *argv)
       define_singleton_method()
     end
-    def self.r2c(sym, *argv)
+    def self.r2c(nmatrix)
       define_singleton_method()
+      return nmatrix
     end
     def missing(sym, *argv)
       define_singleton_method()
