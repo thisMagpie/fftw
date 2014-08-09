@@ -3,10 +3,14 @@ require 'colorize'
 
 if File.exist?("../lib/fftw/fftw.so")
   require 'fftw.so'
+else
+  puts " ../lib/fftw/fftw.so not found!".red #=>
 end
 
 if File.exist?("../ext/fftw/fftw.o")
   require 'fftw.o'
+else
+  puts " ../ext/fftw/fftw.o not found!".red #=>
 end
 
 module FFTW
