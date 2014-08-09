@@ -1,4 +1,3 @@
-#!/usr/bin/env ruby
 require File.expand_path(File.dirname(__FILE__)+"/spec_helper.rb")
 
 RSpec.describe FFTW do
@@ -27,7 +26,8 @@ RSpec.describe FFTW do
       expect(n[1,1]).to eq(2.83811411759045e-309)
     end
     it "Creates a new FFTW::FFTW.r2c object and takes an NMatrix as its argument" do
-      fftw = FFTW::FFTW.r2c([3.10, 1.73, 1.04, 2.83])
+      n = NMatrix.new([3.10, 1.73, 1.04, 2.83])
+      fftw = FFTW::FFTW.r2c(n)
     end
   end
 end
