@@ -28,6 +28,7 @@ RSpec.describe FFTW do
     it "Creates a new FFTW::FFTW.r2c object and takes an NMatrix as its argument" do
       n = NMatrix.new([3.10, 1.73, 1.04, 2.83])
       fftw = FFTW::FFTW.r2c(n)
+      expect(fftw[0]).to eq(8.70000 + 0.00000)
     end
   end
 end
