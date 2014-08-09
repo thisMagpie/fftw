@@ -1,17 +1,17 @@
 require 'nmatrix'
 require 'colorize'
 
-if File.exist?("../lib/fftw/fftw.so")
-  require 'fftw.so'
-else
-  puts " ../lib/fftw/fftw.so not found!".red #=>
+def check_exists(str, req)
+  if File.exist?(str)
+    puts "#{str} found!".green #=>
+  else
+    puts "#{str} not found!".red #=>
+  end
 end
 
-if File.exist?("../ext/fftw/fftw.o")
-  require 'fftw.o'
-else
-  puts " ../ext/fftw/fftw.o not found!".red #=>
-end
+check_exists("./ext/fftw/fftw.o",'fftw.o')
+check_exists("./lib/fftw/fftw.so",'fftw.so')
+
 
 module FFTW
   class FFTW
