@@ -119,9 +119,8 @@ VALUE fftw_missing(int argc, VALUE *argv, VALUE self)
 void Init_fftw(void)
 {
   mFFTW = rb_define_module("FFTW");
-  rb_global_variable(&mFFTW);
   cFFTW = rb_define_class("FFTW", mFFTW);
-  rb_global_variable(&cFFTW);
+  rb_include_module(cFFTW, mFFTW);
 
   #ifdef FFTW3_HAS_SINGLE_SUPPORT
     rb_define_singleton_method(cFFTW, "r2c",
