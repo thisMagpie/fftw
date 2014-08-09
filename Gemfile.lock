@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/thisMagpie/nmatrix.git
-  revision: 30fcf711a36e634ad4337f3ccc857fe17b7b3240
+  revision: 4ab33bfe869335252585713f179892945dee2307
   specs:
     nmatrix (0.1.0.rc5)
       rdoc (~> 4.0, >= 4.0.1)
@@ -13,7 +13,7 @@ GEM
     gemnasium (3.2.0)
     json (1.8.1)
     rake (10.3.2)
-    rake-compiler (0.9.2)
+    rake-compiler (0.9.3)
       rake
     rake_tasks (2.0.6)
     rdoc (4.1.1)
