@@ -3,7 +3,6 @@ require 'colorize'
 
 def check_exists(str, req)
   if File.exist?(str)
-    require 'fftw'
     puts "#{str} found!".green #=>
   else
     puts "#{str} not found!".red #=>
