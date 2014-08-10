@@ -27,5 +27,3 @@ class FFTW
     end
   end
 end
-
-
