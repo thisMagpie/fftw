@@ -50,7 +50,7 @@ if [ -f /usr/bin/apt-get ] ; then
     sudo cpufreq-set -g performance
     echo
     echo "Going to install the following packages:"
-    echo "libatlas3 and libatlas-dev ruby-dev fftw-dev libatlas-base-dev"
+    echo "libatlas3 and libatlas-dev ruby-dev fftw-dev libatlas-base-dev liblapack-dev libblas3"
     sudo apt-get install libatlas-dev ruby-dev liblapack-dev
 fi
 
