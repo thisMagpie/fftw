@@ -54,15 +54,21 @@ fftw_r2c(VALUE self, VALUE nmatrix)
   VALUE cNMatrix = rb_define_class("NMatrix", rb_cObject);
   // shape is a ruby array, e.g. [2, 2] for a 2x2 matrix
   VALUE shape = rb_funcall(nmatrix, rb_intern("shape"), 0);
+  printf("Shape: %d \n",&shape);
+
   // size is the number of elements stored for a matrix with dimensions = shape
   int size = NUM2INT(rb_funcall(cNMatrix, rb_intern("size"), 1, shape));
+  printf("Size: %d \n",&size);
   //Input: a 1D double array with enough elements for the whole matrix
+
   double* in = ALLOC_N(double, size);
 
   fftw_complex* out = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * size * size);
 
   int rank = FIX2INT(rb_ary_entry(shape, 0));
+  printf("Rank: %d \n",&rank);
 
+  printf("\n[");
   // This would need to be a nested loop for multidimensional matrices, or it
   // would need to use the size instead of the shape and figure out the indices
   // to pass to [] appropriately from that.
@@ -71,7 +77,7 @@ fftw_r2c(VALUE self, VALUE nmatrix)
     in[i] = NUM2DBL(rb_funcall(nmatrix, rb_intern("[]"), 1, INT2FIX(i)));
     printf("%.2f ",in[i]);
   }
-  printf("\n ");
+  printf("]\n ");
 
   // Actual fourier transform stuff would go here.
   xfree(in);
