@@ -68,6 +68,7 @@ fftw_r2c(VALUE self, VALUE nmatrix)
   // to pass to [] appropriately from that.
   for (int i = 0; i < rank; i++) {
       in[i] = NUM2DBL(rb_funcall(nmatrix, rb_intern("[]"), 1, INT2FIX(i)));
+      printf("%f \n",in[i]);
   }
 
   // Actual fourier transform stuff would go here.

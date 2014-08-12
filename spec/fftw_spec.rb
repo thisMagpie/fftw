@@ -19,6 +19,7 @@ describe FFTW do
   end
   it "Creates a new FFTW::FFTW.r2c object and takes an NMatrix as its argument" do
     n = NMatrix.new([4], [3.10, 1.73, 1.04, 2.83])
+    puts n
     fftw = FFTW.r2c(n)
     expect(fftw).to eq(fftw)
   end
