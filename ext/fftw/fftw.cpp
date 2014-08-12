@@ -66,10 +66,12 @@ fftw_r2c(VALUE self, VALUE nmatrix)
   // This would need to be a nested loop for multidimensional matrices, or it
   // would need to use the size instead of the shape and figure out the indices
   // to pass to [] appropriately from that.
-  for (int i = 0; i < rank; i++) {
-      in[i] = NUM2DBL(rb_funcall(nmatrix, rb_intern("[]"), 1, INT2FIX(i)));
-      printf("%f \n",in[i]);
+  for (int i = 0; i < rank; i++)
+  {
+    in[i] = NUM2DBL(rb_funcall(nmatrix, rb_intern("[]"), 1, INT2FIX(i)));
+    printf("%.2f ",in[i]);
   }
+  printf("\n ");
 
   // Actual fourier transform stuff would go here.
   xfree(in);
