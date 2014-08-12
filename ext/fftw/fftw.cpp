@@ -30,22 +30,6 @@ extern "C"
 {
 #endif
 
-void fftw_1d(unsigned long n,
-             fftw_complex *f,
-             fftw_complex *fhat,
-             int direction)
-{
-  fftw_plan plan = fftw_plan_dft_1d(n,f,fhat,
-                                 direction<0?FFTW_BACKWARD:FFTW_FORWARD,
-                                 FFTW_ESTIMATE
-                                 );
-
-  fftw_execute(plan);
-  fftw_destroy_plan(plan);
-  fftw_free(plan);
-
-}
-
 /**
   fftw_r2c
   @param self
@@ -75,15 +59,17 @@ fftw_r2c(VALUE self, VALUE nmatrix)
   //Input: a 1D double array with enough elements for the whole matrix
   double* in = ALLOC_N(double, size);
 
+  int rank = FIX2INT(rb_ary_entry(shape, 0));
+
   // This would need to be a nested loop for multidimensional matrices, or it
   // would need to use the size instead of the shape and figure out the indices
   // to pass to [] appropriately from that.
-  for (int i = 0; i < FIX2INT(rb_ary_entry(shape, 0)); i++) {
+  for (int i = 0; i < rank; i++) {
       in[i] = NUM2DBL(rb_funcall(nmatrix, rb_intern("[]"), 1, INT2FIX(i)));
   }
   // Actual fourier transform stuff would go here.
-
   xfree(in);
+
   return self;
 }
 
@@ -121,9 +107,6 @@ void Init_fftw(void)
                              1);
   #endif
 
-  rb_define_singleton_method(mFFTW, "v",
-                            (VALUE (*)(...)) fftw_1d,
-                             4);
   rb_define_singleton_method(mFFTW,
                              "missing",
                              (VALUE (*)(...)) fftw_missing,
