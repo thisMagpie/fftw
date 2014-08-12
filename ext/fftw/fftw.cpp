@@ -50,8 +50,10 @@ fftw_r2c(VALUE self, VALUE nmatrix)
   /* called directly */
 #endif
 {
-  // Note that "defining" the NMatrix class will just retrieve it if it exists
+  // "Define" the NMatrix class: this will just retrieve what exists already, only
   VALUE cNMatrix = rb_define_class("NMatrix", rb_cObject);
+  fftw_plan plan;
+
   // shape is a ruby array, e.g. [2, 2] for a 2x2 matrix
   VALUE shape = rb_funcall(nmatrix, rb_intern("shape"), 0);
   printf("Shape: %d \n",&shape);
@@ -63,24 +65,22 @@ fftw_r2c(VALUE self, VALUE nmatrix)
 
   double* in = ALLOC_N(double, size);
 
-  fftw_complex* out = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * size * size);
-
-  int rank = FIX2INT(rb_ary_entry(shape, 0));
+  int rank = size - FIX2INT(rb_ary_entry(shape, 0));
   printf("Rank: %d \n",&rank);
 
-  printf("\n[");
   // This would need to be a nested loop for multidimensional matrices, or it
   // would need to use the size instead of the shape and figure out the indices
   // to pass to [] appropriately from that.
   for (int i = 0; i < rank; i++)
   {
     in[i] = NUM2DBL(rb_funcall(nmatrix, rb_intern("[]"), 1, INT2FIX(i)));
-    printf("%.2f ",in[i]);
+    printf("IN[%d]: in[%.2f] \n",i, in[i]);
   }
-  printf("]\n ");
+  plan = fftw_plan_dft_r2c(rank, &size, in, (fftw_complex*)in, FFTW_ESTIMATE);
 
-  // Actual fourier transform stuff would go here.
+  fftw_destroy_plan(plan);
   xfree(in);
+  //fftw_free(in);
 
   return self;
 }
