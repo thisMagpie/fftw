@@ -111,19 +111,16 @@ void Init_fftw(void)
 {
   mFFTW = rb_define_module("FFTW");
 
-  // #ifdef FFTW3_HAS_SINGLE_SUPPORT
-  //   rb_define_singleton_method(mFFTW, "r2c",
-  //                           (VALUE (*)(...)) fftw_r2c_double,
-  //                            1);
-  // #else
-  //   rb_define_singleton_method(mFFTW, "r2c",
-  //                           (VALUE (*)(...)) fftw_r2c,
-  //                            1);
-  // #endif
-
-  rb_define_singleton_method(mFFTW, "r2c",
-        (VALUE (*)(...)) fftw_r2c,
+  #ifdef FFTW3_HAS_SINGLE_SUPPORT
+    rb_define_singleton_method(mFFTW, "r2c",
+                            (VALUE (*)(...)) fftw_r2c_double,
                              1);
+  #else
+    rb_define_singleton_method(mFFTW, "r2c",
+                            (VALUE (*)(...)) fftw_r2c,
+                             1);
+  #endif
+
   rb_define_singleton_method(mFFTW, "v",
                             (VALUE (*)(...)) fftw_1d,
                              4);
