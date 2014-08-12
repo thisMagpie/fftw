@@ -66,33 +66,24 @@ fftw_r2c(VALUE self, VALUE nmatrix)
   /* called directly */
 #endif
 {
-  VALUE nm, direction;
-  int rank = NUM2INT(rb_funcall(nmatrix, rb_intern("rank"), 0));
-  const int *n;
-  double *in;
-  int i, j;
-  fftw_complex *out;
-  fftw_plan plan;
+  // Note that "defining" the NMatrix class will just retrieve it if it exists
+  VALUE cNMatrix = rb_define_class("NMatrix", rb_cObject);
+  // shape is a ruby array, e.g. [2, 2] for a 2x2 matrix
+  VALUE shape = rb_funcall(nmatrix, rb_intern("shape"), 0);
+  // size is the number of elements stored for a matrix with dimensions = shape
+  int size = NUM2INT(rb_funcall(cNMatrix, rb_intern("size"), 1, shape));
+  //Input: a 1D double array with enough elements for the whole matrix
+  double* in = ALLOC_N(double, size);
 
-    for(i = 0; i < rank; i++)
-    {
-      for(j = 0; j < rank; j++)
-      {
-        if (i > 2 && j > 2)
-        {
-          rb_funcall(nmatrix, rb_intern("[]"), 2, i, j);
-        }
-      }
-    }
+  // This would need to be a nested loop for multidimensional matrices, or it
+  // would need to use the size instead of the shape and figure out the indices
+  // to pass to [] appropriately from that.
+  for (int i = 0; i < FIX2INT(rb_ary_entry(shape, 0)); i++) {
+      in[i] = NUM2DBL(rb_funcall(nmatrix, rb_intern("[]"), 1, INT2FIX(i)));
+  }
+  // Actual fourier transform stuff would go here.
 
-  //In place input
-  in = (double*)malloc(sizeof(double)*(self * self));
-  out = (fftw_complex*)fftw_malloc(sizeof(fftw_complex) *  self * (self/2 + 1));
-  plan = fftw_plan_dft_r2c(rank, n, in, out, FFTW_ESTIMATE); //estimate is rough
-  fftw_execute(plan);
-  free(in);
-  fftw_destroy_plan(plan);
-  fftw_free(plan);
+  xfree(in);
   return self;
 }
 
@@ -119,26 +110,24 @@ VALUE fftw_missing(int argc, VALUE *argv, VALUE self)
 void Init_fftw(void)
 {
   mFFTW = rb_define_module("FFTW");
-  cFFTW = rb_define_class("FFTW", mFFTW);
-  rb_include_module(cFFTW, mFFTW);
 
-  #ifdef FFTW3_HAS_SINGLE_SUPPORT
-    rb_define_singleton_method(cFFTW, "r2c",
-                            (VALUE (*)(...)) fftw_r2c_double,
+  // #ifdef FFTW3_HAS_SINGLE_SUPPORT
+  //   rb_define_singleton_method(mFFTW, "r2c",
+  //                           (VALUE (*)(...)) fftw_r2c_double,
+  //                            1);
+  // #else
+  //   rb_define_singleton_method(mFFTW, "r2c",
+  //                           (VALUE (*)(...)) fftw_r2c,
+  //                            1);
+  // #endif
+
+  rb_define_singleton_method(mFFTW, "r2c",
+        (VALUE (*)(...)) fftw_r2c,
                              1);
-  #else
-    rb_define_singleton_method(cFFTW, "r2c",
-                            (VALUE (*)(...)) fftw_r2c,
-                             1);
-  #endif
-  
-  rb_define_singleton_method(cFFTW, "r2c",
-                            (VALUE (*)(...)) fftw_r2c,
-                             1);
-  rb_define_singleton_method(cFFTW, "v",
+  rb_define_singleton_method(mFFTW, "v",
                             (VALUE (*)(...)) fftw_1d,
                              4);
-  rb_define_singleton_method(cFFTW,
+  rb_define_singleton_method(mFFTW,
                              "missing",
                              (VALUE (*)(...)) fftw_missing,
                              -1);

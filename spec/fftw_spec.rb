@@ -1,10 +1,6 @@
 require File.expand_path(File.dirname(__FILE__)+"/spec_helper.rb")
 
 describe FFTW do
-  it "Creates a new FFTW  instance" do
-    fftw = FFTW::FFTW.new()
-    expect(fftw).to eq(fftw)
-  end
   it "creates an NMatrix object" do
     n = NMatrix.new([2,2], dtype: :int64)
     expect(n.dtype).to eq(:int64)
@@ -22,8 +18,8 @@ describe FFTW do
     expect(n[1,1]).to eq(2.83811411759045e-309)
   end
   it "Creates a new FFTW::FFTW.r2c object and takes an NMatrix as its argument" do
-    n = NMatrix.new([3.10, 1.73, 1.04, 2.83])
-    fftw = FFTW::FFTW.r2c(n)
-    expect(fftw[0]).to eq()
+    n = NMatrix.new([4], [3.10, 1.73, 1.04, 2.83])
+    fftw = FFTW.r2c(n)
+    expect(fftw).to eq(fftw)
   end
 end

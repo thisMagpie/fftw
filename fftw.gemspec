@@ -11,7 +11,7 @@ Gem::Specification.new do |gem|
   gem.authors                       = 'Magdalen Berns'
   gem.summary                       = "Ruby FFTW3 wrapper for performing FFTW operations on NMatrix objects."
   gem.description                   = gem.summary + "Fastest Fourier Transform in the West"
-  gem.require_paths                 = [ 'lib/' + gem.name , 'ext/' + gem.name ]
+  gem.require_paths                 = [ 'lib/' + gem.name , 'ext/' + gem.name]
   gem.extensions                    = Dir['ext/**/extconf.rb']
   gem.files                         = `git ls-files`.split("\n")
   gem.executables                   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
