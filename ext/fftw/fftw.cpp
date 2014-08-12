@@ -59,6 +59,8 @@ fftw_r2c(VALUE self, VALUE nmatrix)
   //Input: a 1D double array with enough elements for the whole matrix
   double* in = ALLOC_N(double, size);
 
+  fftw_complex* out = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * size * size);
+
   int rank = FIX2INT(rb_ary_entry(shape, 0));
 
   // This would need to be a nested loop for multidimensional matrices, or it
@@ -67,6 +69,7 @@ fftw_r2c(VALUE self, VALUE nmatrix)
   for (int i = 0; i < rank; i++) {
       in[i] = NUM2DBL(rb_funcall(nmatrix, rb_intern("[]"), 1, INT2FIX(i)));
   }
+
   // Actual fourier transform stuff would go here.
   xfree(in);
 
