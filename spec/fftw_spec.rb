@@ -17,7 +17,7 @@ describe FFTW do
     expect(n[1,0]).to eq(1.0e-323)
     expect(n[1,1]).to eq(2.83811411759045e-309)
   end
-  it "Creates a new FFTW::FFTW.r2c object and takes an NMatrix as its argument" do
+  it "Creates a new FFTW.r2c object and takes an NMatrix as its argument" do
     n = NMatrix.new([4], [3.10, 1.73, 1.04, 2.83])
     puts n
     fftw = FFTW.r2c(n)
