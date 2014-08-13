@@ -94,25 +94,23 @@ incdir = ['/usr/local/include',
               ]
 
 flags = " --include=#{fftw_incdir} --libdir=#{fftw_libdir}"
-$CFLAGS = ["#{flags}"].join(" ")
 
 if have_library("fftw3") then
-  puts "#{success} fftw3 found... Adding cflags"
+  $CFLAGS = [" -lfftw3 -lm #{flags}"].join(" ")
+  puts "#{success} fftw3 found... Adding '-lfftw3 -lm' to cflags"
   puts info + flags
 else
-  puts "#{failure} fftw3 not found #{$CFLAGS}"
+  $CFLAGS = ["#{flags}"].join(" ")
+  puts "#{failure} fftw3 not found found #{$CFLAGS}".red
 end
 
 if have_library("fftw3f") then
   $CFLAGS = [" -fftw3f #{flags}"].join(" ")
   puts "#{success} fftw3 found... Adding '-lfftw3f' to cflags"
   puts info + flags
-else
-  puts "#{failure} fftw3f not found #{$CFLAGS}"
 end
 
-puts "Installing FFTW"
-puts `cd #{fftw_srcdir}/fftw3; ./configure #{$CFLAGS} -lfftw3 -lm; make; make install`
+puts `cd #{fftw_srcdir}/fftw3; ./configure #{$CFLAGS}; make; make install`
 
 dir_config('fftw', fftw_incdir, fftw_libdir)
 
