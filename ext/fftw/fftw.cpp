@@ -78,17 +78,17 @@ fftw_r2c(VALUE self, VALUE nmatrix)
   }
 
   fftw_complex* out = (fftw_complex *)fftw_malloc(sizeof(fftw_complex) * size * size);
-  plan = fftw_plan_dft_r2c(rank, &size, in, (fftw_complex*)in, FFTW_ESTIMATE);
+  plan = fftw_plan_dft_r2c(rank, &size, in, out, FFTW_ESTIMATE);
   fftw_execute(plan);
 
   fftw_destroy_plan(plan);
-  //xfree(in);
-  fftw_free(in);
+  xfree(in);
+  fftw_free(out);
 
   return self;
 }
 
- //http://banisterfiend.wordpress.com/2008/10/06/metaprogramming-in-the-ruby-c-api-part-two-dynamic-methods/
+//http://banisterfiend.wordpress.com/2008/10/06/metaprogramming-in-the-ruby-c-api-part-two-dynamic-methods/
 VALUE fftw_missing(int argc, VALUE *argv, VALUE self)
 {
   VALUE name;
