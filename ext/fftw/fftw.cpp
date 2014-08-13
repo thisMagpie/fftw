@@ -77,10 +77,11 @@ fftw_r2c(VALUE self, VALUE nmatrix)
     printf("IN[%d]: in[%.2f] \n",i, in[i]);
   }
   plan = fftw_plan_dft_r2c(rank, &size, in, (fftw_complex*)in, FFTW_ESTIMATE);
+  fftw_execute(plan);
 
   fftw_destroy_plan(plan);
-  xfree(in);
-  //fftw_free(in);
+  //xfree(in);
+  fftw_free(in);
 
   return self;
 }
