@@ -76,6 +76,8 @@ fftw_r2c(VALUE self, VALUE nmatrix)
     in[i] = NUM2DBL(rb_funcall(nmatrix, rb_intern("[]"), 1, INT2FIX(i)));
     printf("IN[%d]: in[%.2f] \n",i, in[i]);
   }
+
+  fftw_complex* out = (fftw_complex *)fftw_malloc(sizeof(fftw_complex) * size * size);
   plan = fftw_plan_dft_r2c(rank, &size, in, (fftw_complex*)in, FFTW_ESTIMATE);
   fftw_execute(plan);
 
