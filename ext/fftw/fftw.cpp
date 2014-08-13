@@ -78,7 +78,9 @@ fftw_r2c(VALUE self, VALUE nmatrix)
   }
 
   fftw_complex* out = (fftw_complex *)fftw_malloc(sizeof(fftw_complex) * size * size);
-  plan = fftw_plan_dft_r2c(rank, &size, in, out, FFTW_ESTIMATE);
+
+  // second argument should be pointer to nmatrix[rank]
+  plan = fftw_plan_dft_r2c(rank, (const int*) nmatrix, in, out, FFTW_ESTIMATE);
   fftw_execute(plan);
 
   fftw_destroy_plan(plan);
