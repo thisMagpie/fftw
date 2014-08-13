@@ -80,7 +80,7 @@ fftw_r2c(VALUE self, VALUE nmatrix)
   fftw_complex* out = (fftw_complex *)fftw_malloc(sizeof(fftw_complex) * size * size);
 
   // second argument should be pointer to nmatrix[rank]
-  plan = fftw_plan_dft_r2c(rank, (const int*) nmatrix, in, out, FFTW_ESTIMATE);
+  plan = fftw_plan_dft_r2c_1d(rank, in, out, FFTW_ESTIMATE);
   fftw_execute(plan);
 
   // INFO: http://www.fftw.org/doc/New_002darray-Execute-Functions.html#New_002darray-Execute-Functions
