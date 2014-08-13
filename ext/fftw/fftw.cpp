@@ -3,7 +3,7 @@
 #include <fftw_config.h>
 #include <stdio.h>
 #include <iostream>
-#include <fftw3.h>
+#include <fftw3/api/fftw3.h>
 using namespace std;
 
 VALUE mFFTW;
