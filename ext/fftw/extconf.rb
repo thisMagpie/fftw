@@ -64,9 +64,9 @@ minor = cxx_proc.call('__GNUC_MINOR__')
 patch = cxx_proc.call('__GNUC_PATCHLEVEL__')
 puts "#{info} CXX = #{CONFIG['CXX']}"
 
-$CPP_STANDARD = 'c++11  -lfftw3 -lm'
-$CPP_FLAGS = '-std=c++11  -lfftw3 -lm'
-$CXX_FLAGS = '-stc=++11 ` --cppflags --cxxflags --ldflags --libs` `pkg-config fftw3 --libs` -g -Wall -lfftw3 -lm'
+$CPP_STANDARD = 'c++11'
+$CPP_FLAGS = '-std=c++11'
+$CXX_FLAGS = '-std=c++11 ` --cppflags --cxxflags --ldflags --libs` `pkg-config fftw3 --libs` -g -Wall'
 
 puts info + `g++ --version`
 puts "#{info} CPP_STANDARD is #{$CPP_STANDARD}"
@@ -87,25 +87,34 @@ def header_configs()
 end
 header_configs
 
-fftw_incdir = ['/usr/local/include',
+incdir = ['/usr/local/include',
                 fftw_incdir,
                '/usr/include',
                '/usr/include/atlas',
               ]
 
-flags = " --libdir=#{fftw_libdir} --enable-shared -static"
+flags = " --include=#{fftw_incdir} --libdir=#{fftw_libdir}"
+
+if have_library("fftw3") then
+  $CFLAGS = [" -lfftw3 -lm #{flags}"].join(" ")
+  puts "#{info} FFTW has DOUBLE support #{$CFLAGS}"
+  puts info + flags
+else
+  $CFLAGS = ["#{flags}"].join(" ")
+end
+
 if have_library("fftw3f") then
-  $CFLAGS = [" -DFFTW3_HAS_SINGLE_SUPPORT -fftw3f #{flags}"].join(" ")
+  $CFLAGS = [" -fftw3f #{flags}"].join(" ")
   puts "#{info} -DFFTW3_HAS_SINGLE_SUPPORT is being used... #{$CFLAGS}"
   puts info + flags
 else
   $CFLAGS = ["#{flags}"].join(" ")
 end
 
-$CFLAGS   += " -static -O3"
+$CFLAGS   += " -O3"
 $CPPFLAGS += " -O3"
 
-puts `cd #{fftw_srcdir}/fftw3; ./configure #{flags}; make; make install`
+puts `cd #{fftw_srcdir}/fftw3; ./configure #{$CFLAGS}; make; make install`
 
 dir_config('fftw', fftw_incdir, fftw_libdir)
 
