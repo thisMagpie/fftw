@@ -66,7 +66,7 @@ puts "#{info} CXX = #{CONFIG['CXX']}"
 
 $CPP_STANDARD = 'c++11  -lfftw3 -lm'
 $CPP_FLAGS = '-std=c++11  -lfftw3 -lm'
-$CXX_FLAGS = '-stc=++11 ` --cppflags --cxxflags --ldflags --libs` `pkg-config fftw3 --libs` -g -Wall  -lfftw3 -lm'
+$CXX_FLAGS = '-stc=++11 ` --cppflags --cxxflags --ldflags --libs` `pkg-config fftw3 --libs` -g -Wall -lfftw3 -lm'
 
 puts info + `g++ --version`
 puts "#{info} CPP_STANDARD is #{$CPP_STANDARD}"
