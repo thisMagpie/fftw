@@ -44,6 +44,7 @@ abort "missing free()".red   unless have_func "free"
 ###############################################################################
 fftw_libdir = RbConfig::CONFIG['libdir']
 fftw_incdir = RbConfig::CONFIG['includedir']
+fftw_srcdir = RbConfig::CONFIG['srcdir']
 ###############################################################################
 #
 # README output messages for debugging.
@@ -51,6 +52,7 @@ fftw_incdir = RbConfig::CONFIG['includedir']
 ###############################################################################
 puts "#{info} Include directories #{fftw_incdir}"
 puts "#{info} Library directories #{fftw_libdir}"
+puts "#{info} src directory #{fftw_srcdir}"
 ###############################################################################
 #
 # Make sure CXX is set to g++ and not clang or gcc by setting its value
@@ -62,9 +64,9 @@ minor = cxx_proc.call('__GNUC_MINOR__')
 patch = cxx_proc.call('__GNUC_PATCHLEVEL__')
 puts "#{info} CXX = #{CONFIG['CXX']}"
 
-$CPP_STANDARD = 'c++11'
-$CPP_FLAGS = '-std=c++11'
-$CXX_FLAGS = '-stc=++11 `Magick++-config --cppflags --cxxflags --ldflags --libs` `pkg-config fftw3 --libs` -g -Wall -O0'
+$CPP_STANDARD = 'c++11  -lfftw3 -lm'
+$CPP_FLAGS = '-std=c++11  -lfftw3 -lm'
+$CXX_FLAGS = '-stc=++11 ` --cppflags --cxxflags --ldflags --libs` `pkg-config fftw3 --libs` -g -Wall  -lfftw3 -lm'
 
 puts info + `g++ --version`
 puts "#{info} CPP_STANDARD is #{$CPP_STANDARD}"
@@ -85,49 +87,28 @@ def header_configs()
 end
 header_configs
 
-###############################################################################
-#
-# Configuration of directory named in first argument, i.e. The arguments of
-# dir_config('fftw', HEADERS, LIBS) are as follows (in this case):
-#
-# HEADERS == fftw_incdir
-# LIBS    == fftw_libdir
-#
-###############################################################################
 fftw_incdir = ['/usr/local/include',
                 fftw_incdir,
                '/usr/include',
                '/usr/include/atlas',
               ]
-incdir, libdir = dir_config('fftw', fftw_incdir, fftw_libdir)
 
-puts "#{info} libdir=#{libdir}"
-puts "#{info} incdir=#{incdir}"
-###############################################################################
-#
-# Configuration of directory named in first argument, i.e. The arguments of
-# dir_config('fftw', HEADERS, LIBS) are as follows (in this case):
-#
-# HEADERS == fftw_incdir
-# LIBS    == _libdir
-#
-#############################################################################
-flags = " -I#{incdir} --libdir=#{libdir} --enable-float"
+flags = " --libdir=#{fftw_libdir} --enable-shared -static"
 if have_library("fftw3f") then
-  $CFLAGS = [" -DFFTW3_HAS_SINGLE_SUPPORT #{flags}"].join(" ")
-  puts "#{info} -DFFTW3_HAS_SINGLE_SUPPORT is being used..."
+  $CFLAGS = [" -DFFTW3_HAS_SINGLE_SUPPORT -fftw3f #{flags}"].join(" ")
+  puts "#{info} -DFFTW3_HAS_SINGLE_SUPPORT is being used... #{$CFLAGS}"
+  puts info + flags
 else
-  $CFLAGS = [flags].join(" ")
+  $CFLAGS = ["#{flags}"].join(" ")
 end
 
-if $warnflags then
-  $warnflags.slice!('-Wdeclaration-after-statement')
-  $warnflags.slice!('-Wimplicit-function-declaration')
-  $warnflags.slice!('-Wshorten-64-to-32')
-end
+$CFLAGS   += " -static -O3"
+$CPPFLAGS += " -O3"
 
-$CFLAGS   += " -static -O5"
-$CPPFLAGS += " -O5"
+puts `cd #{fftw_srcdir}/fftw3; ./configure #{flags}; make; make install`
+
+dir_config('fftw', fftw_incdir, fftw_libdir)
+
 
 print "#{info} creating fftw_config.h \n"
 hfile = open('fftw_config.h', "w")
