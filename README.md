@@ -10,6 +10,8 @@
 ## Install FFTW
 
     git clone http://github.com/thismagpie/fftw
+    cd fftw
+    ./linux-installer
 
 ### Install FFTW3 on a Mac or linux
 
