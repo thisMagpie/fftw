@@ -1,8 +1,4 @@
 
-
-
-[![Code Climate](https://codeclimate.com/github/thisMagpie/fftw.png)](https://codeclimate.com/github/thisMagpie/fftw)
-
 [![Travis CLI](https://travis-ci.org/thisMagpie/fftw.png)](https://travis-ci.org)
 
 [![Gemnasium](https://gemnasium.com/gemnasium/gemnasium-gem.png)](https://gemnasium.com/thisMagpie/fftw)
