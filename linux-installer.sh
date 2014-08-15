@@ -41,8 +41,10 @@ fi
 # Check to see whether the installer is apt-get
 # If so, then install necessary packages.
 if [ -f /usr/bin/apt-get ] ; then
-    echo ""
-    source ~/.bash_profile
+      echo ""
+    if [ -f ~/.bash_profile ] ; then
+      source ~/.bash_profile
+    fi
     echo "Login as root, now..."
     echo "Installing gcc gcc-c++ curl cpufrequtils with apt-get:"
     sudo apt-get install gcc gcc-c++ curl cpufrequtils
