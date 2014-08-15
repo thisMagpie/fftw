@@ -1,3 +1,94 @@
+f5d01b2 installer: check that bash_profile exists
+31a8907 travis fix gemnasium build
+8ba715b set gemnasium contants with env
+df4aa68 remove code climate link
+c2a23d4 add install instructions for linux script use
+983c38c extconf: revert changes
+3cd8978 extconf: add debugging
+9fe1302 extconf: lib seek fftw3 before seeking fftw3f
+617a804 fftw.cpp: create 1d plan (runs)
+7754c96 extconf: remove static flag
+51db0e0 use 1d plan
+577af1c remove space
+03b5236 spec: fix documentation
+3655a31 lib: fix doc formatting
+2748fe4 cpp: fix typo in header
+1fe0e60 ext/ add some linking flags
+691ce0f fftw.cpp: execute plan
+d6cc9f1 fftw.cpp:set 2nd arg of plan pointer to nmatrix[rank]
+452172a fftw.cpp: create out
+b93624b fftw.cpp: create out
+e00a19f cpp: execute plan
+5e2701f fftw.cpp: add  plan
+976b77d fftw.cpp: add more informative print statements
+4234d9a fftw.cpp: add handy print formatting
+e0ed5ca add informative print statements
+4e7a5be fftw.cpp: add out
+64fa7e1 travis: remove autoremove
+2b817ec fftw.cpp: add rank variable
+2ff6a62 installer: add extra libs for debian
+76f8137 fftw.cpp: add single support check
+967bba3 travis autoremove some files
+8b11ba5 lib/ add some documentation
+49d1d5f lib/ only require './lib/fftw/fftw.so' if it is found
+bfb3fb7 Minimal example for passing nmatrix data between C and ruby
+18258b6 travis: dont use $C_INCLUDE_PATH
+7428154 remove nl
+43317f9 lib: remove circular reqire
+220f1fd lib/ remove module definition
+c10398d lib/ fix error in finding fftw.so
+ebaca66 fftw.rb: fix error finding fftw.o
+377c5fe Gemfile.lock
+8b6ed40 lib/ add important debugging stuff
+c2e6e22 spec_helper: do not describe methods
+6d43d6b fftw.cpp: rb_include_module
+04fc8f1 specs: add expect
+156f290 remove class_under_ stuff
+4861d9d spec_helper: Use absolute filepath
+248bec0 fftw: define class under module
+efc5c5c fftw.cpp ifdef for single precision
+fde451d use absolute paths in lib and spec_helper requires
+433998e lib change args
+bfb0ec3 formatting
+e33e2d1 extconf: add handy debugging stuff
+8501eb1 travis: Fix env includes
+f82d429 installer: remove lapack flag
+3750c85 travis: fix include formatting which breaks build
+acbdb40 spec: add failing spec for demo purposes
+a2f4550 fftw.cpp: make adjustments to r2c args
+c7dd165 fftw.cpp: add nmatrix print template test
+e4d3a19 specs add vector tester spec
+8eb1093 gemspec: do not repeat code
+3c7f8f5 travis: update includes
+1450345 installer: do not add paths to bashrc unless unset
+d4206a0 installer: add compatibility
+bee036e installer fix debian package name for atlas
+7261ac0 installer: get right lapack package in debian
+c3b884b installer: fix debian cpu frequency
+79c9760 installer: fix debian atlas install
+2849d78 spec remove a not needed init
+67c1f4c don't use digit in method name
+0a2afa2 fftw.rb: add 1d test method
+39e9cf5 fftw.rb remove init stuff
+5826f5e spec: add expect
+bef4ce6 installer: fix typo on line 67
+c941dd4 Add easy linux installer
+763352f Rakefile: set rspec to fail on error
+0b2d854 cpp: change to uppercase
+042a87b specs: fix FFTW::FFTW.new() instance
+aabf4ec specs/ remove new describe
+4bd7b8d spec: change FFTW to FFTW::FFTW
+20f36d2 lib: remove new method
+1974171 fftw.cpp: uppercase class name
+157db07 add broken spec to check log on travis
+e1f0760 lib: add singleton method
+1291841 fftw.cpp: Define singleton method
+6548128 fftw.cpp: free plans
+ba7e7e9 move requires to spec helper
+3a031b0 spec: FIX failure due to constant def
+4757bbb Rakefile: tidy up manifest check
+a5997cf lib: fix missing method
+51269d5 bump version to 0.1.4
 831fcf3 Gemfile: remove unused dependencies
 00d7a10 Gemfile: remove unused dependencies
 210c222 remove unused included and include native libs first
