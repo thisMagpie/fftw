@@ -46,7 +46,7 @@ if [ -f /usr/bin/apt-get ] ; then
       source ~/.bash_profile
     fi
     echo "Login as root, now..."
-    echo "Installing gcc gcc-c++ curl cpufrequtils with apt-get:"
+    echo "Installing gcc gcc-c++ curl cpufrequtils with apt-get:"\[\033[0m\]
     sudo apt-get install gcc gcc-c++ curl cpufrequtils
     echo "Set cpu frequency to performance mode"
     sudo cpufreq-set -g performance
@@ -60,13 +60,13 @@ echo "Installation for $s complete!"
 
 echo "Checking whether CPLUS and C PATHS need to be set"
 if [ -d /usr/include/atlas ] ; then
-    if [ ! ${CPLUS_INCLUDE_PATH?} ] ; then
+    if [ ! ${CPLUS_INCLUDE_PATH} ] ; then
         echo "Setting CPLUS_INCLUDE_PATH in ~/.bashrc"
         echo "export CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:/usr/include/atlas:$GEM_HOME/gems/fftw/ext/fftw/fftw3/api" >> ~/.bashrc
     else
         echo "CPLUS_INCLUDE_PATH already set to $CPLUS_INCLUDE_PATH"
     fi
-    if [ ! ${C_INCLUDE_PATH?} ] ; then
+    if [ ! ${C_INCLUDE_PATH} ] ; then
         echo "Setting C_INCLUDE_PATH in ~/.bashrc"
         echo "export C_INCLUDE_PATH=$C_INCLUDE_PATH:/usr/include/atlas:$GEM_HOME/gems/fftw/ext/fftw3/api" >> ~/.bashrc
     else
