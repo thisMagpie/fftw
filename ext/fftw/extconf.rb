@@ -101,13 +101,16 @@ if have_library("fftw3") then
   puts info + flags
 else
   $CFLAGS = ["#{flags}"].join(" ")
-  puts "#{failure} fftw3 not found found #{$CFLAGS}".red
+  puts "#{failure} fftw3 not found found #{$CFLAGS}"
 end
 
 if have_library("fftw3f") then
   $CFLAGS = [" -fftw3f #{flags}"].join(" ")
   puts "#{success} fftw3 found... Adding '-lfftw3f' to cflags"
   puts info + flags
+else
+  $CFLAGS = ["#{flags}"].join(" ")
+  puts "#{failure} fftw3f not found found #{$CFLAGS}"
 end
 
 puts `cd #{fftw_srcdir}/fftw3; ./configure #{$CFLAGS}; make; make install`
