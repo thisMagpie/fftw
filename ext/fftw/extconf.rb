@@ -132,7 +132,7 @@ end
 
 puts "#{info} CFLAGS : #{$CFLAGS}"
 puts "#{info} flags : #{$flags}"
-puts `cd #{fftw_srcdir}/fftw3; echo $PWD; ./configure;make;`
+puts `cd #{fftw_srcdir}/fftw3; echo $PWD; ./configure;make;make install`
 dir_config('fftw', fftw_incdir, fftw_libdir)
 
 
