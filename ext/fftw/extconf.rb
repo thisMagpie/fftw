@@ -127,13 +127,12 @@ if have_library("fftw3f") then
   puts info + $CFLAGS
 else
   $CFLAGS = ["#{$CFLAGS}"].join(" ")
-  puts "#{failure} fftw3f not found found #{$CFLAGS}"
+  puts "#{failure} fftw3f not found #{$CFLAGS}"
 end
 
 puts "#{info} CFLAGS : #{$CFLAGS}"
 puts "#{info} flags : #{$flags}"
-puts `cd #{fftw_srcdir}/fftw3; ./configure; make; make install`
-
+puts `cd #{fftw_srcdir}/fftw3; echo $PWD; ./configure;make;`
 dir_config('fftw', fftw_incdir, fftw_libdir)
 
 
