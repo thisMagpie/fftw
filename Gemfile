@@ -1,9 +1,5 @@
 source 'https://rubygems.org'
 
-group :runtime do
-  gem 'nmatrix', :git => "git://github.com/thisMagpie/nmatrix.git"
-end
-
 group :development do
   gem 'colorize', '~>0.7', '>=0.7.3'
   gem 'rake-compiler', '~>0.8', '>=0.8.1'
