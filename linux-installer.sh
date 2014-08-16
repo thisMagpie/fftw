@@ -25,6 +25,9 @@ if [ -x /usr/bin/zypper ] ; then
     echo "Going to install the following packages:"
     echo "libatlas3 libatlas3-devel blas-devel ruby-devel laptack-devel fftw-devel"
     sudo zypper in -y libatlas3-devel blas-devel ruby-devel lapack-devel fftw-devel
+
+# Check to see whether the installer is yum
+# If so, then install necessary packages.
 elif [ -f /usr/bin/yum ] ; then
     echo ""
     echo "Login as root, now..."
@@ -47,7 +50,7 @@ if [ -f /usr/bin/apt-get ] ; then
     fi
     echo "Login as root, now..."
     echo "Installing gcc gcc-c++ curl cpufrequtils with apt-get:"\[\033[0m\]
-    sudo apt-get install gcc gcc-c++ curl cpufrequtils
+    sudo apt-get install gcc g++ curl cpufrequtils
     echo "Set cpu frequency to performance mode"
     sudo cpufreq-set -g performance
     echo
