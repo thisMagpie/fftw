@@ -1,3 +1,9 @@
+a61cd38 Gemfile: make nmatrix a standard dep
+22bda63 fftw.cpp: use multidimensional plan
+6c3ec6e Gemfile: Make nmatrix a dependency
+4d2fd4c travis: fix include bug #1
+a67c9e0 installer: fix bug in include check
+53dfd45 Version Bump to 0.1.5
 f5d01b2 installer: check that bash_profile exists
 31a8907 travis fix gemnasium build
 8ba715b set gemnasium contants with env
