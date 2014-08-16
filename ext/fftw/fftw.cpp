@@ -56,7 +56,7 @@ fftw_r2c(VALUE self, VALUE nmatrix)
 
   // shape is a ruby array, e.g. [2, 2] for a 2x2 matrix
   VALUE shape = rb_funcall(nmatrix, rb_intern("shape"), 0);
-  printf("Shape: %d \n",&shape);
+ // printf("Shape: %f \n",&shape);
 
   // size is the number of elements stored for a matrix with dimensions = shape
   int size = NUM2INT(rb_funcall(cNMatrix, rb_intern("size"), 1, shape));
@@ -80,11 +80,11 @@ fftw_r2c(VALUE self, VALUE nmatrix)
   fftw_complex* out = (fftw_complex *)fftw_malloc(sizeof(fftw_complex) * size * size);
 
   // second argument should be pointer to nmatrix[rank]
-  plan = fftw_plan_dft_r2c_1d(rank, in, out, FFTW_ESTIMATE);
-  // fftw_execute(plan);
+  plan = fftw_plan_dft_r2c(1, (const int*) nmatrix, in, out, FFTW_ESTIMATE);
+  //fftw_execute(plan);
 
   // // INFO: http://www.fftw.org/doc/New_002darray-Execute-Functions.html#New_002darray-Execute-Functions
-  // fftw_execute_dft_r2c(plan, in, out);
+ // fftw_execute_dft_r2c(plan, in, out);
   // fftw_destroy_plan(plan);
   xfree(in);
  // fftw_free(out);
