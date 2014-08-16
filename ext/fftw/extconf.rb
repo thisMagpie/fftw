@@ -1,17 +1,35 @@
 require 'mkmf'
 require 'colorize'
 
+###############################################################################
 # INFO
+# debug method for displaying info log messages
+# messages print to the console and are highlighted
+# with black font on yellow background
+# TODO put somewhere global
+###############################################################################
 def info()
   return " INFO: ".colorize(:color       => :black,
                             :background  => :yellow) + " "
 end
+###############################################################################
 # FAILURE
+# debug method for displaying failure log messages
+# messages print to the console and are highlighted
+# with black font on red background
+# TODO put somewhere global
+###############################################################################
 def failure()
   return " FAILURE: ".colorize(:color       => :black,
                                :background  => :red) + " "
 end
+###############################################################################
 # SUCCESS
+# debug method for displaying success log messages
+# messages print to the console and are highlighted
+# with black font on red background
+# TODO put somewhere global
+###############################################################################
 def success()
   return " SUCCESS: ".colorize(:color       => :black,
                                :background  => :green) + " "
@@ -96,11 +114,11 @@ incdir = ['/usr/local/include',
 flags = " --include=#{fftw_incdir} --libdir=#{fftw_libdir}"
 
 if have_library("fftw3") then
-  $CFLAGS += [" -lfftw3 -lm #{$CFLAGS}"].join(" ")
+  $CFLAGS += [" -lfftw3 -lm #{$CFLAGS} #{$flags}"].join(" ")
   puts "#{success} fftw3 found... Adding '-lfftw3 -lm' to cflags"
   puts info + $CFLAGS
 else
-  puts "#{failure} fftw3 not found found #{$CFLAGS}"
+  puts "#{failure} fftw3 not found #{$CFLAGS}"
 end
 
 if have_library("fftw3f") then
@@ -108,13 +126,13 @@ if have_library("fftw3f") then
   puts "#{success} fftw3 found... Adding '-lfftw3f' to cflags"
   puts info + $CFLAGS
 else
-  $CFLAGS = ["#{flags}"].join(" ")
+  $CFLAGS = ["#{$CFLAGS}"].join(" ")
   puts "#{failure} fftw3f not found found #{$CFLAGS}"
 end
 
 puts "#{info} CFLAGS : #{$CFLAGS}"
 puts "#{info} flags : #{$flags}"
-puts `cd #{fftw_srcdir}/fftw3; ./configure #{$CFLAGS}; make; make install`
+puts `cd #{fftw_srcdir}/fftw3; ./configure; make; make install`
 
 dir_config('fftw', fftw_incdir, fftw_libdir)
 
