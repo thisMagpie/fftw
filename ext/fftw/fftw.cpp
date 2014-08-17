@@ -80,10 +80,12 @@ fftw_r2c(VALUE self, VALUE nmatrix)
 
   // second argument should be pointer to nmatrix[rank]
   plan = fftw_plan_dft_r2c(1, &size, in, out, FFTW_ESTIMATE);
+
   fftw_execute(plan);
+  printf("Cost: %f ",fftw_cost(plan));
 
   // // INFO: http://www.fftw.org/doc/New_002darray-Execute-Functions.html#New_002darray-Execute-Functions
- // fftw_execute_dft_r2c(plan, in, out);
+  fftw_execute_dft_r2c(plan, in, out);
   fftw_destroy_plan(plan);
   xfree(in);
   fftw_free(out);
