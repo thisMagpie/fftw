@@ -68,16 +68,6 @@ fftw_srcdir = RbConfig::CONFIG['srcdir']
 puts "#{info} Include directories #{fftw_incdir}"
 puts "#{info} Library directories #{fftw_libdir}"
 puts "#{info} src directory #{fftw_srcdir}"
-###############################################################################
-#
-# Make sure CXX is set to g++ and not clang or gcc by setting its value
-#
-###############################################################################
-cxx_proc = proc { |n| `#{CONFIG['CXX']} -E -dM - </dev/null | grep #{n}`.chomp.split(' ')[2] }
-major = cxx_proc.call('__GNUC__')
-minor = cxx_proc.call('__GNUC_MINOR__')
-patch = cxx_proc.call('__GNUC_PATCHLEVEL__')
-puts "#{info} CXX = #{CONFIG['CXX']}"
 
 $CPP_STANDARD = 'c++11'
 $CPP_FLAGS = '-std=c++11'
