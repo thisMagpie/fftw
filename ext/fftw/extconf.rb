@@ -91,20 +91,6 @@ puts "#{info} CPP_STANDARD is #{$CPP_STANDARD}"
 
 `#{CONFIG['CXX']} --version|head -n 1|cut -f 3 -d " "`
 
-# Configuration of directory named in first argument:
-# cblas and atlas in this case.
-def header_configs()
-  puts "#{info} Searching for cblas and atlas..."
-  if have_library("cblas") and have_library("atlas")
-    puts "#{success} CBLAS and ATLAS Status Found!"
-    dir_config("cblas")
-    dir_config("atlas")
-  else
-    puts "#{failure} CBLAS and ATLAS not found!"
-  end
-end
-header_configs
-
 incdir = ['/usr/local/include',
                 fftw_incdir,
                '/usr/include',
@@ -114,7 +100,7 @@ incdir = ['/usr/local/include',
 flags = " --include=#{fftw_incdir} --libdir=#{fftw_libdir}"
 
 if have_library("fftw3") then
-  $CFLAGS += [" -lfftw3 -lm #{$CFLAGS} #{$flags}"].join(" ")
+  $CFLAGS += [" -lfftw3 -lm #{$CFLAGS} #{flags}"].join(" ")
   puts "#{success} fftw3 found... Adding '-lfftw3 -lm' to cflags"
   puts info + $CFLAGS
 else
@@ -126,15 +112,30 @@ if have_library("fftw3f") then
   puts "#{success} fftw3 found... Adding '-lfftw3f' to cflags"
   puts info + $CFLAGS
 else
-  $CFLAGS = ["#{$CFLAGS}"].join(" ")
   puts "#{failure} fftw3f not found #{$CFLAGS}"
 end
 
 puts "#{info} CFLAGS : #{$CFLAGS}"
-puts "#{info} flags : #{$flags}"
+puts "#{info} flags : #{flags}"
 puts `cd #{fftw_srcdir}/fftw3; echo $PWD; ./configure;make;make install`
 dir_config('fftw', fftw_incdir, fftw_libdir)
 
+# Configuration of directory named in first argument:
+# @param name: name of library to be found
+# @return whether the library was found
+def header_configs(name)
+  puts "#{info} Searching for #{name}..."
+  if have_library(name)
+    puts "#{success} #{name} Found!"
+    dir_config(name)
+    return true
+  else
+    puts "#{failure} #{name} not found!"
+    return false
+  end
+end
+header_configs("blas")
+header_configs("atlas")
 
 print "#{info} creating fftw_config.h \n"
 hfile = open('fftw_config.h', "w")
