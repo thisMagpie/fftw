@@ -95,27 +95,27 @@ incdir = ['/usr/local/include',
               ]
 
 flags = " --include=#{fftw_incdir} --libdir=#{fftw_libdir}"
+puts "#{info} FLAGS: #{flags}"
 
 if have_library("fftw3") then
-  $CFLAGS += [" -lfftw3 -lm #{$CFLAGS} #{flags}"].join(" ")
-  puts "#{success} fftw3 found... Adding '-lfftw3 -lm' to cflags"
-  puts info + $CFLAGS
+  flags += [" -lfftw3 -lm #{flags}"].join(" ")
+  puts "#{success} fftw3 found... Adding '-lfftw3 -lm' to compiler flags"
+  puts info + flags
 else
-  puts "#{failure} fftw3 not found #{$CFLAGS}"
+  puts "#{failure} fftw3 not found #{$flags}"
 end
 
 if have_library("fftw3f") then
-  $CFLAGS = [" -lfftw3f #{$CFLAGS}"].join(" ")
-  puts "#{success} fftw3 found... Adding '-lfftw3f' to cflags"
-  puts info + $CFLAGS
+  flags = [" -lfftw3f #{flags}"].join(" ")
+  puts "#{success} fftw3 found... Adding '-lfftw3f' to compiler flags"
+  puts info + flags
 else
-  puts "#{failure} fftw3f not found #{$CFLAGS}"
+  puts "#{failure} fftw3f not found #{flags}"
 end
 
-puts "#{info} CFLAGS : #{$CFLAGS}"
-puts "#{info} flags : #{flags}"
-puts `cd #{fftw_srcdir}/fftw3; echo $PWD; ./configure;make;make install`
-dir_config('fftw', fftw_incdir, fftw_libdir)
+puts "#{info} cd #{fftw_srcdir}/fftw3;./configure --prefix=#{$srcdir} #{flags} -lfftw3 -lm; make; make install"
+puts `cd #{fftw_srcdir}/fftw3; echo $PWD; ./configure --prefix=#{$srcdir} #{flags} -lfftw3 -lm; make; make install`
+dir_config('fftw')
 
 # Configuration of directory named in first argument:
 # @param name: name of library to be found
