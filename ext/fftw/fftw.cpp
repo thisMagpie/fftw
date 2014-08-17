@@ -82,7 +82,7 @@ fftw_r2c_one(VALUE self, VALUE nmatrix)
     in[i] = NUM2DBL(rb_funcall(nmatrix, rb_intern("real"), 1, INT2FIX(i)));
     printf("IN[%d]: in[%.2f] \n", i, in[i]);
   }
-  fftw_complex* out = (fftw_complex *) fftw_malloc(sizeof(fftw_complex) * (size / 2) + 1);
+  fftw_complex* out = (fftw_complex *) fftw_malloc(sizeof(fftw_complex) * (size / 2.0) + 0.5);
  
   // forward transfer
   plan = fftw_plan_dft_r2c_1d(size, in, out, FFTW_ESTIMATE);
