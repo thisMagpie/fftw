@@ -17,4 +17,4 @@ group :documentation do
   gem 'rdoc', '~>4.0', '>=4.0.1'
 end
 
-gem 'nmatrix', :git => "git://github.com/thisMagpie/nmatrix.git"
+gem 'nmatrix', '~> 0.1.0.rc5'
