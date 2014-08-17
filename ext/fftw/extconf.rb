@@ -91,8 +91,8 @@ puts "#{info} CPP_STANDARD is #{$CPP_STANDARD}"
 flags = " --include=#{fftw_incdir} --libdir=#{fftw_libdir}"
 puts "#{info} FLAGS: #{flags}"
 
-puts "#{info} cd #{fftw_srcdir}/fftw3; ./configure --prefix=$GEM_HOME #{flags} --enable-debug $CC; make; make install"
-puts `cd #{fftw_srcdir}/fftw3; ./configure --prefix=$GEM_HOME #{flags} --enable-debug CC; make; make install`
+puts "#{info} cd #{fftw_srcdir}/fftw3; ./configure --prefix=$GEM_HOME #{flags} --enable-debug; make; make install"
+puts `cd #{fftw_srcdir}/fftw3; ./configure --prefix=$GEM_HOME #{flags} --enable-debug; make; make install`
 dir_config('fftw')
 
 # Configuration of directory named in first argument:
