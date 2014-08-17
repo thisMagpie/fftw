@@ -6,7 +6,10 @@
 
 |Command              | Task
 --------------------------------------------------------------------------------------------
-|rake build           | Build fftw-0.1.2.gem into the pkg directory                             |rake check_manifest  | Check the manifest for correctness                                         |rake clean           | Remove any temporary products                                              |rake clobber         | Remove any generated file
+|rake build           | Build fftw-0.1.2.gem into the pkg directory
+|rake check_manifest  | Check the manifest for correctness
+|rake clean           | Remove any temporary products
+|rake clobber         | Remove any generated file
 |rake compile         | Compile all the extensions
 |rake compile:fftw    | Compile fftw
 |rake install         | Build and install fftw-0.1.2.gem into system gems locally
