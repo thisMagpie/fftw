@@ -4,9 +4,7 @@ cache:
   directories:
   - fftw/bundle
 env:
-  - CPLUS_INCLUDE_PATH=/usr/include/atlas C_INCLUDE_PATH=/usr/include/atlas
-  - GEMNASIUM_TOKEN=2e1247133e1090e38094c141a77d963d
-  - GEMNASIUM_PROJECT_SLUG=thisMagpie/fftw
+  - CPLUS_INCLUDE_PATH=/usr/include/atlas C_INCLUDE_PATH=/usr/include/atlas GEMNASIUM_TOKEN=2e1247133e1090e38094c141a77d963d GEMNASIUM_PROJECT_SLUG=thisMagpie/fftw
 bundler_args: --without :development
 rvm:
   - "2.1.0"
