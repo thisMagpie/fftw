@@ -55,4 +55,12 @@ describe FFTW do
     expect(n.size).to eq(fftw.size)
     puts "Size: #{n.size} == #{fftw.size}"
   end
+  it "Checks NMatrix in FFTW.r2c_one object's rank by creating a FFTW.r2c_one(nmatrix).rank instance" do
+    n = NMatrix.new([9], [3.10, 1.73, 1.04, 2.83, 1, 1, 3, 5.3, 5])
+    fftw = FFTW.r2c_one(n)
+    rank = FFTW.rank(fftw.size, fftw.shape)
+    puts "Size: #{fftw.size} Shape: #{fftw.shape}"
+    expect(rank).to eq(0)
+    puts "Rank: #{} "
+  end
 end

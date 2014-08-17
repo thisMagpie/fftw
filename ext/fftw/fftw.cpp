@@ -30,6 +30,10 @@ extern "C"
 {
 #endif
 
+int fftw_rank(VALUE self, int size, VALUE shape)
+{
+  return size - FIX2INT(rb_ary_entry(shape, 0));
+}
 /**
   fftw_r2c
   @param self
@@ -66,12 +70,10 @@ fftw_r2c_one(VALUE self, VALUE nmatrix)
   // size is the number of elements stored for a matrix with dimensions = shape
   const int size = NUM2INT(rb_funcall(cNMatrix, rb_intern("size"), 1, shape));
 
-  printf("Size: %d \n", size);
-
   //Input: a 1D double array with enough elements for the whole matrix
   double* in = ALLOC_N(double, size);
 
-  int rank = size - FIX2INT(rb_ary_entry(shape, 0));
+  int rank = fftw_rank(self, size, shape);
   printf("Rank: %d \n", rank);
 
   // This would need to be a nested loop for multidimensional matrices, or it
@@ -79,16 +81,14 @@ fftw_r2c_one(VALUE self, VALUE nmatrix)
   // to pass to [] appropriately from that.
   for (int i = 0; i < size; i++)
   {
-    // TODO 2D array
-    // NUM2DBL(rb_funcall(nmatrix, rb_intern("[]"), 2, INT2FIX(i),INT2FIX(j)));
+    // TODO 2D array NUM2DBL(rb_funcall(nmatrix, rb_intern("[]"), 2, INT2FIX(i),INT2FIX(j)));
     in[i] = NUM2DBL(rb_funcall(nmatrix, rb_intern("[]"), 1, INT2FIX(i)));
     printf("IN[%d]: in[%.2f] \n", i, in[i]);
   }
-
-  fftw_complex* out = (fftw_complex *)fftw_malloc(sizeof(fftw_complex) * size);
+  fftw_complex* out = (fftw_complex *)fftw_malloc(sizeof(fftw_complex) * 2 * size / (2 + 1));
 
   // second argument should be pointer to nmatrix[rank]
-  plan = fftw_plan_dft_r2c(0,&size, in, out, FFTW_ESTIMATE);
+  plan = fftw_plan_dft_r2c(rank,&size, in, out, FFTW_ESTIMATE);
   fftw_execute(plan);
 
   //
@@ -140,6 +140,10 @@ void Init_fftw(void)
                              "missing",
                              (VALUE (*)(...)) fftw_missing,
                              -1);
+  rb_define_singleton_method(mFFTW,
+                             "rank",
+                             (VALUE (*)(...)) fftw_rank,
+                             2);
 }
 #if defined(cplusplus)
 }
