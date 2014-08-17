@@ -58,7 +58,7 @@ fftw_r2c(VALUE self, VALUE nmatrix)
   VALUE shape = rb_funcall(nmatrix, rb_intern("shape"), 0);
 
   // size is the number of elements stored for a matrix with dimensions = shape
-  int size = NUM2INT(rb_funcall(cNMatrix, rb_intern("size"), 1, shape));
+  const int size = NUM2INT(rb_funcall(cNMatrix, rb_intern("size"), 1, shape));
   printf("Size: %d \n",size);
   //Input: a 1D double array with enough elements for the whole matrix
 
@@ -70,23 +70,23 @@ fftw_r2c(VALUE self, VALUE nmatrix)
   // This would need to be a nested loop for multidimensional matrices, or it
   // would need to use the size instead of the shape and figure out the indices
   // to pass to [] appropriately from that.
-  for (int i = 0; i < rank; i++)
+  for (int i = 0; i < size; i++)
   {
     in[i] = NUM2DBL(rb_funcall(nmatrix, rb_intern("[]"), 1, INT2FIX(i)));
     printf("IN[%d]: in[%.2f] \n",i, in[i]);
   }
 
-  fftw_complex* out = (fftw_complex *)fftw_malloc(sizeof(fftw_complex) * size * size);
+  fftw_complex* out = (fftw_complex *)fftw_malloc(sizeof(fftw_complex) * size);
 
   // second argument should be pointer to nmatrix[rank]
-  plan = fftw_plan_dft_r2c(1, (const int*) nmatrix, in, out, FFTW_ESTIMATE);
-  //fftw_execute(plan);
+  plan = fftw_plan_dft_r2c(1, &size, in, out, FFTW_ESTIMATE);
+  fftw_execute(plan);
 
   // // INFO: http://www.fftw.org/doc/New_002darray-Execute-Functions.html#New_002darray-Execute-Functions
  // fftw_execute_dft_r2c(plan, in, out);
-  // fftw_destroy_plan(plan);
+  fftw_destroy_plan(plan);
   xfree(in);
- // fftw_free(out);
+  fftw_free(out);
   return self;
 }
 
