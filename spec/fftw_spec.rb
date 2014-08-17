@@ -21,13 +21,13 @@ describe FFTW do
   it "Creates a new FFTW.r2c object and takes an a 1D NMatrix as its argument" do
     n = NMatrix.new([4], [3.10, 1.73, 1.04, 2.83])
     puts n
-    fftw = FFTW.r2c(n)
+    fftw = FFTW.r2c_one(n)
     expect(fftw).to eq(fftw)
   end
   it "Creates a new FFTW.r2c object which takes a 1D NMatrix of integers and checks it can express its indices" do
     n = NMatrix.new([3], [4, 5, 7])
     puts n
-    fftw = FFTW.r2c(n)
+    fftw = FFTW.r2c_one(n)
     for i in 0..2 do
       puts "INDEX: #{i}"
       expect(fftw[i]).to eq(fftw[i])

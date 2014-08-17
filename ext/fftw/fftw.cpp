@@ -43,10 +43,10 @@ extern "C"
 */
 static VALUE
 #ifdef FFTW3_HAS_SINGLE_SUPPORT
-fftw_r2c_double(VALUE self, VALUE nmatrix)
+fftw_r2c_one_double(VALUE self, VALUE nmatrix)
   /* called by fftw_r2c */
 #else
-fftw_r2c(VALUE self, VALUE nmatrix)
+fftw_r2c_one(VALUE self, VALUE nmatrix)
   /* called directly */
 #endif
 {
@@ -59,27 +59,29 @@ fftw_r2c(VALUE self, VALUE nmatrix)
 
   // size is the number of elements stored for a matrix with dimensions = shape
   const int size = NUM2INT(rb_funcall(cNMatrix, rb_intern("size"), 1, shape));
-  printf("Size: %d \n",size);
-  //Input: a 1D double array with enough elements for the whole matrix
+  printf("Size: %d \n", size);
 
+  //Input: a 1D double array with enough elements for the whole matrix
   double* in = ALLOC_N(double, size);
 
   int rank = size - FIX2INT(rb_ary_entry(shape, 0));
-  printf("Rank: %d \n",rank);
+  printf("Rank: %d \n", rank);
 
   // This would need to be a nested loop for multidimensional matrices, or it
   // would need to use the size instead of the shape and figure out the indices
   // to pass to [] appropriately from that.
   for (int i = 0; i < size; i++)
   {
+    // TODO 2D array
+    // NUM2DBL(rb_funcall(nmatrix, rb_intern("[]"), 2, INT2FIX(i),INT2FIX(j)));
     in[i] = NUM2DBL(rb_funcall(nmatrix, rb_intern("[]"), 1, INT2FIX(i)));
-    printf("IN[%d]: in[%.2f] \n",i, in[i]);
+    printf("IN[%d]: in[%.2f] \n", i, in[i]);
   }
 
   fftw_complex* out = (fftw_complex *)fftw_malloc(sizeof(fftw_complex) * size);
 
   // second argument should be pointer to nmatrix[rank]
-  plan = fftw_plan_dft_r2c(1, &size, in, out, FFTW_ESTIMATE);
+  plan = fftw_plan_dft_r2c(0,&size, in, out, FFTW_ESTIMATE);
 
   fftw_execute(plan);
   printf("Cost: %f ",fftw_cost(plan));
@@ -89,7 +91,7 @@ fftw_r2c(VALUE self, VALUE nmatrix)
   fftw_destroy_plan(plan);
   xfree(in);
   fftw_free(out);
-  return self;
+  return nmatrix;
 }
 
 //http://banisterfiend.wordpress.com/2008/10/06/metaprogramming-in-the-ruby-c-api-part-two-dynamic-methods/
@@ -117,12 +119,12 @@ void Init_fftw(void)
   mFFTW = rb_define_module("FFTW");
 
   #ifdef FFTW3_HAS_SINGLE_SUPPORT
-    rb_define_singleton_method(mFFTW, "r2c",
-                            (VALUE (*)(...)) fftw_r2c_double,
+    rb_define_singleton_method(mFFTW, "r2c_one",
+                            (VALUE (*)(...)) fftw_r2c_one_double,
                              1);
   #else
-    rb_define_singleton_method(mFFTW, "r2c",
-                            (VALUE (*)(...)) fftw_r2c,
+    rb_define_singleton_method(mFFTW, "r2c_one",
+                            (VALUE (*)(...)) fftw_r2c_one,
                              1);
   #endif
 
