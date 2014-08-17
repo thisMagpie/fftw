@@ -6,9 +6,8 @@ require 'colorize'
 # debug method for displaying info log messages
 # messages print to the console and are highlighted
 # with black font on yellow background
-# TODO put somewhere global
 ###############################################################################
-def info()
+def info() #=> TODO put somewhere global
   return " INFO: ".colorize(:color       => :black,
                             :background  => :yellow) + " "
 end
@@ -17,9 +16,8 @@ end
 # debug method for displaying failure log messages
 # messages print to the console and are highlighted
 # with black font on red background
-# TODO put somewhere global
 ###############################################################################
-def failure()
+def failure() #=> TODO put somewhere global
   return " FAILURE: ".colorize(:color       => :black,
                                :background  => :red) + " "
 end
@@ -28,9 +26,8 @@ end
 # debug method for displaying success log messages
 # messages print to the console and are highlighted
 # with black font on red background
-# TODO put somewhere global
 ###############################################################################
-def success()
+def success() #=> TODO put somewhere global
   return " SUCCESS: ".colorize(:color       => :black,
                                :background  => :green) + " "
 end
