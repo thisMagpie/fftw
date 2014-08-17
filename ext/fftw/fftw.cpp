@@ -26,11 +26,11 @@ void fftw_print_nmatrix(int (&nmatrix)[rows][columns])
 
 /* From https://github.com/ruby/ruby/blob/trunk/include/ruby/ruby.h */
 #if defined(cplusplus)
-extern "C"
-{
+extern "C" {
 #endif
 
-int fftw_rank(VALUE self, int size, VALUE shape)
+static int
+fftw_rank(VALUE self, int size, VALUE shape)
 {
   return size - FIX2INT(rb_ary_entry(shape, 0));
 }
@@ -46,13 +46,7 @@ int fftw_rank(VALUE self, int size, VALUE shape)
   rather than take measurements
 */
 static VALUE
-#ifdef FFTW3_HAS_SINGLE_SUPPORT
-fftw_r2c_one_double(VALUE self, VALUE nmatrix)
-  /* called by fftw_r2c */
-#else
 fftw_r2c_one(VALUE self, VALUE nmatrix)
-  /* called directly */
-#endif
 {
  /**
   Define and initialise the NMatrix class:
@@ -61,6 +55,9 @@ fftw_r2c_one(VALUE self, VALUE nmatrix)
   or define a new class altogether if it does not
   find NMatrix. */
   VALUE cNMatrix = rb_define_class("NMatrix", rb_cObject);
+
+  // URL: http://www.fftw.org/fftw2_doc/fftw_2.html#SEC11
+  char *wisdom_string;
 
   fftw_plan plan;
 
@@ -89,12 +86,13 @@ fftw_r2c_one(VALUE self, VALUE nmatrix)
 
   // second argument should be pointer to nmatrix[rank]
   plan = fftw_plan_dft_r2c(rank,&size, in, out, FFTW_ESTIMATE);
+
   fftw_execute(plan);
 
   //
   printf("Cost: %f \n",fftw_cost(plan));
 
-  // // INFO: http://www.fftw.org/doc/New_002darray-Execute-Functions.html#New_002darray-Execute-Functions
+  // INFO: http://www.fftw.org/doc/New_002darray-Execute-Functions.html#New_002darray-Execute-Functions
   fftw_execute_dft_r2c(plan, in, out);
   fftw_destroy_plan(plan);
   xfree(in);
@@ -102,44 +100,15 @@ fftw_r2c_one(VALUE self, VALUE nmatrix)
   return nmatrix;
 }
 
-//http://banisterfiend.wordpress.com/2008/10/06/metaprogramming-in-the-ruby-c-api-part-two-dynamic-methods/
-VALUE fftw_missing(int argc, VALUE *argv, VALUE self)
-{
-  VALUE name;
-  name = rb_funcall(rb_funcall(*argv,
-                               rb_intern("to_s"),
-                               0),
-                    rb_intern("downcase"),0);
-
-  if(rb_respond_to(self, rb_to_id(name)))
-  {
-    rb_funcall2(self, rb_to_id(name), --argc, ++argv);
-  }
-  else
-  {
-    rb_raise (rb_eNotImpError, "no such fftw: %s", StringValuePtr(name));
-  }
-  return Qnil;
-}
-
-void Init_fftw(void)
+void
+Init_fftw(void)
 {
   mFFTW = rb_define_module("FFTW");
 
-  #ifdef FFTW3_HAS_SINGLE_SUPPORT
-    rb_define_singleton_method(mFFTW, "r2c_one",
-                            (VALUE (*)(...)) fftw_r2c_one_double,
-                             1);
-  #else
-    rb_define_singleton_method(mFFTW, "r2c_one",
+  rb_define_singleton_method(mFFTW, "r2c_one",
                             (VALUE (*)(...)) fftw_r2c_one,
                              1);
-  #endif
 
-  rb_define_singleton_method(mFFTW,
-                             "missing",
-                             (VALUE (*)(...)) fftw_missing,
-                             -1);
   rb_define_singleton_method(mFFTW,
                              "rank",
                              (VALUE (*)(...)) fftw_rank,
