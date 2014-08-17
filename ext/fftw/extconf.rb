@@ -88,33 +88,11 @@ puts "#{info} CPP_STANDARD is #{$CPP_STANDARD}"
 
 `#{CONFIG['CXX']} --version|head -n 1|cut -f 3 -d " "`
 
-incdir = ['/usr/local/include',
-                fftw_incdir,
-               '/usr/include',
-               '/usr/include/atlas',
-              ]
-
 flags = " --include=#{fftw_incdir} --libdir=#{fftw_libdir}"
 puts "#{info} FLAGS: #{flags}"
 
-if have_library("fftw3") then
-  flags += [" -lfftw3 -lm #{flags}"].join(" ")
-  puts "#{success} fftw3 found... Adding '-lfftw3 -lm' to compiler flags"
-  puts info + flags
-else
-  puts "#{failure} fftw3 not found #{$flags}"
-end
-
-if have_library("fftw3f") then
-  flags = [" -lfftw3f #{flags}"].join(" ")
-  puts "#{success} fftw3 found... Adding '-lfftw3f' to compiler flags"
-  puts info + flags
-else
-  puts "#{failure} fftw3f not found #{flags}"
-end
-
-puts "#{info} cd #{fftw_srcdir}/fftw3;./configure --prefix=#{$srcdir} #{flags} -lfftw3 -lm; make; make install"
-puts `cd #{fftw_srcdir}/fftw3; echo $PWD; ./configure --prefix=#{$srcdir} #{flags} -lfftw3 -lm; make; make install`
+puts "#{info} cd #{fftw_srcdir}/fftw3; ./configure --prefix=$GEM_HOME #{flags} --enable-debug $CC; make; make install"
+puts `cd #{fftw_srcdir}/fftw3; ./configure --prefix=$GEM_HOME #{flags} --enable-debug $CC; make; make install`
 dir_config('fftw')
 
 # Configuration of directory named in first argument:
