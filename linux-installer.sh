@@ -62,21 +62,20 @@ fi
 echo "Installation for $s complete!"
 
 echo "Checking whether CPLUS and C PATHS need to be set"
-if [ -d /usr/include/atlas ] ; then
-    if [ ! ${CPLUS_INCLUDE_PATH} ] ; then
-        echo "Setting CPLUS_INCLUDE_PATH in ~/.bashrc"
-        echo "export CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:/usr/include/atlas:$GEM_HOME/gems/fftw/ext/fftw/fftw3/api" >> ~/.bashrc
-    else
-        echo "CPLUS_INCLUDE_PATH already set to $CPLUS_INCLUDE_PATH"
-    fi
-    if [ ! ${C_INCLUDE_PATH} ] ; then
-        echo "Setting C_INCLUDE_PATH in ~/.bashrc"
-        echo "export C_INCLUDE_PATH=$C_INCLUDE_PATH:/usr/include/atlas:$GEM_HOME/gems/fftw/ext/fftw3/api" >> ~/.bashrc
-    else
-        echo "C_INCLUDE_PATH already set to $C_INCLUDE_PATH"
-    fi
-    echo "source ~/.bashrc"
+
+if [ ! ${CPLUS_INCLUDE_PATH} ] ; then
+    echo "Setting CPLUS_INCLUDE_PATH in ~/.bashrc"
+    echo "export CPLUS_INCLUDE_PATH=/usr/include:/usr/include/atlas:$GEM_HOME/gems/fftw/ext/fftw/fftw3/api" >> ~/.bashrc
+else
+    echo "CPLUS_INCLUDE_PATH already set to $CPLUS_INCLUDE_PATH"
 fi
+if [ ! ${C_INCLUDE_PATH} ] ; then
+    echo "Setting C_INCLUDE_PATH in ~/.bashrc"
+    echo "export C_INCLUDE_PATH=/usr/include:/usr/include/atlas:$GEM_HOME/gems/fftw/ext/fftw3/api" >> ~/.bashrc
+else
+    echo "C_INCLUDE_PATH already set to $C_INCLUDE_PATH"
+fi
+echo "source ~/.bashrc"
 
 if [ -d ../fftw ]; then
   echo "FFTW found!"
