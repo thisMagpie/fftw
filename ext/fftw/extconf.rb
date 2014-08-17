@@ -71,10 +71,9 @@ puts "#{info} src directory #{fftw_srcdir}"
 
 $CPP_STANDARD = 'c++11'
 $CPP_FLAGS = '-std=c++11'
-$CXX_FLAGS = '-std=c++11 ` --cppflags --cxxflags --ldflags --libs` `pkg-config fftw3 --libs` -g -Wall'
+$CXX_FLAGS = '-std=c++11 ` --cppflags --cxxflags --ldflags --libs` `pkg-config -lfftw3l --libs` -g -Wall'
 
 puts info + `g++ --version`
-puts "#{info} CPP_STANDARD is #{$CPP_STANDARD}"
 
 `#{CONFIG['CXX']} --version|head -n 1|cut -f 3 -d " "`
 
