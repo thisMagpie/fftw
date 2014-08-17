@@ -50,8 +50,14 @@ fftw_r2c_one(VALUE self, VALUE nmatrix)
   /* called directly */
 #endif
 {
-  // "Define" the NMatrix class: this will just retrieve what exists already, only
+ /**
+  Define and initialise the NMatrix class:
+  The initialisation rb_define_class will
+  just retrieve the NMatrix class that already exists
+  or define a new class altogether if it does not
+  find NMatrix. */
   VALUE cNMatrix = rb_define_class("NMatrix", rb_cObject);
+
   fftw_plan plan;
 
   // shape is a ruby array, e.g. [2, 2] for a 2x2 matrix
@@ -59,6 +65,7 @@ fftw_r2c_one(VALUE self, VALUE nmatrix)
 
   // size is the number of elements stored for a matrix with dimensions = shape
   const int size = NUM2INT(rb_funcall(cNMatrix, rb_intern("size"), 1, shape));
+
   printf("Size: %d \n", size);
 
   //Input: a 1D double array with enough elements for the whole matrix
