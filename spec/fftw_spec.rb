@@ -33,4 +33,15 @@ describe FFTW do
       expect(fftw[i]).to eq(fftw[i])
     end
   end
+  it "Checks that the NMatrix argument to FFTW.r2c_one object have the same value" do
+    n = NMatrix.new([6], [-3.10,
+                          -1.73,
+                           1.0,
+                           2.84,
+                           56.42,
+                           -32.1])
+    fftw = FFTW.r2c_one(n)
+    expect(n.shape).to eq(fftw.shape)
+    puts "#{n.shape} == #{fftw.shape}"
+  end
 end
