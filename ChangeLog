@@ -1,3 +1,22 @@
+2c4fa74 Gemfile: use rubygems nmatrix
+e4bfa79 extconf: document methods
+3cccb46 fftw.cpp: format log
+6ac21fd travis: set environment in one line
+247c36a create r2c_one for 1d manipulations
+ef28974 fftw.cpp: tidy up and document
+03b8aae spec: add fftw[] check
+0365516 fftw.cpp: add cost of plan
+3fe4989 fftw.cpp: execute, destroy and free plan
+a1f1878 fftw.cpp: fix prints
+318d012 README: add install instructions
+df6fa9b installer: apt-get g++ not gcc-c++
+e512034 extconf: make install
+0fd15c1 extconf: fix fftw3 shell install
+0af4c81 extconf: document debug log methods
+8218491 extconf: fix flag assignments and check
+cb4a92c add another spec
+076969e extconf: improve debug notices
+090e840 Version bump to 0.1.6
 a61cd38 Gemfile: make nmatrix a standard dep
 22bda63 fftw.cpp: use multidimensional plan
 6c3ec6e Gemfile: Make nmatrix a dependency
