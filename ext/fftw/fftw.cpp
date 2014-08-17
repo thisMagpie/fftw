@@ -56,17 +56,16 @@ fftw_r2c(VALUE self, VALUE nmatrix)
 
   // shape is a ruby array, e.g. [2, 2] for a 2x2 matrix
   VALUE shape = rb_funcall(nmatrix, rb_intern("shape"), 0);
- // printf("Shape: %f \n",&shape);
 
   // size is the number of elements stored for a matrix with dimensions = shape
   int size = NUM2INT(rb_funcall(cNMatrix, rb_intern("size"), 1, shape));
-  printf("Size: %d \n",&size);
+  printf("Size: %d \n",size);
   //Input: a 1D double array with enough elements for the whole matrix
 
   double* in = ALLOC_N(double, size);
 
   int rank = size - FIX2INT(rb_ary_entry(shape, 0));
-  printf("Rank: %d \n",&rank);
+  printf("Rank: %d \n",rank);
 
   // This would need to be a nested loop for multidimensional matrices, or it
   // would need to use the size instead of the shape and figure out the indices
