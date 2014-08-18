@@ -79,7 +79,7 @@ fftw_r2c_one(VALUE self, VALUE nmatrix)
   for (int i = 0; i < size; i++)
   {
     // TODO 2D array NUM2DBL(rb_funcall(nmatrix, rb_intern("[]"), 2, INT2FIX(i),INT2FIX(j)));
-    in[i] = NUM2DBL(rb_funcall(nmatrix, rb_intern("real"), 1, INT2FIX(i)));
+    in[i] = NUM2DBL(rb_funcall(nmatrix, rb_intern("[]"), 1, INT2FIX(i)));
     printf("IN[%d]: in[%.2f] \n", i, in[i]);
   }
   fftw_complex* out = (fftw_complex *) fftw_malloc(sizeof(fftw_complex) * (size / 2.0) + 0.5);
