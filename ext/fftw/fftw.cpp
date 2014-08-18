@@ -76,7 +76,7 @@ fftw_r2c_one(VALUE self, VALUE nmatrix)
   // This would need to be a nested loop for multidimensional matrices, or it
   // would need to use the size instead of the shape and figure out the indices
   // to pass to [] appropriately from that.
-  for (int i = 0; i < (size / 2); i++)
+  for (int i = 0; i < size; i++)
   {
     // TODO 2D array NUM2DBL(rb_funcall(nmatrix, rb_intern("[]"), 2, INT2FIX(i),INT2FIX(j)));
     in[i] = NUM2DBL(rb_funcall(nmatrix, rb_intern("real"), 1, INT2FIX(i)));
@@ -90,7 +90,6 @@ fftw_r2c_one(VALUE self, VALUE nmatrix)
   printf("Cost: %f \n",fftw_cost(plan));
 
   // INFO: http://www.fftw.org/doc/New_002darray-Execute-Functions.html#New_002darray-Execute-Functions
-  fftw_execute_dft_r2c(plan, in, out);
   fftw_destroy_plan(plan);
   xfree(in);
   fftw_free(out);
