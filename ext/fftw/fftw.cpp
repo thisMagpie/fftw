@@ -77,18 +77,14 @@ fftw_r2c_one(VALUE self, VALUE nmatrix)
     in[i] = NUM2DBL(rb_funcall(nmatrix, rb_intern("[]"), 1, INT2FIX(i)));
     printf("IN[%d]: in[%.2f] \n", i, in[i]);
   }
-  fftw_complex* out = (fftw_complex *)fftw_malloc(sizeof(fftw_complex) * 2 * size / (2 + 1));
-
-  // second argument should be pointer to nmatrix[rank]
-  plan = fftw_plan_dft_r2c(rank,&size, in, out, FFTW_ESTIMATE);
-
+  fftw_complex* out = (fftw_complex *) fftw_malloc(sizeof(fftw_complex) * (size / 2.0) + 0.5);
+ 
+  // forward transfer
+  plan = fftw_plan_dft_r2c_1d(size, in, out, FFTW_ESTIMATE);
   fftw_execute(plan);
-
-  //
   printf("Cost: %f \n",fftw_cost(plan));
 
   // INFO: http://www.fftw.org/doc/New_002darray-Execute-Functions.html#New_002darray-Execute-Functions
-  fftw_execute_dft_r2c(plan, in, out);
   fftw_destroy_plan(plan);
   xfree(in);
   fftw_free(out);
