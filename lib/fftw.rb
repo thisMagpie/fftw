@@ -15,3 +15,12 @@ def check_exists(str, req)
   end
 end
 check_exists("./lib/fftw/fftw.so",'fftw.so')
+
+include FFTW
+module FFTW
+  def initialize
+    @fftw = []
+  end
+end
+
+

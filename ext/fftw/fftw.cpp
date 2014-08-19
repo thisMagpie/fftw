@@ -68,14 +68,17 @@ fftw_r2c_one(VALUE self, VALUE nmatrix)
   // This would need to be a nested loop for multidimensional matrices, or it
   // would need to use the size instead of the shape and figure out the indices
   // to pass to [] appropriately from that.
-  for (int i = 0; i < size/2; i++)
+  for (int i = 0; i < size; i++)
   {
     // TODO 2D array NUM2DBL(rb_funcall(nmatrix, rb_intern("[]"), 2, INT2FIX(i),INT2FIX(j)));
     in[i] = NUM2DBL(rb_funcall(nmatrix, rb_intern("[]"), 1, INT2FIX(i)));
     printf("IN[%d]: in[%.2f] \n", i, in[i]);
   }
   fftw_complex* out = (fftw_complex *) fftw_malloc(sizeof(fftw_complex) * size + 1);
-  
+  for (int i = 0; i < size/2; i++)
+  {
+
+  }
   // second argument should be pointer to nmatrix[rank]
   plan = fftw_plan_dft_r2c(1,&size, in, out, FFTW_ESTIMATE);
 
@@ -85,13 +88,14 @@ fftw_r2c_one(VALUE self, VALUE nmatrix)
   fftw_destroy_plan(plan);
   xfree(in);
   fftw_free(out);
-  return nmatrix;
+  return self;
 }
 
 void
 Init_fftw(void)
 {
   mFFTW = rb_define_module("FFTW");
+  rb_define_class_under(mFFTW, "FFTW", rb_cObject);
 
   rb_define_singleton_method(mFFTW, "r2c_one",
                             (VALUE (*)(...)) fftw_r2c_one,
