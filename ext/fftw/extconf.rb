@@ -67,7 +67,7 @@ fftw_srcdir = RbConfig::CONFIG['srcdir']
 ###############################################################################
 puts "#{info} Include directories #{fftw_incdir}"
 puts "#{info} Library directories #{fftw_libdir}"
-puts "#{info} src directory #{fftw_srcdir}"
+puts "#{info} src directory #{fftw_srcdir}\n\n"
 ###############################################################################
 #
 # Make sure CXX is set to g++ and not clang or gcc by setting its value
@@ -78,21 +78,14 @@ major = cxx_proc.call('__GNUC__')
 minor = cxx_proc.call('__GNUC_MINOR__')
 patch = cxx_proc.call('__GNUC_PATCHLEVEL__')
 puts "#{info} CXX = #{CONFIG['CXX']}"
-
 $CPP_STANDARD = 'c++11'
 $CPP_FLAGS = '-std=c++11'
-$CXX_FLAGS = '-std=c++11 ` --cppflags --cxxflags --ldflags --libs` `pkg-config fftw3 --libs` -g -Wall'
-
 puts info + `g++ --version`
 puts "#{info} CPP_STANDARD is #{$CPP_STANDARD}"
 
 `#{CONFIG['CXX']} --version|head -n 1|cut -f 3 -d " "`
 
-flags = " --include=#{fftw_incdir} --libdir=#{fftw_libdir}"
-puts "#{info} FLAGS: #{flags}"
-
-puts "#{info} cd #{fftw_srcdir}/fftw3; ./configure --prefix=$GEM_HOME #{flags} --enable-debug $CC; make; make install"
-puts `cd #{fftw_srcdir}/fftw3; ./configure --prefix=$GEM_HOME #{flags} --enable-debug CC; make; make install`
+puts `cd #{fftw_srcdir}/fftw3; ./configure --prefix=#{fftw_srcdir} --include=#{fftw_incdir} --libdir=#{fftw_libdir} --enable-debug; make; make install`
 dir_config('fftw')
 
 # Configuration of directory named in first argument:

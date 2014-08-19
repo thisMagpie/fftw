@@ -29,11 +29,6 @@ void fftw_print_nmatrix(int (&nmatrix)[rows][columns])
 extern "C" {
 #endif
 
-static int
-fftw_rank(VALUE self, int size, VALUE shape)
-{
-  return size - FIX2INT(rb_ary_entry(shape, 0));
-}
 /**
   fftw_r2c
   @param self
@@ -57,7 +52,7 @@ fftw_r2c_one(VALUE self, VALUE nmatrix)
   VALUE cNMatrix = rb_define_class("NMatrix", rb_cObject);
 
   // URL: http://www.fftw.org/fftw2_doc/fftw_2.html#SEC11
-  char *wisdom_string;
+  //char *wisdom_string;
 
   fftw_plan plan;
 
@@ -70,7 +65,7 @@ fftw_r2c_one(VALUE self, VALUE nmatrix)
   //Input: a 1D double array with enough elements for the whole matrix
   double* in = ALLOC_N(double, size);
 
-  int rank = fftw_rank(self, size, shape);
+  int rank = 1;
   printf("Rank: %d \n", rank);
 
   // This would need to be a nested loop for multidimensional matrices, or it
@@ -108,11 +103,6 @@ Init_fftw(void)
   rb_define_singleton_method(mFFTW, "r2c_one",
                             (VALUE (*)(...)) fftw_r2c_one,
                              1);
-
-  rb_define_singleton_method(mFFTW,
-                             "rank",
-                             (VALUE (*)(...)) fftw_rank,
-                             2);
 }
 #if defined(cplusplus)
 }
