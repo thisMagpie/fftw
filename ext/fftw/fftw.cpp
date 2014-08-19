@@ -65,22 +65,21 @@ fftw_r2c_one(VALUE self, VALUE nmatrix)
   //Input: a 1D double array with enough elements for the whole matrix
   double* in = ALLOC_N(double, size);
 
-  int rank = 1;
-  printf("Rank: %d \n", rank);
-
   // This would need to be a nested loop for multidimensional matrices, or it
   // would need to use the size instead of the shape and figure out the indices
   // to pass to [] appropriately from that.
-  for (int i = 0; i < size; i++)
+  for (int i = 0; i < size/2; i++)
   {
     // TODO 2D array NUM2DBL(rb_funcall(nmatrix, rb_intern("[]"), 2, INT2FIX(i),INT2FIX(j)));
     in[i] = NUM2DBL(rb_funcall(nmatrix, rb_intern("[]"), 1, INT2FIX(i)));
     printf("IN[%d]: in[%.2f] \n", i, in[i]);
   }
-  fftw_complex* out = (fftw_complex *) fftw_malloc(sizeof(fftw_complex) * (size / 2.0) + 0.5);
+  fftw_complex* out = (fftw_complex *) fftw_malloc(sizeof(fftw_complex) * size + 1);
+  
+  // second argument should be pointer to nmatrix[rank]
+  plan = fftw_plan_dft_r2c(1,&size, in, out, FFTW_ESTIMATE);
 
   fftw_execute(plan);
-  printf("Cost: %f \n",fftw_cost(plan));
 
   // INFO: http://www.fftw.org/doc/New_002darray-Execute-Functions.html#New_002darray-Execute-Functions
   fftw_destroy_plan(plan);

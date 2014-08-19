@@ -91,7 +91,29 @@ puts info + `g++ --version`
 
 `#{CONFIG['CXX']} --version|head -n 1|cut -f 3 -d " "`
 
-puts `cd #{fftw_srcdir}/fftw3; echo $PWD; ./configure --prefix=$GEM_HOME --include=#{fftw_incdir} --libdir=#{fftw_libdir} --enable-debug; make; make install`
+flags = " --include=#{fftw_incdir} --libdir=#{fftw_libdir}"
+
+if have_library("fftw3") then
+  $CFLAGS += [" -lfftw3 -lm #{$CFLAGS} #{$flags}"].join(" ")
+  puts "#{success} fftw3 found... Adding '-lfftw3 -lm' to cflags"
+  puts info + $CFLAGS
+else
+  puts "#{failure} fftw3 not found #{$CFLAGS}"
+end
+
+if have_library("fftw3f") then
+  $CFLAGS = [" -lfftw3f #{$CFLAGS}"].join(" ")
+  puts "#{success} fftw3 found... Adding '-lfftw3f' to cflags"
+  puts info + $CFLAGS
+else
+  $CFLAGS = ["#{$CFLAGS}"].join(" ")
+  puts "#{failure} fftw3f not found #{$CFLAGS}"
+end
+
+puts "#{info} CFLAGS : #{$CFLAGS}"
+puts "#{info} flags : #{$flags}"
+puts `cd #{fftw_srcdir}/fftw3; echo $PWD; ./configure;make;make install`
+dir_config('fftw', fftw_incdir, fftw_libdir)
 
 dir_config('fftw')
 
