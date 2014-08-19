@@ -67,7 +67,6 @@ fftw_srcdir = RbConfig::CONFIG['srcdir']
 ###############################################################################
 puts "#{info} Include directories #{fftw_incdir}"
 puts "#{info} Library directories #{fftw_libdir}"
-<<<<<<< HEAD
 puts "#{info} src directory #{fftw_srcdir}\n\n"
 ###############################################################################
 #

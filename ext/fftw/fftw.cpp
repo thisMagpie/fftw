@@ -78,9 +78,7 @@ fftw_r2c_one(VALUE self, VALUE nmatrix)
     printf("IN[%d]: in[%.2f] \n", i, in[i]);
   }
   fftw_complex* out = (fftw_complex *) fftw_malloc(sizeof(fftw_complex) * (size / 2.0) + 0.5);
- 
-  // forward transfer
-  plan = fftw_plan_dft_r2c_1d(size, in, out, FFTW_ESTIMATE);
+
   fftw_execute(plan);
   printf("Cost: %f \n",fftw_cost(plan));
 
