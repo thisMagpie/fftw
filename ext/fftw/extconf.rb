@@ -81,27 +81,19 @@ patch = cxx_proc.call('__GNUC_PATCHLEVEL__')
 puts "#{info} CXX = #{CONFIG['CXX']}"
 $CPP_STANDARD = 'c++11'
 $CPP_FLAGS = '-std=c++11'
-=======
 puts "#{info} src directory #{fftw_srcdir}"
+
 
 $CPP_STANDARD = 'c++11'
 $CPP_FLAGS = '-std=c++11'
 $CXX_FLAGS = '-std=c++11 ` --cppflags --cxxflags --ldflags --libs` `pkg-config -lfftw3l --libs` -g -Wall'
 
->>>>>>> 40fd53acda803f7646486a513107117e670f20c3
 puts info + `g++ --version`
 
 `#{CONFIG['CXX']} --version|head -n 1|cut -f 3 -d " "`
 
-<<<<<<< HEAD
 puts `cd #{fftw_srcdir}/fftw3; ./configure --prefix=#{fftw_srcdir} --include=#{fftw_incdir} --libdir=#{fftw_libdir} --enable-debug; make; make install`
-=======
-flags = " --include=#{fftw_incdir} --libdir=#{fftw_libdir}"
-puts "#{info} FLAGS: #{flags}"
 
-puts "#{info} cd #{fftw_srcdir}/fftw3; ./configure --prefix=$GEM_HOME #{flags} --enable-debug; make; make install"
-puts `cd #{fftw_srcdir}/fftw3; ./configure --prefix=$GEM_HOME #{flags} --enable-debug; make; make install`
->>>>>>> 40fd53acda803f7646486a513107117e670f20c3
 dir_config('fftw')
 
 # Configuration of directory named in first argument:
