@@ -91,7 +91,7 @@ puts info + `g++ --version`
 
 `#{CONFIG['CXX']} --version|head -n 1|cut -f 3 -d " "`
 
-puts `cd #{fftw_srcdir}/fftw3; ./configure --prefix=#{fftw_srcdir} --include=#{fftw_incdir} --libdir=#{fftw_libdir} --enable-debug; make; make install`
+puts `cd #{fftw_srcdir}/fftw3; echo $PWD; ./configure --prefix=$GEM_HOME --include=#{fftw_incdir} --libdir=#{fftw_libdir} --enable-debug; make; make install`
 
 dir_config('fftw')
 
