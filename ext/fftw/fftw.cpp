@@ -1,4 +1,4 @@
-#include "ruby.h"
+#include <ruby.h>
 #include <fftw.h>
 #include <fftw_config.h>
 #include <stdio.h>
@@ -88,7 +88,7 @@ fftw_r2c_one(VALUE self, VALUE nmatrix)
   fftw_destroy_plan(plan);
   xfree(in);
   fftw_free(out);
-  return self;
+  return nmatrix;
 }
 
 void
