@@ -31,21 +31,6 @@ def success() #=> TODO put somewhere global
   return " SUCCESS: ".colorize(:color       => :black,
                                :background  => :green) + " "
 end
-###############################################################################
-#
-# Install Message
-#
-###############################################################################
-puts "####################".colorize(:color => :cyan,
-                                     :background => :white)
-puts "####################".colorize(:color => :light_blue,
-                                     :background => :light_red)
-puts "## COMPILING FFTW ##".colorize(:color => :white,
-                                     :background => :blue)
-puts "####################".colorize(:color => :light_blue,
-                                     :background => :light_red)
-puts "####################".colorize(:color => :cyan,
-                                     :background => :white)
 
 abort "missing malloc()".red unless have_func "malloc"
 abort "missing free()".red   unless have_func "free"
