@@ -43,6 +43,7 @@ extern "C" {
 static VALUE
 fftw_r2c_one(VALUE self, VALUE nmatrix)
 {
+  VALUE mKernel = rb_define_module("Kernel");
  /**
   Define and initialise the NMatrix class:
   The initialisation rb_define_class will
@@ -75,11 +76,6 @@ fftw_r2c_one(VALUE self, VALUE nmatrix)
     printf("IN[%d]: in[%.2f] \n", i, in[i]);
   }
   fftw_complex* out = (fftw_complex *) fftw_malloc(sizeof(fftw_complex) * size + 1);
-  for (int i = 0; i < size/2; i++)
-  {
-
-  }
-  // second argument should be pointer to nmatrix[rank]
   plan = fftw_plan_dft_r2c(1,&size, in, out, FFTW_ESTIMATE);
 
   fftw_execute(plan);
