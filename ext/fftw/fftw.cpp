@@ -54,7 +54,6 @@ VALUE fftw_complex_to_nm_complex(fftw_complex* in) {
 static VALUE
 fftw_r2c_one(VALUE self, VALUE nmatrix)
 {
-  VALUE mKernel = rb_define_module("Kernel");
  /**
   Define and initialise the NMatrix class:
   The initialisation rb_define_class will
@@ -65,7 +64,7 @@ fftw_r2c_one(VALUE self, VALUE nmatrix)
 
   fftw_plan plan;
 
-  rb_iv_set(self, "@rank", 1);
+  const int rank = rb_iv_set(self, "@rank", 1);
 
 
   // shape is a ruby array, e.g. [2, 2] for a 2x2 matrix
