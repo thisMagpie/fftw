@@ -26,8 +26,19 @@ void fftw_print_nmatrix(int (&nmatrix)[rows][columns])
 
 /* From https://github.com/ruby/ruby/blob/trunk/include/ruby/ruby.h */
 #if defined(cplusplus)
-extern "C" {
+  extern "C" {
 #endif
+
+VALUE fftw_complex_to_nm_complex(fftw_complex* in) {
+    double real = ((double (*)) in)[1];
+    double imag = ((double (*)) in)[2];
+    VALUE mKernel = rb_define_module("Kernel");
+    return rb_funcall(mKernel,
+                      rb_intern("Complex"),
+                      2,
+                      rb_float_new(real),
+                      rb_float_new(imag));
+}
 
 /**
   fftw_r2c
@@ -52,36 +63,40 @@ fftw_r2c_one(VALUE self, VALUE nmatrix)
   find NMatrix. */
   VALUE cNMatrix = rb_define_class("NMatrix", rb_cObject);
 
-  // URL: http://www.fftw.org/fftw2_doc/fftw_2.html#SEC11
-  //char *wisdom_string;
-
   fftw_plan plan;
+
+  rb_iv_set(self, "@rank", 1);
+
 
   // shape is a ruby array, e.g. [2, 2] for a 2x2 matrix
   VALUE shape = rb_funcall(nmatrix, rb_intern("shape"), 0);
-
   // size is the number of elements stored for a matrix with dimensions = shape
   const int size = NUM2INT(rb_funcall(cNMatrix, rb_intern("size"), 1, shape));
 
-  //Input: a 1D double array with enough elements for the whole matrix
   double* in = ALLOC_N(double, size);
+  fftw_complex* out = (fftw_complex *) fftw_malloc(sizeof(fftw_complex) * size * size);
 
   // This would need to be a nested loop for multidimensional matrices, or it
   // would need to use the size instead of the shape and figure out the indices
   // to pass to [] appropriately from that.
   for (int i = 0; i < size; i++)
   {
-    // TODO 2D array NUM2DBL(rb_funcall(nmatrix, rb_intern("[]"), 2, INT2FIX(i),INT2FIX(j)));
-    in[i] = NUM2DBL(rb_funcall(nmatrix, rb_intern("[]"), 1, INT2FIX(i)));
-    printf("IN[%d]: in[%.2f] \n", i, in[i]);
+    in[i] = NUM2DBL(rb_funcall(nmatrix, rb_intern("[]"), 1, INT2FIX(i)));;
   }
-  fftw_complex* out = (fftw_complex *) fftw_malloc(sizeof(fftw_complex) * size + 1);
-  plan = fftw_plan_dft_r2c(1,&size, in, out, FFTW_ESTIMATE);
 
+  double* nmatrix_double;
+
+  plan = fftw_plan_dft_r2c(1,&size, in, out, FFTW_ESTIMATE);
   fftw_execute(plan);
+
+  for (int i = 0; i < 2; i++)
+  {
+    rb_funcall(nmatrix, rb_intern("[]="), 2, INT2FIX(i), fftw_complex_to_nm_complex(out + i));
+  }
 
   // INFO: http://www.fftw.org/doc/New_002darray-Execute-Functions.html#New_002darray-Execute-Functions
   fftw_destroy_plan(plan);
+
   xfree(in);
   fftw_free(out);
   return nmatrix;
@@ -91,10 +106,15 @@ void
 Init_fftw(void)
 {
   mFFTW = rb_define_module("FFTW");
-  rb_define_class_under(mFFTW, "FFTW", rb_cObject);
+  cFFTW = rb_define_class_under(mFFTW, "FFTW", rb_cObject);
 
   rb_define_singleton_method(mFFTW, "r2c_one",
                             (VALUE (*)(...)) fftw_r2c_one,
+                             1);
+
+  rb_define_singleton_method(mFFTW,
+                             "Z",
+                             (VALUE (*)(...))fftw_complex_to_nm_complex,
                              1);
 }
 #if defined(cplusplus)
