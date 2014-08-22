@@ -7,20 +7,13 @@ require 'colorize'
 # @param     the file to be required
 # @return 	 void
 def check_exists(str, req)
-  if File.exist?(str)
-  	require str #=> Only require './lib/fftw/fftw.so' if found first
+  if File.exist?(str)     #=> If the filename is found then
+    require str           #=> require './lib/fftw/fftw.so'
     puts "#{str} found!".green
   else
     puts "#{str} not found!".red
   end
 end
 check_exists("./lib/fftw/fftw.so",'fftw.so')
-
-include FFTW
-module FFTW
-  def initialize
-    @fftw = []
-  end
-end
 
 
