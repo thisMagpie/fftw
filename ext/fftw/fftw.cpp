@@ -76,15 +76,10 @@ fftw_r2c_one(VALUE self, VALUE nmatrix)
   double* in = ALLOC_N(double, size);
   fftw_complex* out = (fftw_complex *) fftw_malloc(sizeof(fftw_complex) * size * size);
 
-  // This would need to be a nested loop for multidimensional matrices, or it
-  // would need to use the size instead of the shape and figure out the indices
-  // to pass to [] appropriately from that.
   for (int i = 0; i < size; i++)
   {
     in[i] = NUM2DBL(rb_funcall(nmatrix, rb_intern("[]"), 1, INT2FIX(i)));;
   }
-
-  double* nmatrix_double;
 
   plan = fftw_plan_dft_r2c(1,&size, in, out, FFTW_ESTIMATE);
   fftw_execute(plan);
