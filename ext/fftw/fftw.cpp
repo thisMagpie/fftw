@@ -9,6 +9,14 @@ using namespace std;
 VALUE mFFTW;
 VALUE cFFTW;
 
+ /**
+  Define and initialise the NMatrix class:
+  The initialisation rb_define_class will
+  just retrieve the NMatrix class that already exists
+  or define a new class altogether if it does not
+  find NMatrix. */
+VALUE cNMatrix = rb_define_class("NMatrix", rb_cObject);
+
 void fftw_print_nmatrix(int nmatrix[], int rows, int columns);
 
 template<int rows, int columns>
@@ -40,12 +48,24 @@ VALUE fftw_complex_to_nm_complex(fftw_complex* in) {
                       rb_float_new(imag));
 }
 
+static VALUE
+fftw_shape(VALUE self)
+{
+  // shape is a ruby array, e.g. [2, 2] for a 2x2 matrix
+  return rb_funcall(cNMatrix, rb_intern("shape"), 0);
+}
+
+static const int
+fftw_size(VALUE self, VALUE shape)
+{
+  // size is the number of elements stored for a matrix with dimensions = shape
+  return NUM2INT(rb_funcall(cNMatrix, rb_intern("size"), 1, shape));
+}
 /**
   fftw_r2c
   @param self
-  @param nm
-  @return self
-
+  @param nmatrix
+  @return nmatrix
   With FFTW_ESTIMATE as a flag in the plan,
   the input and and output are not overwritten at runtime
   The plan will use a heuristic approach to picking plans
@@ -54,23 +74,13 @@ VALUE fftw_complex_to_nm_complex(fftw_complex* in) {
 static VALUE
 fftw_r2c_one(VALUE self, VALUE nmatrix)
 {
- /**
-  Define and initialise the NMatrix class:
-  The initialisation rb_define_class will
-  just retrieve the NMatrix class that already exists
-  or define a new class altogether if it does not
-  find NMatrix. */
-  VALUE cNMatrix = rb_define_class("NMatrix", rb_cObject);
 
   fftw_plan plan;
 
   const int rank = rb_iv_set(self, "@rank", 1);
 
-
-  // shape is a ruby array, e.g. [2, 2] for a 2x2 matrix
-  VALUE shape = rb_funcall(nmatrix, rb_intern("shape"), 0);
-  // size is the number of elements stored for a matrix with dimensions = shape
-  const int size = NUM2INT(rb_funcall(cNMatrix, rb_intern("size"), 1, shape));
+  VALUE shape = fftw_shape(self);
+  const int size = fftw_size(self, shape);
 
   double* in = ALLOC_N(double, size);
   fftw_complex* out = (fftw_complex *) fftw_malloc(sizeof(fftw_complex) * size * size);
@@ -109,6 +119,14 @@ Init_fftw(void)
   rb_define_singleton_method(mFFTW,
                              "Z",
                              (VALUE (*)(...))fftw_complex_to_nm_complex,
+                             1);
+  rb_define_singleton_method(mFFTW,
+                             "shape",
+                             (VALUE (*)(...))fftw_shape,
+                             0);
+  rb_define_singleton_method(mFFTW,
+                             "size",
+                             (VALUE (*)(...))fftw_shape,
                              1);
 }
 #if defined(cplusplus)
