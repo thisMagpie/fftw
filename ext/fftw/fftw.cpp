@@ -56,10 +56,10 @@ fftw_shape(VALUE self, VALUE nmatrix)
 }
 
 static const int
-fftw_size(VALUE self, VALUE shape)
+fftw_size(VALUE self, VALUE nmatrix, VALUE shape)
 {
   // size is the number of elements stored for a matrix with dimensions = shape
-  return NUM2INT(rb_funcall(cNMatrix, rb_intern("size"), 1, shape));
+  return NUM2INT(rb_funcall(nmatrix, rb_intern("size"), 1, shape));
 }
 /**
   fftw_r2c
@@ -80,7 +80,7 @@ fftw_r2c_one(VALUE self, VALUE nmatrix)
   const int rank = rb_iv_set(self, "@rank", 1);
 
   VALUE shape = fftw_shape(self, nmatrix);
-  const int size = fftw_size(self, shape);
+  const int size = fftw_size(self, nmatrix, shape);
 
   double* in = ALLOC_N(double, size);
   fftw_complex* out = (fftw_complex *) fftw_malloc(sizeof(fftw_complex) * size * size);
@@ -123,7 +123,7 @@ Init_fftw(void)
   rb_define_singleton_method(mFFTW,
                              "shape",
                              (VALUE (*)(...))fftw_shape,
-                             1);
+                             2);
   rb_define_singleton_method(mFFTW,
                              "size",
                              (VALUE (*)(...))fftw_shape,
