@@ -122,11 +122,11 @@ Init_fftw(void)
   rb_define_singleton_method(mFFTW,
                              "shape",
                              (VALUE (*)(...))fftw_shape,
-                             2);
+                             1);
   rb_define_singleton_method(mFFTW,
                              "size",
                              (VALUE (*)(...))fftw_size,
-                             1);
+                             2);
 }
 #if defined(cplusplus)
 }
