@@ -49,10 +49,10 @@ VALUE fftw_complex_to_nm_complex(fftw_complex* in) {
 }
 
 static VALUE
-fftw_shape(VALUE self)
+fftw_shape(VALUE self, VALUE nmatrix)
 {
   // shape is a ruby array, e.g. [2, 2] for a 2x2 matrix
-  return rb_funcall(cNMatrix, rb_intern("shape"), 0);
+  return rb_funcall(nmatrix, rb_intern("shape"), 0);
 }
 
 static const int
@@ -79,7 +79,7 @@ fftw_r2c_one(VALUE self, VALUE nmatrix)
 
   const int rank = rb_iv_set(self, "@rank", 1);
 
-  VALUE shape = fftw_shape(self);
+  VALUE shape = fftw_shape(self, nmatrix);
   const int size = fftw_size(self, shape);
 
   double* in = ALLOC_N(double, size);
@@ -123,7 +123,7 @@ Init_fftw(void)
   rb_define_singleton_method(mFFTW,
                              "shape",
                              (VALUE (*)(...))fftw_shape,
-                             0);
+                             1);
   rb_define_singleton_method(mFFTW,
                              "size",
                              (VALUE (*)(...))fftw_shape,
