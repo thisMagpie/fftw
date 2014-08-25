@@ -90,14 +90,13 @@ fftw_r2c_one(VALUE self, VALUE nmatrix)
     in[i] = NUM2DBL(rb_funcall(nmatrix, rb_intern("[]"), 1, INT2FIX(i)));;
   }
 
-  plan = fftw_plan_dft_r2c(1,&size, in, out, FFTW_ESTIMATE);
-  fftw_execute(plan);
-
   for (int i = 0; i < 2; i++)
   {
     rb_funcall(nmatrix, rb_intern("[]="), 2, INT2FIX(i), fftw_complex_to_nm_complex(out + i));
   }
 
+  plan = fftw_plan_dft_r2c(1,&size, in, out, FFTW_ESTIMATE);
+  fftw_execute(plan);
   // INFO: http://www.fftw.org/doc/New_002darray-Execute-Functions.html#New_002darray-Execute-Functions
   fftw_destroy_plan(plan);
 
@@ -126,7 +125,7 @@ Init_fftw(void)
                              2);
   rb_define_singleton_method(mFFTW,
                              "size",
-                             (VALUE (*)(...))fftw_shape,
+                             (VALUE (*)(...))fftw_size,
                              1);
 }
 #if defined(cplusplus)
