@@ -38,8 +38,8 @@ void fftw_print_nmatrix(int (&nmatrix)[rows][columns])
 #endif
 
 VALUE fftw_complex_to_nm_complex(fftw_complex* in) {
-    double real = ((double (*)) in)[1];
-    double imag = ((double (*)) in)[2];
+    double real = ((double (*)) in)[0];
+    double imag = ((double (*)) in)[1];
     VALUE mKernel = rb_define_module("Kernel");
     return rb_funcall(mKernel,
                       rb_intern("Complex"),
@@ -59,7 +59,7 @@ static const int
 fftw_size(VALUE self, VALUE nmatrix, VALUE shape)
 {
   // size is the number of elements stored for a matrix with dimensions = shape
-  return NUM2INT(rb_funcall(nmatrix, rb_intern("size"), 1, shape));
+  return NUM2INT(rb_funcall(nmatrix, rb_intern("size"), 0));
 }
 /**
   fftw_r2c
@@ -72,37 +72,39 @@ fftw_size(VALUE self, VALUE nmatrix, VALUE shape)
   rather than take measurements
 */
 static VALUE
-fftw_r2c_one(VALUE self, VALUE nmatrix)
+fftw_r2c_one(VALUE self, VALUE nmatrix, VALUE out_nmatrix)
 {
 
   fftw_plan plan;
 
   const int rank = rb_iv_set(self, "@rank", 1);
 
-  VALUE shape = fftw_shape(self, nmatrix);
-  const int size = fftw_size(self, nmatrix, shape);
+  VALUE shape = rb_funcall(nmatrix, rb_intern("shape"), 0);
+  const int size = NUM2INT(rb_funcall(nmatrix, rb_intern("size"), 0));
+  const int output_size = NUM2INT(rb_funcall(out_nmatrix, rb_intern("size"), 0));
 
   double* in = ALLOC_N(double, size);
   fftw_complex* out = (fftw_complex *) fftw_malloc(sizeof(fftw_complex) * size * size);
 
   for (int i = 0; i < size; i++)
   {
-    in[i] = NUM2DBL(rb_funcall(nmatrix, rb_intern("[]"), 1, INT2FIX(i)));;
+    in[i] = NUM2DBL(rb_funcall(nmatrix, rb_intern("[]"), 1, INT2FIX(i)));
   }
 
-  for (int i = 0; i < 2; i++)
-  {
-    rb_funcall(nmatrix, rb_intern("[]="), 2, INT2FIX(i), fftw_complex_to_nm_complex(out + i));
-  }
-
-  plan = fftw_plan_dft_r2c(1,&size, in, out, FFTW_ESTIMATE);
+  plan = fftw_plan_dft_r2c(1, &size, in, out, FFTW_ESTIMATE);
   fftw_execute(plan);
   // INFO: http://www.fftw.org/doc/New_002darray-Execute-Functions.html#New_002darray-Execute-Functions
   fftw_destroy_plan(plan);
 
+  // Assign the output to the proper locations in the output nmatrix
+  for (int i = 0; i < output_size; i++)
+  {
+    rb_funcall(out_nmatrix, rb_intern("[]="), 2, INT2FIX(i), fftw_complex_to_nm_complex(&out[i]));
+  }
+
   xfree(in);
   fftw_free(out);
-  return nmatrix;
+  return out_nmatrix;
 }
 
 void
@@ -113,7 +115,7 @@ Init_fftw(void)
 
   rb_define_singleton_method(mFFTW, "r2c_one",
                             (VALUE (*)(...)) fftw_r2c_one,
-                             1);
+                             2);
 
   rb_define_singleton_method(mFFTW,
                              "Z",
