@@ -79,8 +79,9 @@ fftw_r2c_one(VALUE self, VALUE nmatrix)
 
   const int rank = rb_iv_set(self, "@rank", 1);
 
-  VALUE shape = fftw_shape(self, nmatrix);
-  const int size = fftw_size(self, nmatrix, shape);
+  VALUE shape = rb_funcall(nmatrix, rb_intern("shape"), 0);
+  const int size = NUM2INT(rb_funcall(nmatrix, rb_intern("size"), 0));
+  const int output_size = NUM2INT(rb_funcall(out_nmatrix, rb_intern("size"), 0));
 
   double* in = ALLOC_N(double, size);
   fftw_complex* out = (fftw_complex *) fftw_malloc(sizeof(fftw_complex) * size * size);
