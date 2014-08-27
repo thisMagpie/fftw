@@ -2,6 +2,17 @@ require File.expand_path(File.dirname(__FILE__)+"/spec_helper.rb")
 
 describe FFTW do
   include FFTW
+
+  it "calls r2c_one" do
+    n = NMatrix.new([4], [3.10, 1.73, 1.04, 2.83])
+    comp = NMatrix.zeros([3], dtype: :complex128)
+    FFTW.r2c_one(n, comp)
+    # Expected results obtained from running SciPy's fft on the same Array
+    # However, FFTW only computes the first half + 1 element
+    exp = NMatrix.new([3], [Complex(8.70, 0), Complex(2.06, 1.1), Complex(-0.42, 0)])
+    expect(comp).to eq(exp)
+  end
+
   it "creates an NMatrix object" do
     n = NMatrix.new([2,2], dtype: :int64)
     expect(n.dtype).to eq(:int64)
