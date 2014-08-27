@@ -59,7 +59,7 @@ static const int
 fftw_size(VALUE self, VALUE nmatrix, VALUE shape)
 {
   // size is the number of elements stored for a matrix with dimensions = shape
-  return NUM2INT(rb_funcall(nmatrix, rb_intern("size"), 1, shape));
+  return NUM2INT(rb_funcall(nmatrix, rb_intern("size"), 0));
 }
 /**
   fftw_r2c
