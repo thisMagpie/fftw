@@ -38,8 +38,8 @@ void fftw_print_nmatrix(int (&nmatrix)[rows][columns])
 #endif
 
 VALUE fftw_complex_to_nm_complex(fftw_complex* in) {
-    double real = ((double (*)) in)[1];
-    double imag = ((double (*)) in)[2];
+    double real = ((double (*)) in)[0];
+    double imag = ((double (*)) in)[1];
     VALUE mKernel = rb_define_module("Kernel");
     return rb_funcall(mKernel,
                       rb_intern("Complex"),
