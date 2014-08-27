@@ -88,7 +88,7 @@ fftw_r2c_one(VALUE self, VALUE nmatrix)
 
   for (int i = 0; i < size; i++)
   {
-    in[i] = NUM2DBL(rb_funcall(nmatrix, rb_intern("[]"), 1, INT2FIX(i)));;
+    in[i] = NUM2DBL(rb_funcall(nmatrix, rb_intern("[]"), 1, INT2FIX(i)));
   }
 
   plan = fftw_plan_dft_r2c(1, &size, in, out, FFTW_ESTIMATE);
