@@ -72,7 +72,7 @@ fftw_size(VALUE self, VALUE nmatrix, VALUE shape)
   rather than take measurements
 */
 static VALUE
-fftw_r2c_one(VALUE self, VALUE nmatrix)
+fftw_r2c_one(VALUE self, VALUE nmatrix, VALUE out_nmatrix)
 {
 
   fftw_plan plan;
@@ -104,7 +104,7 @@ fftw_r2c_one(VALUE self, VALUE nmatrix)
 
   xfree(in);
   fftw_free(out);
-  return nmatrix;
+  return out_nmatrix;
 }
 
 void
@@ -115,7 +115,7 @@ Init_fftw(void)
 
   rb_define_singleton_method(mFFTW, "r2c_one",
                             (VALUE (*)(...)) fftw_r2c_one,
-                             1);
+                             2);
 
   rb_define_singleton_method(mFFTW,
                              "Z",
