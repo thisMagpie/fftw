@@ -91,15 +91,16 @@ fftw_r2c_one(VALUE self, VALUE nmatrix)
     in[i] = NUM2DBL(rb_funcall(nmatrix, rb_intern("[]"), 1, INT2FIX(i)));;
   }
 
-  for (int i = 0; i < 2; i++)
-  {
-    rb_funcall(nmatrix, rb_intern("[]="), 2, INT2FIX(i), fftw_complex_to_nm_complex(out + i));
-  }
-
-  plan = fftw_plan_dft_r2c(1,&size, in, out, FFTW_ESTIMATE);
+  plan = fftw_plan_dft_r2c(1, &size, in, out, FFTW_ESTIMATE);
   fftw_execute(plan);
   // INFO: http://www.fftw.org/doc/New_002darray-Execute-Functions.html#New_002darray-Execute-Functions
   fftw_destroy_plan(plan);
+
+  // Assign the output to the proper locations in the output nmatrix
+  for (int i = 0; i < output_size; i++)
+  {
+    rb_funcall(out_nmatrix, rb_intern("[]="), 2, INT2FIX(i), fftw_complex_to_nm_complex(&out[i]));
+  }
 
   xfree(in);
   fftw_free(out);
