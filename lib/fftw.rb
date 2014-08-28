@@ -15,5 +15,5 @@ def check_exists(str, req)
   end
 end
 check_exists("./lib/fftw/fftw.so",'fftw.so')
-
+check_exists("./lib/fftw/fftw.bundle", 'fftw.bundle')
 
