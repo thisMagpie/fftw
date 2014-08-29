@@ -1,3 +1,66 @@
+a8cf608 spec: remove print statements
+6f9b0aa spec: define Z as complex not Z
+532c152 specs fix all rspecs
+66a1752 lib: update documentation
+11cba55 Merge branch 'master' of github.com:thisMagpie/fftw
+8261f28 Merge pull request #28 from andrewcsmith/master
+3b0c13f Added check for fftw.bundle for OSX
+7ff94b1 Added an output matrix argument to r2c_one
+5b8d51d Corrected typo of double-semicolon
+247a125 Moved the output matrix write operation to after the plan execution
+df4af37 Registered size of both input and output matrices.
+8d2c87c Corrected argument number for size
+2bf965d Referenced correct part of complex array
+64f82ca Added r2c_one spec
+ade84e0 Fixed a number of issues with Z and r2c_one
+3b1f4a0 fftw.cpp: use correct number of args in singleton defs
+603c186 fftw.cpp: fix typo in size singleton definition
+c69812e fix documentation on spec
+98d5dd9 fix one spec
+cc9cb6d fftw.cpp: call size on nmatrix instance not class
+cee6aa3 fftw.cpp: call shape on nmatrix instance not class
+403dbc5 fftw.cpp: separate shape and size into methods
+69f5274 remove unused code
+eaf355c fftw.cpp: tidy up comments
+1bdeb46 lib/ tidy and document
+2710962 fftw.cpp: return complex transformed array
+6353a0d specs do not require longrun
+8a6652f Gemfile: reorganise deps
+e6b732e remove unused code
+a539c2a extconf: remove compiler terminal message
+63fd4e9 fftw.cpp: return self
+8782566 remove lib/fftw/fftw_nm.rb
+d80d0ba gemspec: remove colorize require
+34f1c80 return self from r2c
+ada73cb fix spec break error
+20d8852 fix configure error caused by merge
+d898a70 fix merge conflicts causing symbol lookup error
+08cf710 extconf: fix conflict in merge
+004cc29 Merge branch 'master' of github.com:thisMagpie/fftw Conflicts: 	ext/fftw/extconf.rb
+7f52060 yesterday's stuff
+40fd53a rename installer since it works with osx
+47ddea3 revert accidental commit to restore []
+c90a0c4 spec: remove reduntant rank check
+52b5cfa fix compiler error
+f0b66fa fix mistake in out allocation
+d523c47 create forward 1d plan and execute
+7e7c64d extconf: use -lfftw3l flag
+60766e2 extconf: remove compiler console logs
+3e34e75 extconf: fix compiler error with CC in osx
+1590cd9 extconf: remove $ from CC
+7c1c73c extconf: fix ./configure flags
+22a17a6 fftw.cpp: tidy up
+8154125 travis: don't bundle documentation
+1e7dac8 extconf: sort out flags and find blas
+9d42ad3 spec: add rank check *bug*
+9b15a24 fftw.cpp: improve comments
+f0353bf spec: add a check for the size
+c9cf16b spec: add check for shape
+c09d24a installer: fix include paths
+d48778f add newline to end of file
+eb1b4b9 travis: don't bundle documentation rubygems
+aec2cb9 Manual: fix formatting
+bbbc6f4 Version bump: 0.1.7
 2c4fa74 Gemfile: use rubygems nmatrix
 e4bfa79 extconf: document methods
 3cccb46 fftw.cpp: format log
