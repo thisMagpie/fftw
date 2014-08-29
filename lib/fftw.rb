@@ -8,7 +8,7 @@ require 'colorize'
 # @return 	 void
 def check_exists(str, req)
   if File.exist?(str)     #=> If the filename is found then
-    require str           #=> require './lib/fftw/fftw.so'
+    require str           #=> require
     puts "#{str} found!".green
   else
     puts "#{str} not found!".red
