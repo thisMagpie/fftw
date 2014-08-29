@@ -5,7 +5,7 @@ describe FFTW do
 
   it "calls r2c_one" do
     n = NMatrix.new([4], [3.10, 1.73, 1.04, 2.83])
-    comp = NMatrix.zeros([3], dtype: :complex128)
+    comp = NMatrix.zeros([4], dtype: :complex128)
     FFTW.r2c_one(n, comp)
     # Expected results obtained from running SciPy's fft on the same Array
     # However, FFTW only computes the first half + 1 element
@@ -33,8 +33,8 @@ describe FFTW do
 
   it "Creates a new FFTW.r2c object which takes a 1D NMatrix of integers and checks it can express its indices" do
     n = NMatrix.new([3], [4, 5, 7])
-    Z = NMatrix.zeros([3], dtype: :complex128)
-    fftw = FFTW.r2c_one(n, Z)
+    complex = NMatrix.zeros([3], dtype: :complex128)
+    fftw = FFTW.r2c_one(n, complex)
     for i in 0..2 do
       puts "INDEX: #{i}= #{fftw[i]}"
       expect(fftw[i]).to eq(fftw[i])
@@ -48,8 +48,8 @@ describe FFTW do
                            2.84,
                            56.42,
                            -32.1])
-    Z = NMatrix.zeros([6], dtype: :complex128)
-    fftw = FFTW.r2c_one(n, Z)
+    complex = NMatrix.zeros([6], dtype: :complex128)
+    fftw = FFTW.r2c_one(n, complex)
     expect(n.shape).to eq(fftw.shape)
     puts "#{n.shape} == #{fftw.shape}"
   end
@@ -61,8 +61,8 @@ describe FFTW do
                            2.84,
                            56.42,
                            -32.1])
-    Z = NMatrix.zeros([6], dtype: :complex128)
-    fftw = FFTW.r2c_one(n, Z)
+    complex = NMatrix.zeros([6], dtype: :complex128)
+    fftw = FFTW.r2c_one(n, complex)
     expect(n.size).to eq(fftw.size)
     puts "Size: #{n.size} == #{fftw.size}"
   end
