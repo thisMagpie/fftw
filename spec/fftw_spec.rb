@@ -36,7 +36,6 @@ describe FFTW do
     complex = NMatrix.zeros([3], dtype: :complex128)
     fftw = FFTW.r2c_one(n, complex)
     for i in 0..2 do
-      puts "INDEX: #{i}= #{fftw[i]}"
       expect(fftw[i]).to eq(fftw[i])
     end
   end
@@ -51,7 +50,6 @@ describe FFTW do
     complex = NMatrix.zeros([6], dtype: :complex128)
     fftw = FFTW.r2c_one(n, complex)
     expect(n.shape).to eq(fftw.shape)
-    puts "#{n.shape} == #{fftw.shape}"
   end
 
   it "Checks NMatrix in FFTW.r2c_one and NMatrix itself have the same value for size" do
@@ -64,6 +62,5 @@ describe FFTW do
     complex = NMatrix.zeros([6], dtype: :complex128)
     fftw = FFTW.r2c_one(n, complex)
     expect(n.size).to eq(fftw.size)
-    puts "Size: #{n.size} == #{fftw.size}"
   end
 end
