@@ -49,15 +49,22 @@ VALUE fftw_complex_to_nm_complex(fftw_complex* in)
                       rb_float_new(imag));
 }
 
+/**
+ * @fftw_shape:
+ *              A ruby array, e.g. [2, 2] for a 2x2 matrix.
+ * @self:
+ *              The FFTW module.
+ * @nmatrix:
+ *              the nmatrix object which shape is called on  
+ **/
 static VALUE
 fftw_shape(VALUE self, VALUE nmatrix)
 {
-  // shape is a ruby array, e.g. [2, 2] for a 2x2 matrix
   return rb_funcall(nmatrix, rb_intern("shape"), 0);
 }
 
 static const int
-fftw_size(VALUE self, VALUE nmatrix, VALUE shape)
+fftw_size(VALUE self, VALUE nmatrix)
 {
   // size is the number of elements stored for a matrix with dimensions = shape
   return NUM2INT(rb_funcall(nmatrix, rb_intern("size"), 0));
@@ -80,19 +87,19 @@ fftw_r2c_one(VALUE self, VALUE in_nmatrix, VALUE out_nmatrix)
 
   const int rank = rb_iv_set(self, "@rank", 1);
 
-  VALUE shape = rb_funcall(in_nmatrix, rb_intern("shape"), 0);
-  const int size = NUM2INT(rb_funcall(in_nmatrix, rb_intern("size"), 0));
-  const int out_size = NUM2INT(rb_funcall(out_nmatrix, rb_intern("size"), 0));
+  VALUE shape = fftw_shape(self, in_nmatrix);
+  const int in_size = fftw_size(self, in_nmatrix);
+  const int out_size = fftw_size(self, out_nmatrix);
 
-  double* in = ALLOC_N(double, size);
-  fftw_complex* out = (fftw_complex *) fftw_malloc(sizeof(fftw_complex) * size * size);
+  double* in = ALLOC_N(double, in_size);
+  fftw_complex* out = (fftw_complex *) fftw_malloc(sizeof(fftw_complex) * in_size * in_size);
 
-  for (int i = 0; i < size; i++)
+  for (int i = 0; i < in_size; i++)
   {
     in[i] = NUM2DBL(rb_funcall(in_nmatrix, rb_intern("[]"), 1, INT2FIX(i)));
   }
 
-  plan = fftw_plan_dft_r2c(1, &size, in, out, FFTW_ESTIMATE);
+  plan = fftw_plan_dft_r2c(1, &in_size, in, out, FFTW_ESTIMATE);
   fftw_execute(plan);
   // INFO: http://www.fftw.org/doc/New_002darray-Execute-Functions.html#New_002darray-Execute-Functions
   fftw_destroy_plan(plan);
