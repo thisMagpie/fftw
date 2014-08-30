@@ -37,7 +37,8 @@ void fftw_print_nmatrix(int (&nmatrix)[rows][columns])
   extern "C" {
 #endif
 
-VALUE fftw_complex_to_nm_complex(fftw_complex* in) {
+VALUE fftw_complex_to_nm_complex(fftw_complex* in)
+{
     double real = ((double (*)) in)[0];
     double imag = ((double (*)) in)[1];
     VALUE mKernel = rb_define_module("Kernel");
@@ -81,7 +82,7 @@ fftw_r2c_one(VALUE self, VALUE nmatrix, VALUE out_nmatrix)
 
   VALUE shape = rb_funcall(nmatrix, rb_intern("shape"), 0);
   const int size = NUM2INT(rb_funcall(nmatrix, rb_intern("size"), 0));
-  const int output_size = NUM2INT(rb_funcall(out_nmatrix, rb_intern("size"), 0));
+  const int out_size = NUM2INT(rb_funcall(out_nmatrix, rb_intern("size"), 0));
 
   double* in = ALLOC_N(double, size);
   fftw_complex* out = (fftw_complex *) fftw_malloc(sizeof(fftw_complex) * size * size);
@@ -97,7 +98,7 @@ fftw_r2c_one(VALUE self, VALUE nmatrix, VALUE out_nmatrix)
   fftw_destroy_plan(plan);
 
   // Assign the output to the proper locations in the output nmatrix
-  for (int i = 0; i < output_size; i++)
+  for (int i = 0; i < out_size; i++)
   {
     rb_funcall(out_nmatrix, rb_intern("[]="), 2, INT2FIX(i), fftw_complex_to_nm_complex(&out[i]));
   }
