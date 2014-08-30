@@ -37,7 +37,16 @@ void fftw_print_nmatrix(int (&nmatrix)[rows][columns])
   extern "C" {
 #endif
 
-VALUE fftw_complex_to_nm_complex(fftw_complex* in)
+/**
+ * fftw_complex_to_nm_complex:
+ *
+ * @self:
+ *              The FFTW module.
+ * @in:         
+ *              The fftw_complex pointer to be cast to an nmatrix complex type
+ *
+ **/
+VALUE fftw_complex_to_nm_complex(VALUE self, fftw_complex* in)
 {
     double real = ((double (*)) in)[0];
     double imag = ((double (*)) in)[1];
@@ -113,7 +122,7 @@ fftw_r2c_one(VALUE self, VALUE in_nmatrix, VALUE out_nmatrix)
   // Assign the output to the proper locations in the output nmatrix
   for (int i = 0; i < fftw_size(self, out_nmatrix); i++)
   {
-    rb_funcall(out_nmatrix, rb_intern("[]="), 2, INT2FIX(i), fftw_complex_to_nm_complex(&out[i]));
+    rb_funcall(out_nmatrix, rb_intern("[]="), 2, INT2FIX(i), fftw_complex_to_nm_complex(self, &out[i]));
   }
 
   xfree(in);
