@@ -93,8 +93,6 @@ fftw_r2c_one(VALUE self, VALUE in_nmatrix, VALUE out_nmatrix)
 
   fftw_plan plan;
 
-  const int rank = rb_iv_set(self, "@rank", 1);
-
   VALUE shape = fftw_shape(self, in_nmatrix);
   const int in_size = fftw_size(self, in_nmatrix);
   const int out_size = fftw_size(self, out_nmatrix);
