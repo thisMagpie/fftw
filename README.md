@@ -5,16 +5,18 @@
 
 ## Install FFTW
 
-### Install on debian, fedora or opensuse
+### Install on Linux (debian, fedora or opensuse compatible)
 
     git clone http://github.com/thismagpie/fftw
     cd fftw
     ./linux-installer
 
+### Install on OSX
+
 This installs to the home directory so root access is only needed to install system required libraries but not fftw3 or
 the fftw gem itself
 
-### Install manually on OSX or Linux
+
 
 Firstly you need to follow the instructions on [installing nmatrix](https://github.com/SciRuby/nmatrix/wiki/Installation)
 next install fftw 

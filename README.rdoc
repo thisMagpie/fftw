@@ -1,32 +1,32 @@
-= README.rdoc for the FFTW Gem
+
+[![Travis CLI](https://travis-ci.org/thisMagpie/fftw.png)](https://travis-ci.org)
+
+[![Gemnasium](https://gemnasium.com/gemnasium/gemnasium-gem.png)](https://gemnasium.com/thisMagpie/fftw)
 
 == Install FFTW
 
+=== Install on Linux (debian, fedora or opensuse compatible)
+
     git clone http://github.com/thismagpie/fftw
+    cd fftw
+    ./installer
 
-=== Install FFTW3 on a Mac or linux
+This installs to the home directory so root access is only needed to install system required libraries but not fftw3 or
+the fftw gem itself.
 
-    cd fftw/fftw3
-    ./configure  --enable-float  --enable-threads
-    make
-    sudo  -s  # Type in your root password and hit the enter button)
-    make  install
+=== Install on OSX
 
-Now to do the double precision version, we need to clean up the tree.
+Follow the instructions on [installing nmatrix](https://github.com/SciRuby/nmatrix/wiki/Installation)
 
-    make  distclean
-    ./configure  --enable-threads
-    make
-    make  install
+    git clone http://github.com/thismagpie/fftw
+    cd fftw
+    ./installer
 
-Now to do the double precision version, we need to clean up the tree.
+== Conventions and Style for the FFTW Gem
 
-    make  distclean
-    ./configure  --enable-threads
-    make
-    make  install
+ * Do not repeat code.
 
-=== Common names
+== Common names
 
      R       : real type, aka fftw_real
      E       : real type for local variables (possibly extra precision)
@@ -45,10 +45,16 @@ Now to do the double precision version, we need to clean up the tree.
      X(...)  : used for mangling of external names (see below)
      K(...)  : floating-point constant, in E precision
 
-=== Conventions in FFTW3
+==  Conventions in FFTW3
 
-If a name is used often and must have the form `fftw_foo` to avoid namespace pollution, `#define FOO fftw_foo` and use the short name: Use `foo` instead. foo is lowercase so that it does not look like a `DOS` program. Exception: `typedef struct foo_s {...} foo;`  instead of:
+If a name is used often and must have the form `fftw_foo` to avoid namespace pollution, `=define FOO fftw_foo` and use the short name: Use `foo` instead.
+
+foo is lowercase so that it does not look like a `DOS` program.
+
+Exception: `typedef struct foo_s {...} foo;`  instead of:
 
     typedef struct foo {...} foo;
 
 for `C++` compatibility.
+
+[![Donate with Pledgie](https://pledgie.com/campaigns/25892.png)](https://pledgie.com/campaigns/25892)
