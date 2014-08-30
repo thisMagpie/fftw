@@ -73,15 +73,15 @@ fftw_size(VALUE self, VALUE nmatrix, VALUE shape)
   rather than take measurements
 */
 static VALUE
-fftw_r2c_one(VALUE self, VALUE nmatrix, VALUE out_nmatrix)
+fftw_r2c_one(VALUE self, VALUE in_nmatrix, VALUE out_nmatrix)
 {
 
   fftw_plan plan;
 
   const int rank = rb_iv_set(self, "@rank", 1);
 
-  VALUE shape = rb_funcall(nmatrix, rb_intern("shape"), 0);
-  const int size = NUM2INT(rb_funcall(nmatrix, rb_intern("size"), 0));
+  VALUE shape = rb_funcall(in_nmatrix, rb_intern("shape"), 0);
+  const int size = NUM2INT(rb_funcall(in_nmatrix, rb_intern("size"), 0));
   const int out_size = NUM2INT(rb_funcall(out_nmatrix, rb_intern("size"), 0));
 
   double* in = ALLOC_N(double, size);
@@ -89,7 +89,7 @@ fftw_r2c_one(VALUE self, VALUE nmatrix, VALUE out_nmatrix)
 
   for (int i = 0; i < size; i++)
   {
-    in[i] = NUM2DBL(rb_funcall(nmatrix, rb_intern("[]"), 1, INT2FIX(i)));
+    in[i] = NUM2DBL(rb_funcall(in_nmatrix, rb_intern("[]"), 1, INT2FIX(i)));
   }
 
   plan = fftw_plan_dft_r2c(1, &size, in, out, FFTW_ESTIMATE);
