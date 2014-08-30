@@ -5,12 +5,12 @@ describe FFTW do
 
   it "calls r2c_one" do
     n = NMatrix.new([4], [3.10, 1.73, 1.04, 2.83])
-    comp = NMatrix.zeros([4], dtype: :complex128)
-    FFTW.r2c_one(n, comp)
+    complex = NMatrix.zeros([4], dtype: :complex128)
+    FFTW.r2c_one(n, complex)
     # Expected results obtained from running SciPy's fft on the same Array
     # However, FFTW only computes the first half + 1 element
     exp = NMatrix.new([3], [Complex(8.70, 0), Complex(2.06, 1.1), Complex(-0.42, 0)])
-    expect(comp).to eq(exp)
+    expect(complex).to eq(exp)
   end
 
   it "creates an NMatrix object" do
@@ -62,5 +62,17 @@ describe FFTW do
     complex = NMatrix.zeros([6], dtype: :complex128)
     fftw = FFTW.r2c_one(n, complex)
     expect(n.size).to eq(fftw.size)
+  end
+
+  it "calls c2r_one" do
+    n = NMatrix.zeros([4], dtype: :float64)
+
+    complex = NMatrix.new([3], dtype: :complex128)
+    fftw = FFTW.c2r_one(complex, n)
+    # Expected results obtained from running SciPy's fft on the same Array
+    # However, FFTW only computes the first half + 1 element
+    puts complex
+ #   exp = NMatrix.new([3], [Complex(8.70, 0), Complex(2.06, 1.1), Complex(-0.42, 0)])
+  #  expect(comp).to eq(exp)
   end
 end
