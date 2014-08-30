@@ -4,16 +4,17 @@ Rakefile
 .travis.yml
 Gemfile
 README.rdoc
-lib/fftw.rb
+README.md
+MANUAL.md
 Gemfile.lock
+install.sh
+lib/fftw.rb
 ext/fftw/extconf.rb
 ext/fftw/fftw.cpp
 ext/fftw/fftw.h
 ext/fftw/fftw_config.h
 fftw.gemspec
 lib/fftw/version.rb
-README.md
-MANUAL.md
 ext/fftw/fftw3/.gitignore
 ext/fftw/fftw3/AUTHORS
 ext/fftw/fftw3/CONVENTIONS
@@ -555,4 +556,3 @@ ext/fftw/fftw3/tools/fftw-wisdom-to-conf.1
 ext/fftw/fftw3/tools/fftw-wisdom-to-conf.in
 ext/fftw/fftw3/tools/fftw-wisdom.c
 ext/fftw/fftw3/tools/fftw_wisdom.1.in
-lib/fftw/fftw_nm.rb
