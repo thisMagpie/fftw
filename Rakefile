@@ -10,7 +10,15 @@ def get_stdin(message)
   STDIN.gets.chomp
 end
 
-desc "Set to not fail on error by default".red
+project_path = File.expand_path( File.join(File.dirname(__FILE__), '..') )
+
+Dir.glob(File.join(File.join(project_path, VERSION),     # => binary path
+                   "*.{so,bundle,o}")).each do |library| # => library files to be linked
+  require library
+  puts "Library: #{library}"
+end
+
+desc "Set to fail on error by default".red
 RSpec::Core::RakeTask.new(:spec) do |t|
   t.fail_on_error = true
 end
@@ -24,6 +32,7 @@ RSpec::Core::RakeTask.new(:build) do |build|
 end
 task :default => :build
 
+desc "Builds rdoc html files"
 require 'rdoc/task'
 RDoc::Task.new(:rdoc) do |rdoc|
   rdoc.main = "README.rdoc"
@@ -35,6 +44,7 @@ RDoc::Task.new(:rdoc) do |rdoc|
                              ext/fftw/*.cpp
                              ext/fftw/*.h})
 end
+task :default => :rdoc
 
 Rake::ExtensionTask.new "fftw" do |ext|
   ext.name ='fftw'
@@ -93,15 +103,6 @@ desc "List tasks".cyan
 task :list do
   puts "Tasks: #{(Rake::Task.tasks - [Rake::Task[:list]]).join(' ')}"
   puts "(type rake -T for more detail)\n\n"
-end
-
-ruby_path = File.dirname(__FILE__)
-project_path = File.expand_path( File.join(ruby_path, '..') )
-binary_path = File.join(project_path, VERSION)
-
-pattern = File.join(binary_path, "*.{so,bundle,o}")
-Dir.glob(pattern).each do |library|
-  require library
 end
 
 begin
