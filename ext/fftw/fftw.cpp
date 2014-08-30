@@ -94,8 +94,8 @@ fftw_r2c_one(VALUE self, VALUE in_nmatrix, VALUE out_nmatrix)
   fftw_plan plan;
 
   VALUE shape = fftw_shape(self, in_nmatrix);
+
   const int in_size = fftw_size(self, in_nmatrix);
-  const int out_size = fftw_size(self, out_nmatrix);
 
   double* in = ALLOC_N(double, in_size);
   fftw_complex* out = (fftw_complex *) fftw_malloc(sizeof(fftw_complex) * in_size * in_size);
@@ -111,7 +111,7 @@ fftw_r2c_one(VALUE self, VALUE in_nmatrix, VALUE out_nmatrix)
   fftw_destroy_plan(plan);
 
   // Assign the output to the proper locations in the output nmatrix
-  for (int i = 0; i < out_size; i++)
+  for (int i = 0; i < fftw_size(self, out_nmatrix); i++)
   {
     rb_funcall(out_nmatrix, rb_intern("[]="), 2, INT2FIX(i), fftw_complex_to_nm_complex(&out[i]));
   }
