@@ -63,10 +63,18 @@ fftw_shape(VALUE self, VALUE nmatrix)
   return rb_funcall(nmatrix, rb_intern("shape"), 0);
 }
 
+/**
+ * size:
+ *        The number of elements stored for a matrix with dimensions = shape
+ * @self:
+ *              The FFTW module.
+ * @nmatrix:
+ *              the nmatrix object which size is called on  
+ */
 static const int
 fftw_size(VALUE self, VALUE nmatrix)
 {
-  // size is the number of elements stored for a matrix with dimensions = shape
+
   return NUM2INT(rb_funcall(nmatrix, rb_intern("size"), 0));
 }
 /**
