@@ -48,18 +48,15 @@ void fftw_print_nmatrix(int (&nmatrix)[rows][columns])
  **/
 VALUE fftw_complex_to_nm_complex(VALUE self, fftw_complex* in)
 {
-    double real = ((double (*)) in)[0];
-    double imag = ((double (*)) in)[1];
-    VALUE mKernel = rb_define_module("Kernel");
-    return rb_funcall(mKernel,
+    return rb_funcall(rb_define_module("Kernel"),
                       rb_intern("Complex"),
                       2,
-                      rb_float_new(real),
-                      rb_float_new(imag));
+                      rb_float_new(((double (*)) in)[0]),
+                      rb_float_new(((double (*)) in)[1]));
 }
 
 /**
- * @fftw_shape:
+ * fftw_shape:
  *              A ruby array, e.g. [2, 2] for a 2x2 matrix.
  * @self:
  *              The FFTW module.
