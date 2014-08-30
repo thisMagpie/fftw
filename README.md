@@ -9,30 +9,22 @@
 
     git clone http://github.com/thismagpie/fftw
     cd fftw
-    ./linux-installer
+    ./installer
+
+This installs to the home directory so root access is only needed to install system required libraries but not fftw3 or
+the fftw gem itself.
 
 ### Install on OSX
 
-This installs to the home directory so root access is only needed to install system required libraries but not fftw3 or
-the fftw gem itself
+Follow the instructions on [installing nmatrix](https://github.com/SciRuby/nmatrix/wiki/Installation)
 
+    git clone http://github.com/thismagpie/fftw
+    cd fftw
+    ./installer
 
+## Conventions and Style for the FFTW Gem
 
-Firstly you need to follow the instructions on [installing nmatrix](https://github.com/SciRuby/nmatrix/wiki/Installation)
-next install fftw 
-
-    cd fftw/ext/fftw/fftw3
-    ./configure  --enable-float
-    make
-    sudo -s  # Type in your root password and hit the enter button)
-    make install
-
-Now to do the double precision version, we need to clean up the tree.
-
-    make  distclean
-    ./configure  --enable-threads
-    make
-    make  install
+ * Do not repeat code.
 
 ## Common names
 
