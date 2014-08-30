@@ -5,7 +5,7 @@ describe FFTW do
 
   it "calls r2c_one" do
     n = NMatrix.new([4], [3.10, 1.73, 1.04, 2.83])
-    complex = NMatrix.zeros([4], dtype: :complex128)
+    complex = NMatrix.zeros([3], dtype: :complex128)
     FFTW.r2c_one(n, complex)
     # Expected results obtained from running SciPy's fft on the same Array
     # However, FFTW only computes the first half + 1 element
