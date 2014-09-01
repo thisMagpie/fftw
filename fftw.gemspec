@@ -16,7 +16,7 @@ Gem::Specification.new do |gem|
   gem.executables                   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   gem.test_files                    = `git ls-files -- {spec}/*`.split("\n")
   gem.homepage                      = 'http://sciruby.com/fftw'
-  gem.rubygems_version              = '2.2.2'
+  gem.rubygems_version              = '2.4.1'
   gem.required_rubygems_version     = Gem::Requirement.new(">= #{gem.rubygems_version}")
   gem.email                         = 'm.berns@thismagpie.com'
 end
