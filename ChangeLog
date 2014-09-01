@@ -1,3 +1,20 @@
+340e3dd gemspec: update rubygems version
+5101e24 extconf: add --threads flag
+1d3b0b4 specs: FIX: FFTW calls r2c_one
+be65c5f add skeleton spec for c2r method
+d1547fe README: Update info
+e500724 Rakefile tidy
+63e2251 fftw.cpp: remove repeated code
+1932445 fftw.cpp: use VALUE self as argument to function
+9d5ea0c fftw.cpp: remove repeated code
+949d66f fftw.cpp: remove rank stuff
+f810800 fftw.cpp: document size and shape
+9aec295 fftw.cpp: use methods for size and shape
+3d3b167 update manifest
+9ee9c8c update README
+325c5e5 fftw.cpp: follow conventions
+5ccdc21 fftw.cpp: follow conventions
+9a0d124 Version bump: 0.2.0
 a8cf608 spec: remove print statements
 6f9b0aa spec: define Z as complex not Z
 532c152 specs fix all rspecs
