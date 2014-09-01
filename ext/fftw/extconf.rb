@@ -80,7 +80,7 @@ flags = " --include=#{fftw_incdir} --libdir=#{fftw_libdir}"
 
 if have_library("fftw3") then
   $CFLAGS += [" -lfftw3 -lm #{$CFLAGS} #{$flags}"].join(" ")
-  puts "#{success} fftw3 found... Adding '-lfftw3 -lm' to cflags"
+  puts "#{success} fftw3 found... Adding '-lfftw3 -lm --threads' to cflags"
   puts info + $CFLAGS
 else
   puts "#{failure} fftw3 not found #{$CFLAGS}"
